@@ -2,8 +2,37 @@ import React from "react";
 
 export default function About(){
   return(
-    <div className="About">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras elit orci, tempor a magna eu, sagittis auctor tellus. Vestibulum gravida facilisis volutpat. Donec tristique enim et sapien sodales tincidunt. Aliquam viverra magna metus. Integer arcu enim, mollis id ligula vitae, posuere ullamcorper sem. Suspendisse tempor pretium quam. Morbi aliquam ante urna, sit amet egestas metus convallis quis. Phasellus aliquam lorem in mi facilisis tristique. Integer consectetur auctor augue eget facilisis. Pellentesque nec nunc euismod, ullamcorper libero eget, aliquet neque. Maecenas placerat arcu mauris. Proin molestie purus at lacinia dictum.</p>
+    <div className="container">
+      <div className="row text-center">
+        <div className="col">
+          <p className="display-2">Tools</p>
+        </div>
+      </div>
+      <div className="row text-center">
+        <div className="col-4">
+          <p className="lead">HTML</p>
+        </div>
+        <div className="col-4">
+          <p className="lead">CSS</p>
+        </div>
+        <div className="col-4">
+          <p>JavaScript</p>
+        </div>
+      </div>
+      <div className="row text-center">
+        <div className="col">
+          <p className="display-2">Libraries</p>
+        </div>
+      </div>
+      <div className="row text-center">
+        <div className="col-6">
+          <p className="lead">React</p>
+        </div>
+        <div className="col-6">
+          <p className="lead">Bootstrap</p>
+        </div>
+      </div>
     </div>
+
   )
 }

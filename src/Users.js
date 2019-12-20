@@ -1,96 +1,84 @@
 import React from "react";
 
-class Users extends React.Component{
-  constructor(){
-    super()
-    this.state=({
-      users:[],
-      inputVal:"",
+export default class Users extends React.Component{
+  constructor(props){
+    super(props)
+    this.state={
+      user: [],
+      inputVal: "",
       showing: false,
-      username:"",
-      followers: 0,
-      following: 0,
-      repos: 0,
-      bio: "",
-      error: "",
-      avatar: "https://avatars1.githubusercontent.com/u/810438?s=460&v=4",
-      showing: false})
-    this.handleSearch = this.handleSearch.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  componentDidMount(){
-    fetch("https://api.github.com/users")
-    .then(res => res.json())
-    .then(res => this.setState({
-      users: res
-    }))
-    fetch(`https://api.github.com/users/gaearon`)
-    .then(res => res.json())
-    .then(data => {
-      this.setState({
-        username: data.name,
-        repos: data.public_repos,
-        avatar: data.avatar_url,
-        bio: data.bio,
-        followers: data.followers,
-        following: data.following
-      })
-    })
-  }
-
-  handleSearch(event){
-    this.setState({inputVal: event.target.value})
-  }
-  showing(){
-    this.setState({showing: true},()=>setTimeout(()=>this.setState({showing: false}),1500))
-  }
-
-  handleSubmit(event){
-    event.preventDefault();
-    fetch(`https://api.github.com/users/${this.state.inputVal}`)
-    .then(res => res.json())
-    .then(data => {
-      console.log(data)
-      if (data.message){
-        this.setState({error: data.message})
-      } else {
-      this.showing();
-      this.setState({
-        username: data.name,
-        repos: data.public_repos,
-        avatar: data.avatar_url,
-        bio: data.bio,
-        followers: data.followers,
-        following: data.following
-      },()=>this.setState({inputVal: ""})
-    )
-      this.setState({error: null})
     }
-    })
+    this.inputHandlerChange = this.inputHandlerChange.bind(this);
+    this.inputHandlerSubmit = this.inputHandlerSubmit.bind(this);
+    this.showing = this.showing.bind(this);
   }
 
+    componentDidMount(){
+      fetch("https://api.github.com/users/gaearon")
+      .then(res => res.json())
+      .then(res => this.setState({
+        user: res
+      }))
+    }
+
+    showing(){
+      this.setState({showing: true},()=>setTimeout(()=>this.setState({showing: false}),1500))
+    }
+
+    inputHandlerChange(event){
+      this.setState({inputVal: event.target.value})
+    }
+
+
+    inputHandlerSubmit(event){
+      event.preventDefault()
+      fetch(`https://api.github.com/users/${this.state.inputVal}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.message){
+          console.log(data.message)
+        } else {
+        this.showing();
+        this.setState({
+          user: data,
+          inputVal: ""
+        })
+      }
+      })
+    }
   render(){
     return(
-      <div style={{height: "90vh",width: "50%", margin: "0 auto"}}>
-        <form onSubmit={this.handleSubmit}>
-          <input placeholder={"Username"} value={this.state.inputVal} onChange={this.handleSearch}/>
-          <button type="submit">Search</button>
-        </form>
-        {this.state.showing && <p className="Notification">User Found</p>}
-        {this.state.error ? <p>{this.state.error}</p> : <div className="card">
-          <img alt="" style={{width: "100%"}} src={this.state.avatar}/>
-          <div className="container">
-            <h4><b>{this.state.username}</b></h4>
-            <p>Followers: {this.state.followers}</p>
-            <p>Following: {this.state.following}</p>
-            <p>Repositories: {this.state.repos}</p>
-            {this.state.bio ? <p>Bio: {this.state.bio}</p> : null}
+      <div className="Home">
+        <div className="container">
+          <div className="row">
+            <div className="col-4">
+              <form onSubmit={this.inputHandlerSubmit}>
+                <div className="form-group">
+                  <label htmlFor="username">Username</label>
+                  <input className="form-control" type="text" id="username" value={this.state.inputVal} onChange={this.inputHandlerChange}/>
+                </div>
+                <button className="btn btn-dark btn-lg" type="submit">Search</button>
+              </form>
+              {this.state.showing && <div className="Notification">User Found</div>}
+            </div>
           </div>
-        </div>}
+          <div className="row">
+            <div className="col-lg-4 col-md-6 col-sm-10">
+              <div className="card">
+                <img src={this.state.user.avatar_url} className="card-img-top" alt="avatar"/>
+                <div className="card-body">
+                  <h5 className="card-title">{this.state.user.name}</h5>
+                  <p className="card-text">Followers: {this.state.user.followers}</p>
+                  <p className="card-text">Following: {this.state.user.following}</p>
+                  <p className="card-text">Repositories: {this.state.user.public_repos}</p>
+                  {this.state.user.bio && <p>Bio: {this.state.user.bio}</p>}
+                  <a href={`https://github.com/${this.state.user.login}`} className="btn btn-outline-dark">Visit Profile</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
 }
-
-export default Users
