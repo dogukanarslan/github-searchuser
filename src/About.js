@@ -6,6 +6,7 @@ export default function About(){
       <div className="row text-center">
         <div className="col">
           <p className="display-4">Github Search</p>
+          <hr className="my-4"/>
           <p className="lead">
             Github Search is an application that you can filter and search Github users
           </p>

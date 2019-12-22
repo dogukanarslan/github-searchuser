@@ -6,7 +6,7 @@ export default function Footer(){
       <div className="container py-5">
         <div className="row">
           <div className="col-12 col-md">
-            <i className="fab fa-github fa-2x text-white mb-2"></i>
+            <p className="lead text-muted">Github Search</p>
             <h1 className="small text-muted">&copy; 2019</h1>
           </div>
           <div className="col-6 col-md">
