@@ -3,17 +3,17 @@ import React from "react";
 export default function Contact(){
   return(
     <div className="container">
-      <form>
+      <form className="mb-5">
         <div className="row">
-          <div className="col-12">
+          <div className="col-md">
             <div className="form-group">
-              <h4 className="display-2">Get in touch</h4>
+              <h4 className="display-4">Get in touch</h4>
             </div>
           </div>
         </div>
 
         <div className="row">
-          <div className="col-6">
+          <div className="col-md-6 col-sm">
             <div className="form-group">
               <textarea className="form-control" placeholder="Enter your message"/>
             </div>
@@ -21,22 +21,18 @@ export default function Contact(){
         </div>
 
         <div className="row">
-          <div className="col-6">
-            <div className="row">
-              <div className="col-6">
-                <div className="form-group">
-                  <input type="text" className="form-control" placeholder="Name"/>
-                </div>
-              </div>
-              <div className="col-6">
-                <div className="form-group">
-                  <input type="email" className="form-control" placeholder="Email"/>
-                </div>
-              </div>
+          <div className="col-md-3">
+            <div className="form-group">
+              <input type="text" className="form-control" placeholder="Name"/>
+            </div>
+          </div>
+          <div className="col-md-3">
+            <div className="form-group">
+              <input type="email" className="form-control" placeholder="Email"/>
             </div>
           </div>
         </div>
-        <button className="btn btn-dark" type="submit">Submit</button>
+        <button className="btn btn-dark" type="button">Submit</button>
       </form>
     </div>
   )

@@ -5,7 +5,18 @@ import About from "./About";
 import Contact from "./Contact";
 import Rankings from "./Rankings";
 
-export default function Main(){
+export default class Main extends React.Component{
+  constructor(props){
+    super(props)
+    this.state={
+      allData:[],
+      istanbulData:[],
+      ankaraData:[],
+      izmirData: []
+    }
+  }
+
+  render(){
   return(
     <Switch>
       <Route exact path="/" component={Home}/>
@@ -13,5 +24,5 @@ export default function Main(){
       <Route exact path="/about" component={About}/>
       <Route exact path="/contact" component={Contact}/>
     </Switch>
-  )
+  )}
 }
