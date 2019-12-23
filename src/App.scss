@@ -1,13 +1,15 @@
-.Notification{
-  position: absolute;
-  right: 0;
-  top: 0;
-  background-color: #ccc;
-  color: #fff;
-  padding: 20px 50px;
-  font-size: 1.6rem;
-}
-
-.Home{
-  position: relative;
+.Details{
+  .row{
+    position: relative;
+    .back-arrow{
+      position:absolute;
+      top:0;
+      left:0;
+      margin: 0 15px;
+      cursor: pointer;
+      &:hover{
+        opacity: .6;
+      }
+    }
+  }
 }

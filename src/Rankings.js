@@ -11,17 +11,17 @@ export default class Statistics extends React.Component{
   }
 
   componentDidMount(){
-    fetch(`https://api.github.com/search/users?q=location:%22%22&sort=followers`)
+    fetch(`https://api.github.com/search/users?q=location:%22%22&sort=followers&per_page=3`)
     .then(res => res.json())
     .then(res => this.setState({
       allData: res
     }))
-    fetch(`https://api.github.com/search/users?q=location:%22istanbul%22&sort=followers`)
+    fetch(`https://api.github.com/search/users?q=location:istanbul&sort=followers&per_page=3`)
     .then(res => res.json())
     .then(res => this.setState({
       istanbulData: res
     }))
-    fetch(`https://api.github.com/search/users?q=location:%22ankara%22&sort=followers`)
+    fetch(`https://api.github.com/search/users?q=location:ankara&sort=followers&per_page=3`)
     .then(res => res.json())
     .then(res => this.setState({
       ankaraData: res
@@ -48,7 +48,7 @@ export default class Statistics extends React.Component{
             </div>
           </div>
           <div className="row">
-          {this.state.allData.items.slice(0,3).map(item => {
+          {this.state.allData.items.map(item => {
             return(
               <Ranking key={Math.random()} {...item}/>
           )})}
@@ -64,7 +64,7 @@ export default class Statistics extends React.Component{
             </div>
           </div>
           <div className="row">
-          {this.state.istanbulData.items.slice(0,3).map(item => {
+          {this.state.istanbulData.items.map(item => {
             return(
               <Ranking key={Math.random()} {...item}/>
           )})}
@@ -80,7 +80,7 @@ export default class Statistics extends React.Component{
             </div>
           </div>
           <div className="row">
-          {this.state.ankaraData.items.slice(0,3).map(item => {
+          {this.state.ankaraData.items.map(item => {
             return(
               <Ranking key={Math.random()} {...item}/>
           )})}
@@ -91,10 +91,11 @@ export default class Statistics extends React.Component{
       return (
         <div className="container">
           <div className="row">
-            <div className="col-12">
+            <div className="col">
               <div className="spinner-border" role="status">
                 <span className="sr-only"></span>
               </div>
+              <p className="lead">Loading</p>
             </div>
           </div>
         </div>

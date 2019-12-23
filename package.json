@@ -1,6 +1,6 @@
 {
   "homepage": "http://dogukanarslan.github.io/github-searchuser",
-  "name": "Github Search",
+  "name": "githubsearch",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

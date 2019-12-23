@@ -4,6 +4,7 @@ import Home from "./Home";
 import About from "./About";
 import Contact from "./Contact";
 import Rankings from "./Rankings";
+import Details from "./Details";
 
 export default function Main(){
   return(
@@ -12,6 +13,7 @@ export default function Main(){
       <Route exact path="/rankings" component={Rankings}/>
       <Route exact path="/about" component={About}/>
       <Route exact path="/contact" component={Contact}/>
+      <Route exact path="/details/:login" component={Details}/>
     </Switch>
   )
 }
