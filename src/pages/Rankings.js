@@ -1,5 +1,6 @@
 import React from "react";
-import Ranking from "./Ranking"
+import {Ranking} from "../components"
+import {getUsers} from "../constants";
 export default class Statistics extends React.Component{
   constructor(props){
     super(props)
@@ -11,17 +12,17 @@ export default class Statistics extends React.Component{
   }
 
   componentDidMount(){
-    fetch(`https://api.github.com/search/users?q=location:%22%22&sort=followers&per_page=3`)
+    getUsers("","","","followers",1,3)
     .then(res => res.json())
     .then(res => this.setState({
       allData: res
     }))
-    fetch(`https://api.github.com/search/users?q=location:istanbul&sort=followers&per_page=3`)
+    getUsers("","istanbul","","followers",1,3)
     .then(res => res.json())
     .then(res => this.setState({
       istanbulData: res
     }))
-    fetch(`https://api.github.com/search/users?q=location:ankara&sort=followers&per_page=3`)
+    getUsers("","ankara","","followers",1,3)
     .then(res => res.json())
     .then(res => this.setState({
       ankaraData: res
@@ -50,7 +51,7 @@ export default class Statistics extends React.Component{
           <div className="row">
           {this.state.allData.items.map(item => {
             return(
-              <Ranking key={Math.random()} {...item}/>
+              <Ranking key={item.id} {...item}/>
           )})}
           </div>
         </div>
@@ -66,7 +67,7 @@ export default class Statistics extends React.Component{
           <div className="row">
           {this.state.istanbulData.items.map(item => {
             return(
-              <Ranking key={Math.random()} {...item}/>
+              <Ranking key={item.id} {...item}/>
           )})}
           </div>
         </div>
@@ -82,7 +83,7 @@ export default class Statistics extends React.Component{
           <div className="row">
           {this.state.ankaraData.items.map(item => {
             return(
-              <Ranking key={Math.random()} {...item}/>
+              <Ranking key={item.id} {...item}/>
           )})}
           </div>
         </div>

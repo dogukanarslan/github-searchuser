@@ -1,10 +1,10 @@
 import React from "react";
 import {Switch, Route} from "react-router-dom";
-import Home from "./Home";
-import About from "./About";
-import Contact from "./Contact";
-import Rankings from "./Rankings";
-import Details from "./Details";
+import {Home} from "../pages";
+import {About} from "../pages";
+import {Contact} from "../pages";
+import {Rankings} from "../pages";
+import {Details} from "../pages";
 
 export default function Main(){
   return(

@@ -1,5 +1,8 @@
 import React from "react";
-import User from "./User"
+import User from "./User";
+import Option from "./Option"
+import {getUsers, options} from "../constants";
+
 export default class Users extends React.Component{
   constructor(props){
     super(props)
@@ -13,18 +16,15 @@ export default class Users extends React.Component{
       pageNumber: 1,
       lowerLimit: 1
     }
-
     this.inputHandlerChange = this.inputHandlerChange.bind(this);
     this.inputHandlerSubmit = this.inputHandlerSubmit.bind(this);
-    this.selectLocationChange = this.selectLocationChange.bind(this);
-    this.selectSortChange = this.selectSortChange.bind(this);
-    this.selectLanguageChange = this.selectLanguageChange.bind(this);
+    this.selectChange = this.selectChange.bind(this);
     this.nextPage = this.nextPage.bind(this);
     this.previousPage = this.previousPage.bind(this);
   }
 
     componentDidMount(){
-      fetch(`https://api.github.com/search/users?q=${this.state.inputVal}location:%22${this.state.location}%22+language:%22${this.state.language}%22&sort=${this.state.sort}&per_page=${this.state.itemsPerPage}`)
+      getUsers(this.state.inputVal,this.state.location,this.state.language,this.state.sort,1,this.state.itemsPerPage)
       .then(res => res.json())
       .then(res => this.setState({
         user: res
@@ -35,27 +35,17 @@ export default class Users extends React.Component{
       this.setState({inputVal: event.target.value})
     }
 
-    selectLocationChange(event){
-      this.setState({location: event.target.options[event.target.options.selectedIndex].value})
+    selectChange(event,type){
+      this.setState({[event.target.id]: event.target.options[event.target.options.selectedIndex].value})
     }
-
-    selectSortChange(event){
-      this.setState({sort: event.target.options[event.target.options.selectedIndex].value})
-    }
-
-    selectLanguageChange(event){
-      this.setState({language: event.target.options[event.target.options.selectedIndex].value})
-    }
-
 
     inputHandlerSubmit(event){
       event.preventDefault()
-      fetch(`https://api.github.com/search/users?q=${this.state.inputVal}location:%22${this.state.location}%22+language:%22${this.state.language}%22&sort=${this.state.sort}&per_page=${this.state.itemsPerPage}`)
+      getUsers(this.state.inputVal,this.state.location,this.state.language,this.state.sort,1,this.state.itemsPerPage)
       .then(res => res.json())
       .then(res => this.setState({
         user: res,
         lowerLimit: 1,
-        upperLimit: this.state.itemsPerPage
       }))
     }
 
@@ -64,7 +54,7 @@ export default class Users extends React.Component{
       document.documentElement.scrollTop = 0;
       this.setState({pageNumber: this.state.pageNumber+1, lowerLimit: this.state.itemsPerPage + this.state.lowerLimit},
         ()=>
-        fetch(`https://api.github.com/search/users?q=${this.state.inputVal}location:%22${this.state.location}%22+language:%22${this.state.language}%22&sort=${this.state.sort}&page=${this.state.pageNumber}&per_page=${this.state.itemsPerPage}`)
+        getUsers(this.state.inputVal,this.state.location,this.state.language,this.state.sort,this.state.pageNumber,this.state.itemsPerPage)
         .then(res => res.json())
         .then(res => this.setState({
           user: res
@@ -77,7 +67,7 @@ export default class Users extends React.Component{
       document.documentElement.scrollTop = 0;
       this.setState({pageNumber: this.state.pageNumber-1, lowerLimit: this.state.lowerLimit - this.state.itemsPerPage},
         ()=>
-        fetch(`https://api.github.com/search/users?q=${this.state.inputVal}location:%22${this.state.location}%22+language:%22${this.state.language}%22&sort=${this.state.sort}&page=${this.state.pageNumber}&per_page=${this.state.itemsPerPage}`)
+        getUsers(this.state.inputVal,this.state.location,this.state.language,this.state.sort,this.state.pageNumber,this.state.itemsPerPage)
         .then(res => res.json())
         .then(res => this.setState({
           user: res
@@ -86,6 +76,7 @@ export default class Users extends React.Component{
     }
 
   render(){
+
     if (this.state.user.length !== 0 && !this.state.user.hasOwnProperty("message")){
     return(
       <div className="Home">
@@ -102,34 +93,29 @@ export default class Users extends React.Component{
 
                   <div className="form-group col-md-3">
                     <label htmlFor="location">Location</label>
-                    <select className="form-control" id="location" onChange={this.selectLocationChange}>
-                      <option value="" defaultValue>World</option>
-                      <option value="istanbul">İstanbul</option>
-                      <option value="ankara">Ankara</option>
-                      <option value="izmir">İzmir</option>
+                    <select className="form-control" id="location" onChange={this.selectChange}>
+                      {options.locationOptions.map(location => {
+                        return <Option key={location.name} {...location}/>
+                      })}
+
                     </select>
                   </div>
 
                   <div className="form-group col-md-3">
-                    <label htmlFor="languages">Language</label>
-                    <select className="form-control" id="languages" onChange={this.selectLanguageChange}>
-                      <option value="" defaultValue>All</option>
-                      <option value="javascript">JavaScript</option>
-                      <option value="python">Python</option>
-                      <option value="java">Java</option>
-                      <option value="ruby">Ruby</option>
-                      <option value="c">C</option>
-                      <option value="csharp">C#</option>
-                      <option value="pascal">Pascal</option>
-                      <option value="fortran">Fortran</option>
+                    <label htmlFor="language">Language</label>
+                    <select className="form-control" id="language" onChange={this.selectChange}>
+                      {options.languageOptions.map(language => {
+                        return <Option key={language.name} {...language}/>
+                      })}
                     </select>
                   </div>
 
                   <div className="form-group col-md-3">
                     <label htmlFor="sort">Sort by</label>
-                    <select className="form-control" id="sort" onChange={this.selectSortChange}>
-                      <option value="followers" defaultValue>Followers - High to Low</option>
-                      <option value="repositories">Repositories - High to Low</option>
+                    <select className="form-control" id="sort" onChange={this.selectChange}>
+                      {options.sortOptions.map(sort => {
+                        return <Option key={sort.name} {...sort}/>
+                      })}
                     </select>
                   </div>
                 </div>
@@ -142,7 +128,7 @@ export default class Users extends React.Component{
           <div className="row">
           {this.state.user.items.slice(0,this.state.itemsPerPage).map((item,index) => {
             return(
-              <User key={Math.random()} {...item}/>
+              <User key={item.id} {...item}/>
           )})}
           </div>
 
@@ -168,7 +154,6 @@ export default class Users extends React.Component{
 
             </ul>
           </nav>
-
         </div>
       </div>
     )} else{

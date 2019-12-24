@@ -1,5 +1,5 @@
 import React from "react";
-import Users from "./Users";
+import {Users} from "../components";
 
 export default function Home(props){
   return(
