@@ -10,6 +10,12 @@ export const getUser = (login) => {
   return fetch(`${apiURL}${usersPath}/${login}`)
 };
 
+export const navLinks = [
+  {name:"Home",path:"/"},
+  {name:"Rankings",path:"/rankings"},
+  {name:"About",path:"/about"},
+  {name:"Contact",path:"/contact"},
+]
 
 export const options = {
   locationOptions:[

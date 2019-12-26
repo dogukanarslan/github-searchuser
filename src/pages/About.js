@@ -24,7 +24,7 @@ export default function About(){
           </p>
         </div>
         <div className="col-md-4">
-          <h4><i class="fas fa-comment-alt"></i> Github Search Forum</h4>
+          <h4><i className="fas fa-comment-alt"></i> Github Search Forum</h4>
           <hr/>
           <p className="lead">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pharetra consequat quam et maximus. Cras et lorem convallis, efficitur nisl ut, cursus lorem. Praesent gravida accumsan dignissim. Nunc efficitur in libero sed malesuada. Proin quis rhoncus ipsum. Etiam pellentesque consequat felis eget laoreet. Nullam viverra at metus nec gravida.
