@@ -1,5 +1,5 @@
 import React from "react";
-import {Ranking} from "../components"
+import {User} from "../components"
 import {getUsers} from "../constants";
 import ContentLoader from "react-content-loader";
 
@@ -17,7 +17,7 @@ const MyLoader = () => (
   </ContentLoader>
 )
 
-export default class Statistics extends React.Component{
+export default class Rankings extends React.Component{
   constructor(props){
     super(props)
     this.state={
@@ -67,7 +67,7 @@ export default class Statistics extends React.Component{
           <div className="row">
           {this.state.allData.items.map(item => {
             return(
-              <Ranking key={item.id} {...item}/>
+              <User key={item.id} page={"rankings"} {...item}/>
           )})}
           </div>
         </div>
@@ -83,7 +83,7 @@ export default class Statistics extends React.Component{
           <div className="row">
           {this.state.istanbulData.items.map(item => {
             return(
-              <Ranking key={item.id} {...item}/>
+              <User key={item.id} page={"rankings"} {...item}/>
           )})}
           </div>
         </div>
@@ -99,7 +99,7 @@ export default class Statistics extends React.Component{
           <div className="row">
           {this.state.ankaraData.items.map(item => {
             return(
-              <Ranking key={item.id} {...item}/>
+              <User key={item.id} page={"rankings"} {...item}/>
           )})}
           </div>
         </div>

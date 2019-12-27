@@ -143,7 +143,7 @@ export default class Users extends React.Component{
           <div className="row">
           {this.state.user.items.slice(0,this.state.itemsPerPage).map((item,index) => {
             return(
-              <User key={item.id} {...item}/>
+              <User key={item.id} page={"home"} {...item}/>
           )})}
           </div>
 
@@ -178,8 +178,10 @@ export default class Users extends React.Component{
 
             {[1,2,3,4].map(item =>{
               return(
-                <div className="col-6 col-md-3">
-                <MyLoader/>
+                <div key={item} className="col-6 col-md-3">
+                  <div className="card my-5">
+                    <MyLoader/>
+                  </div>
               </div>
             )})}
 
