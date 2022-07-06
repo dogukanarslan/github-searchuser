@@ -1,6 +1,6 @@
-import Header from './Header'
+import { Header } from './Header'
 import Main from './Main'
-import Users from './Users'
+import { Users } from './Users'
 import User from './User'
 import Option from './Option'
 import Footer from './Footer'
