@@ -6,7 +6,6 @@ export const Details = (props) => {
 
     useEffect(() => {
         getUser(props.match.params.login)
-            .then((res) => res.json())
             .then((data) => setUser(data))
     }, [])
 

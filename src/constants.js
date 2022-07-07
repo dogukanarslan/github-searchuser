@@ -1,22 +1,21 @@
-const apiURL = 'https://api.github.com'
-const searchPath = '/search/users'
-const usersPath = '/users'
+import { get } from '../src/request'
 
-export const getUsers = (
-    name,
-    location,
-    language,
-    sort,
-    page,
-    itemsPerPage
-) => {
-    return fetch(
-        `${apiURL}${searchPath}?q=${name}location:%22${location}%22language:%22${language}%22&sort=${sort}&page=${page}&per_page=${itemsPerPage}`
-    )
+export const getUsers = (startingId, resultsPerPage) => {
+    const searchParams = new URLSearchParams()
+
+    if (startingId) {
+        searchParams.append('since', startingId)
+    }
+
+    if (resultsPerPage) {
+        searchParams.append('per_page', resultsPerPage)
+    }
+
+    return get('/users', searchParams.toString())
 }
 
 export const getUser = (login) => {
-    return fetch(`${apiURL}${usersPath}/${login}`)
+    return get(`/users/${login}`)
 }
 
 export const navLinks = [
