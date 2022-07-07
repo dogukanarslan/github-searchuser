@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export default function Footer() {
+const Footer = () => {
     return (
         <footer className="Footer bg-dark">
             <div className="container py-5">
@@ -125,3 +125,5 @@ export default function Footer() {
         </footer>
     )
 }
+
+export default Footer

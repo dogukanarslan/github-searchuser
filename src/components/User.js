@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export default function User(props) {
+const User = (props) => {
     return (
         <div
             className={props.page === 'rankings' ? 'col-md' : 'col-6 col-md-3'}
@@ -21,3 +21,5 @@ export default function User(props) {
         </div>
     )
 }
+
+export default User

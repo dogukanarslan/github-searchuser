@@ -4,7 +4,7 @@ import { Header } from './components'
 import { Main } from './components'
 import { Footer } from './components'
 
-function App() {
+const App = () => {
     return (
         <div className="App">
             <Header />

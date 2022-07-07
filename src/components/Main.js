@@ -6,7 +6,7 @@ import { Contact } from '../pages'
 import { Rankings } from '../pages'
 import { Details } from '../pages'
 
-export default function Main() {
+const Main = () => {
     return (
         <Switch>
             <Route exact path="/" component={Home} />
@@ -17,3 +17,5 @@ export default function Main() {
         </Switch>
     )
 }
+
+export default Main

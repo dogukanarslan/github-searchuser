@@ -1,7 +1,7 @@
 import React from 'react'
 import { Users } from '../components'
 
-export default function Home(props) {
+const Home = (props) => {
     return (
         <Users
             allData={props.allData}
@@ -11,3 +11,5 @@ export default function Home(props) {
         />
     )
 }
+
+export default Home

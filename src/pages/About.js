@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function About() {
+const About = () => {
     return (
         <div className="container">
             <div className="row text-center my-5">
@@ -86,3 +86,5 @@ export default function About() {
         </div>
     )
 }
+
+export default About

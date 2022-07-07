@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Contact() {
+const Contact = () => {
     return (
         <div className="container">
             <div className="row">
@@ -104,3 +104,5 @@ export default function Contact() {
         </div>
     )
 }
+
+export default Contact
