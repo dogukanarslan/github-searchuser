@@ -5,8 +5,7 @@ export const Details = (props) => {
     const [user, setUser] = useState({})
 
     useEffect(() => {
-        getUser(props.match.params.login)
-            .then((data) => setUser(data))
+        getUser(props.match.params.login).then((data) => setUser(data))
     }, [])
 
     const {
@@ -23,71 +22,69 @@ export const Details = (props) => {
         following,
     } = user
     return (
-        <div className="Details">
-            <div className="container">
-                <div className="row py-5">
-                    <div className="col-md-4">
-                        <img className="img-fluid" src={avatar_url} alt="" />
-                    </div>
-                    <div className="col-md-8">
+        <>
+            <span onClick={() => props.history.goBack()}>
+                <i className="fas fa-arrow-left fa-2x text-dark"></i>
+            </span>
+            <div className="row">
+                <div className="col-md-3">
+                    <img className="img-fluid" src={avatar_url} alt="" />
+                </div>
+                <div className="col-md-9">
+                    <p>
+                        <strong>Username</strong>
+                        <br />
+                        {login}
+                    </p>
+                    <p>
+                        <strong>Name</strong>
+                        <br /> {name}
+                    </p>
+                    {company && (
                         <p>
-                            <strong>Username</strong>
-                            <br />
-                            {login}
+                            <strong>Company</strong>
+                            <br /> {company}
                         </p>
+                    )}
+                    {blog && (
                         <p>
-                            <strong>Name</strong>
-                            <br /> {name}
+                            <strong>Blog</strong>
+                            <br /> {blog}
                         </p>
-                        {company && (
-                            <p>
-                                <strong>Company</strong>
-                                <br /> {company}
-                            </p>
-                        )}
-                        {blog && (
-                            <p>
-                                <strong>Blog</strong>
-                                <br /> {blog}
-                            </p>
-                        )}
-                        {location && (
-                            <p>
-                                <strong>Location</strong>
-                                <br /> {location}
-                            </p>
-                        )}
-                        {email && (
-                            <p>
-                                <strong>Email</strong>
-                                <br /> {email}
-                            </p>
-                        )}
-                        {bio && (
-                            <p>
-                                <strong>Bio</strong>
-                                <br /> {bio}
-                            </p>
-                        )}
+                    )}
+                    {location && (
                         <p>
-                            <strong>Public Repositories</strong>
-                            <br />
-                            {public_repos}
+                            <strong>Location</strong>
+                            <br /> {location}
                         </p>
+                    )}
+                    {email && (
                         <p>
-                            <strong>Followers</strong>
-                            <br /> {followers}
+                            <strong>Email</strong>
+                            <br /> {email}
                         </p>
+                    )}
+                    {bio && (
                         <p>
-                            <strong>Following</strong>
-                            <br /> {following}
+                            <strong>Bio</strong>
+                            <br /> {bio}
                         </p>
-                    </div>
-                    <span onClick={() => props.history.goBack()}>
-                        <i className="fas fa-arrow-left fa-3x text-dark back-arrow"></i>
-                    </span>
+                    )}
+                    <p>
+                        <strong>Public Repositories</strong>
+                        <br />
+                        {public_repos}
+                    </p>
+                    <p>
+                        <strong>Followers</strong>
+                        <br /> {followers}
+                    </p>
+                    <p>
+                        <strong>Following</strong>
+                        <br /> {following}
+                    </p>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
