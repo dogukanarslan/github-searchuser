@@ -19,8 +19,8 @@ const MyLoader = () => (
 
 export const Users = () => {
     const [users, setUsers] = useState([])
-    const [startingId, setStartingId] = useState(null)
-    const [resultsPerPage, setResultsPerPage] = useState(null)
+    const [startingId, setStartingId] = useState('')
+    const [resultsPerPage, setResultsPerPage] = useState('')
 
     useEffect(() => {
         fetchUsers(null)
@@ -48,6 +48,20 @@ export const Users = () => {
                                 onChange={(e) => setStartingId(e.target.value)}
                                 placeholder="Starting ID"
                             />
+                        </div>
+
+                        <div className="form-group">
+                            <select
+                                className="form-control"
+                                value={resultsPerPage}
+                                onChange={(e) =>
+                                    setResultsPerPage(e.target.value)
+                                }
+                            >
+                                <option value={30}>30</option>
+                                <option value={50}>50</option>
+                                <option value={100}>100</option>45
+                            </select>
                         </div>
 
                         <button type="submit" className="btn btn-primary">
