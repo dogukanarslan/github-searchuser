@@ -21,7 +21,7 @@ export const Users = ({ users }) => {
         return (
             <>
                 <p className="lead">{users.length} results</p>
-                <div className="row">
+                <div className="row row-cols-2 row-cols-sm-4 row-cols-md-6">
                     {users.map((item, index) => {
                         return <User key={item.id} page={'home'} {...item} />
                     })}
@@ -31,9 +31,9 @@ export const Users = ({ users }) => {
     } else {
         return (
             <div className="row">
-                {[1, 2, 3, 4].map((item) => {
+                {[1, 2, 3, 4, 5, 6].map((item) => {
                     return (
-                        <div key={item} className="col-6 col-md-3">
+                        <div key={item} className="col-6 col-md-2">
                             <div className="card my-5">
                                 <MyLoader />
                             </div>
