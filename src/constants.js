@@ -18,12 +18,7 @@ export const getUser = (login) => {
     return get(`/users/${login}`)
 }
 
-export const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'Rankings', path: '/rankings' },
-    { name: 'About', path: '/about' },
-    { name: 'Contact', path: '/contact' },
-]
+export const navLinks = [{ name: 'Home', path: '/' }]
 
 export const options = {
     locationOptions: [

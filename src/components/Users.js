@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import User from './User'
+import React from 'react'
 import ContentLoader from 'react-content-loader'
+import { User } from './User'
 
 const MyLoader = () => (
     <ContentLoader

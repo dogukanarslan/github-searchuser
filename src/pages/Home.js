@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getUsers } from '../constants'
 import { Users, Filters } from '../components'
 
-const Home = (props) => {
+export const Home = () => {
     const [users, setUsers] = useState([])
 
     useEffect(() => {
@@ -20,5 +20,3 @@ const Home = (props) => {
         </>
     )
 }
-
-export default Home
