@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import User from './User'
-import { getUsers, options } from '../constants'
 import ContentLoader from 'react-content-loader'
 
 const MyLoader = () => (
@@ -17,83 +16,30 @@ const MyLoader = () => (
     </ContentLoader>
 )
 
-export const Users = () => {
-    const [users, setUsers] = useState([])
-    const [startingId, setStartingId] = useState('')
-    const [resultsPerPage, setResultsPerPage] = useState('')
-
-    useEffect(() => {
-        fetchUsers(null)
-    }, [])
-
-    const fetchUsers = (startingId, resultsPerPage) => {
-        getUsers(startingId, resultsPerPage).then((res) => setUsers(res))
-    }
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        fetchUsers(startingId, resultsPerPage)
-    }
-
-    if (users.length !== 0 && !users.hasOwnProperty('message')) {
+export const Users = ({ users }) => {
+    if (users.length !== 0) {
         return (
-            <div className="Home">
-                <div className="container">
-                    <form onSubmit={handleSubmit}>
-                        <div className="form-group">
-                            <input
-                                className="form-control"
-                                type="number"
-                                value={startingId}
-                                onChange={(e) => setStartingId(e.target.value)}
-                                placeholder="Starting ID"
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <select
-                                className="form-control"
-                                value={resultsPerPage}
-                                onChange={(e) =>
-                                    setResultsPerPage(e.target.value)
-                                }
-                            >
-                                <option value={30}>30</option>
-                                <option value={50}>50</option>
-                                <option value={100}>100</option>45
-                            </select>
-                        </div>
-
-                        <button type="submit" className="btn btn-primary">
-                            Fetch
-                        </button>
-                    </form>
-
-                    <p className="lead">{users.length} results</p>
-                    <div className="row">
-                        {users.map((item, index) => {
-                            return (
-                                <User key={item.id} page={'home'} {...item} />
-                            )
-                        })}
-                    </div>
+            <>
+                <p className="lead">{users.length} results</p>
+                <div className="row">
+                    {users.map((item, index) => {
+                        return <User key={item.id} page={'home'} {...item} />
+                    })}
                 </div>
-            </div>
+            </>
         )
     } else {
         return (
-            <div className="container">
-                <div className="row">
-                    {[1, 2, 3, 4].map((item) => {
-                        return (
-                            <div key={item} className="col-6 col-md-3">
-                                <div className="card my-5">
-                                    <MyLoader />
-                                </div>
+            <div className="row">
+                {[1, 2, 3, 4].map((item) => {
+                    return (
+                        <div key={item} className="col-6 col-md-3">
+                            <div className="card my-5">
+                                <MyLoader />
                             </div>
-                        )
-                    })}
-                </div>
+                        </div>
+                    )
+                })}
             </div>
         )
     }

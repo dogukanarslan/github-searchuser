@@ -8,13 +8,15 @@ import { Details } from '../pages'
 
 const Main = () => {
     return (
-        <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/rankings" component={Rankings} />
-            <Route exact path="/about" component={About} />
-            <Route exact path="/contact" component={Contact} />
-            <Route exact path="/details/:login" component={Details} />
-        </Switch>
+        <div className="container">
+            <Switch>
+                <Route exact path="/" component={Home} />
+                <Route exact path="/rankings" component={Rankings} />
+                <Route exact path="/about" component={About} />
+                <Route exact path="/contact" component={Contact} />
+                <Route exact path="/details/:login" component={Details} />
+            </Switch>
+        </div>
     )
 }
 
