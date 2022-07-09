@@ -11,26 +11,32 @@ export const Filters = ({ fetchUsers }) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div className="form-group">
-                <input
-                    className="form-control"
-                    type="number"
-                    value={startingId}
-                    onChange={(e) => setStartingId(e.target.value)}
-                    placeholder="Starting ID"
-                />
-            </div>
+            <div className="row">
+                <div className="form-group col-12 col-sm-6">
+                    <label for="startingId">Starting ID</label>
+                    <input
+                        className="form-control"
+                        type="number"
+                        value={startingId}
+                        onChange={(e) => setStartingId(e.target.value)}
+                        placeholder="Starting ID"
+                        id="startingId"
+                    />
+                </div>
 
-            <div className="form-group">
-                <select
-                    className="form-control"
-                    value={resultsPerPage}
-                    onChange={(e) => setResultsPerPage(e.target.value)}
-                >
-                    <option value={30}>30</option>
-                    <option value={50}>50</option>
-                    <option value={100}>100</option>45
-                </select>
+                <div className="form-group col-12 col-sm-6">
+                    <label for="resultsPerPage">Results Per Page</label>
+                    <select
+                        className="form-control"
+                        value={resultsPerPage}
+                        onChange={(e) => setResultsPerPage(e.target.value)}
+                        id="resultsPerPage"
+                    >
+                        <option value={30}>30</option>
+                        <option value={50}>50</option>
+                        <option value={100}>100</option>45
+                    </select>
+                </div>
             </div>
 
             <button type="submit" className="btn btn-primary">
