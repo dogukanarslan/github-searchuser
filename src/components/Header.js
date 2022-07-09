@@ -1,44 +1,56 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import {
+    Navbar,
+    NavbarBrand,
+    Nav,
+    NavItem,
+    NavLink,
+    NavbarToggler,
+    Collapse,
+} from 'reactstrap'
 import { navLinks } from '../constants'
+import { CustomLink } from './CustomLink'
 
 export const Header = () => {
-    const [navbarClass, setNavbarClass] = useState('navbar-nav')
+    const [isOpen, setIsOpen] = useState(false)
 
-    const collapseNavbar = () => {
-        if (navbarClass === 'navbar-nav') {
-            setNavbarClass('navbar-nav responsive')
-        } else {
-            setNavbarClass('navbar-nav')
-        }
+    const toggle = () => {
+        setIsOpen(!isOpen)
     }
 
     return (
-        <nav className="navbar navbar-expand navbar-dark bg-dark">
-            <div className="button-container">
-                <Link className="navbar-brand" to="/">
-                    <i className="fab fa-github fa-2x"></i>
-                </Link>
-                <i
-                    onClick={() => collapseNavbar()}
-                    className="fas fa-bars switchButton"
-                ></i>
-            </div>
-            <ul className={navbarClass}>
-                {navLinks.map((link) => {
-                    return (
-                        <li
-                            key={link.name}
-                            className="nav-item"
-                            onClick={() => setNavbarClass('navbar-nav')}
-                        >
-                            <Link className="nav-link" to={link.path}>
-                                {link.name}
-                            </Link>
-                        </li>
-                    )
-                })}
-            </ul>
-        </nav>
+        <Navbar color="dark" dark expand="md">
+            <Link
+                to="/"
+                component={(props) => (
+                    <CustomLink component={NavbarBrand} {...props} />
+                )}
+            >
+                <i className="fab fa-github fa-2x"></i>
+            </Link>
+            <NavbarToggler onClick={toggle} />
+            <Collapse navbar isOpen={isOpen}>
+                <Nav className="ml-auto" navbar>
+                    {navLinks.map((link) => {
+                        return (
+                            <NavItem key={link.name}>
+                                <Link
+                                    to={link.path}
+                                    component={(props) => (
+                                        <CustomLink
+                                            component={NavLink}
+                                            {...props}
+                                        />
+                                    )}
+                                >
+                                    {link.name}
+                                </Link>
+                            </NavItem>
+                        )
+                    })}
+                </Nav>
+            </Collapse>
+        </Navbar>
     )
 }

@@ -1,21 +1,22 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { Col, Card, CardBody, CardTitle, CardImg } from 'reactstrap'
 
 export const User = (props) => {
     return (
-        <div className="col">
-            <div className="card mb-4">
-                <img className="card-img-top" src={props.avatar_url} alt="" />
-                <div className="card-body">
-                    <h4 className="card-title small">{props.login}</h4>
+        <Col>
+            <Card className="mb-4">
+                <CardImg top src={props.avatar_url} alt="" />
+                <CardBody>
+                    <CardTitle tag="p">{props.login}</CardTitle>
                     <Link
                         to={`/details/${props.login}`}
                         className="btn btn-outline-dark btn-sm"
                     >
                         More Info
                     </Link>
-                </div>
-            </div>
-        </div>
+                </CardBody>
+            </Card>
+        </Col>
     )
 }

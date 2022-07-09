@@ -3,7 +3,7 @@ import './App.scss'
 import { Header } from './components'
 import { Main } from './components'
 
-const App = () => {
+export const App = () => {
     return (
         <div className="App">
             <Header />
@@ -11,5 +11,3 @@ const App = () => {
         </div>
     )
 }
-
-export default App

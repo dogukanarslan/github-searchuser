@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { getUser } from '../constants'
-
+import { Row, Col } from 'reactstrap'
 export const Details = (props) => {
     const [user, setUser] = useState({})
 
@@ -26,11 +26,11 @@ export const Details = (props) => {
             <span onClick={() => props.history.goBack()}>
                 <i className="fas fa-arrow-left fa-2x text-dark"></i>
             </span>
-            <div className="row">
-                <div className="col-md-3">
+            <Row>
+                <Col md="3">
                     <img className="img-fluid" src={avatar_url} alt="" />
-                </div>
-                <div className="col-md-9">
+                </Col>
+                <Col md="9">
                     <p>
                         <strong>Username</strong>
                         <br />
@@ -83,8 +83,8 @@ export const Details = (props) => {
                         <strong>Following</strong>
                         <br /> {following}
                     </p>
-                </div>
-            </div>
+                </Col>
+            </Row>
         </>
     )
 }

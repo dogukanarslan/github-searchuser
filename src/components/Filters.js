@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Row, Col, Button, Form, FormGroup, Label, Input } from 'reactstrap'
 
 export const Filters = ({ fetchUsers }) => {
     const [startingId, setStartingId] = useState('')
@@ -10,38 +11,40 @@ export const Filters = ({ fetchUsers }) => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div className="row">
-                <div className="form-group col-12 col-sm-6">
-                    <label htmlFor="startingId">Starting ID</label>
-                    <input
-                        className="form-control"
-                        type="number"
-                        value={startingId}
-                        onChange={(e) => setStartingId(e.target.value)}
-                        placeholder="Starting ID"
-                        id="startingId"
-                    />
-                </div>
+        <Form onSubmit={handleSubmit}>
+            <Row>
+                <Col xs="12" sm="6">
+                    <FormGroup>
+                        <Label for="startingId">Starting ID</Label>
+                        <Input
+                            type="number"
+                            value={startingId}
+                            onChange={(e) => setStartingId(e.target.value)}
+                            placeholder="Starting ID"
+                            id="startingId"
+                        />
+                    </FormGroup>
+                </Col>
+                <Col xs="12" sm="6">
+                    <FormGroup>
+                        <Label for="resultsPerPage">Results Per Page</Label>
+                        <Input
+                            type="select"
+                            value={resultsPerPage}
+                            onChange={(e) => setResultsPerPage(e.target.value)}
+                            id="resultsPerPage"
+                        >
+                            <option value={30}>30</option>
+                            <option value={50}>50</option>
+                            <option value={100}>100</option>45
+                        </Input>
+                    </FormGroup>
+                </Col>
+            </Row>
 
-                <div className="form-group col-12 col-sm-6">
-                    <label htmlFor="resultsPerPage">Results Per Page</label>
-                    <select
-                        className="form-control"
-                        value={resultsPerPage}
-                        onChange={(e) => setResultsPerPage(e.target.value)}
-                        id="resultsPerPage"
-                    >
-                        <option value={30}>30</option>
-                        <option value={50}>50</option>
-                        <option value={100}>100</option>45
-                    </select>
-                </div>
-            </div>
-
-            <button type="submit" className="btn btn-primary">
+            <Button color="dark" type="submit">
                 Fetch
-            </button>
-        </form>
+            </Button>
+        </Form>
     )
 }

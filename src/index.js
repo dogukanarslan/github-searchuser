@@ -1,6 +1,6 @@
 import React from 'react'
 import './index.css'
-import App from './App'
+import { App } from './App'
 import { HashRouter } from 'react-router-dom'
 import { createRoot } from 'react-dom/client'
 
@@ -12,4 +12,3 @@ root.render(
         <App />
     </HashRouter>
 )
-
