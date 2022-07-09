@@ -23,8 +23,12 @@ export const Users = ({ users }) => {
             <>
                 <p className="lead">{users.length} results</p>
                 <Row xs="2" sm="4" md="6">
-                    {users.map((item, index) => {
-                        return <User key={item.id} page={'home'} {...item} />
+                    {users.map((item) => {
+                        return (
+                            <Col key={item.id}>
+                                <User page={'home'} {...item} />
+                            </Col>
+                        )
                     })}
                 </Row>
             </>
