@@ -13,7 +13,7 @@ export const Filters = ({ fetchUsers }) => {
         <form onSubmit={handleSubmit}>
             <div className="row">
                 <div className="form-group col-12 col-sm-6">
-                    <label for="startingId">Starting ID</label>
+                    <label htmlFor="startingId">Starting ID</label>
                     <input
                         className="form-control"
                         type="number"
@@ -25,7 +25,7 @@ export const Filters = ({ fetchUsers }) => {
                 </div>
 
                 <div className="form-group col-12 col-sm-6">
-                    <label for="resultsPerPage">Results Per Page</label>
+                    <label htmlFor="resultsPerPage">Results Per Page</label>
                     <select
                         className="form-control"
                         value={resultsPerPage}
