@@ -3,11 +3,9 @@ import './App.scss'
 import { Header } from './components'
 import { Main } from './components'
 
-export const App = () => {
-    return (
-        <div className="App">
-            <Header />
-            <Main />
-        </div>
-    )
-}
+export const App = () => (
+    <div className="App">
+        <Header />
+        <Main />
+    </div>
+)

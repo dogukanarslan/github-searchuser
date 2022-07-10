@@ -1,7 +1,9 @@
-import React from 'react'
+import { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import ContentLoader from 'react-content-loader'
 import { Row, Col, Card } from 'reactstrap'
 import { User } from './User'
+import { fetchUsers } from '../features/users/usersSlice'
 
 const MyLoader = () => (
     <ContentLoader
@@ -17,19 +19,24 @@ const MyLoader = () => (
     </ContentLoader>
 )
 
-export const Users = ({ users }) => {
+export const Users = () => {
+    const dispatch = useDispatch()
+    const users = useSelector((state) => state.users.users)
+
+    useEffect(() => {
+        dispatch(fetchUsers())
+    }, [dispatch])
+
     if (users.length !== 0) {
         return (
             <>
                 <p className="lead">{users.length} results</p>
                 <Row xs="2" sm="4" md="6">
-                    {users.map((item) => {
-                        return (
-                            <Col key={item.id}>
-                                <User page={'home'} {...item} />
-                            </Col>
-                        )
-                    })}
+                    {users.map((item) => (
+                        <Col key={item.id}>
+                            <User page={'home'} {...item} />
+                        </Col>
+                    ))}
                 </Row>
             </>
         )

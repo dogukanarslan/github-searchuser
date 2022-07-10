@@ -1,13 +1,17 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { Row, Col, Button, Form, FormGroup, Label, Input } from 'reactstrap'
+import { fetchUsers } from '../features/users/usersSlice'
 
-export const Filters = ({ fetchUsers }) => {
+export const Filters = () => {
     const [startingId, setStartingId] = useState('')
     const [resultsPerPage, setResultsPerPage] = useState('')
 
+    const dispatch = useDispatch()
+
     const handleSubmit = (e) => {
         e.preventDefault()
-        fetchUsers(startingId, resultsPerPage)
+        dispatch(fetchUsers({ startingId, resultsPerPage }))
     }
 
     return (
