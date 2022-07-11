@@ -1,11 +1,19 @@
-import React from 'react'
+import { Container, Row, Col } from 'reactstrap'
 import './App.scss'
-import { Header } from './components'
-import { Main } from './components'
+import { Header, Sidebar, Main } from './components'
 
 export const App = () => (
     <div className="App">
         <Header />
-        <Main />
+        <Container fluid>
+            <Row>
+                <Col className="sidebar bg-light shadow" md="2">
+                    <Sidebar />
+                </Col>
+                <Col md="10">
+                    <Main />
+                </Col>
+            </Row>
+        </Container>
     </div>
 )

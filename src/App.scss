@@ -1,1 +1,16 @@
+$font-size-base: 0.875rem;
+
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
+
+/* 
+ * Sidebar 
+ */
+.sidebar {
+    font-weight: 500;
+    .nav-link {
+        color: var(--text-dark);
+    }
+    .nav-link.active {
+        color: var(--primary);
+    }
+}
