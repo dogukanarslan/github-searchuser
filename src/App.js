@@ -10,7 +10,7 @@ export const App = () => (
                 <Col className="sidebar bg-light shadow" md="2">
                     <Sidebar />
                 </Col>
-                <Col md="10">
+                <Col className="ml-auto" md="10">
                     <Main />
                 </Col>
             </Row>

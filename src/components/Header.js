@@ -4,7 +4,7 @@ import { CustomLink } from './CustomLink'
 
 export const Header = () => {
     return (
-        <Navbar color="dark" dark>
+        <Navbar fixed="top" color="dark" dark>
             <Link
                 to="/"
                 component={(props) => (

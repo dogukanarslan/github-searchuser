@@ -1,12 +1,22 @@
 $font-size-base: 0.875rem;
 
+$navbar-height: 63.4px;
+
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
+
+body {
+    padding-top: $navbar-height;
+}
 
 /* 
  * Sidebar 
  */
 .sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
     font-weight: 500;
+    padding-top: $navbar-height;
     .nav-link {
         color: var(--text-dark);
     }

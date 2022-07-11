@@ -8,7 +8,7 @@ export const Sidebar = () => {
     const [page, setPage] = useState(navLinks[0].name)
 
     return (
-        <Nav className="sidebar py-5" vertical>
+        <Nav vertical>
             {navLinks.map((link) => (
                 <Link
                     key={link.name}
