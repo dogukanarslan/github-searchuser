@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
-import { Navbar, NavbarBrand, NavbarText } from 'reactstrap'
+import { Navbar, NavbarBrand } from 'reactstrap'
 import { CustomLink } from './CustomLink'
+import { GitHub } from 'react-feather'
 
 export const Header = () => {
     return (
@@ -11,9 +12,9 @@ export const Header = () => {
                     <CustomLink component={NavbarBrand} {...props} />
                 )}
             >
-                <i className="fab fa-github fa-2x"></i>
+                <GitHub />
+                <span className="ml-2">GitHub</span>
             </Link>
-            <NavbarText>GitHub</NavbarText>
         </Navbar>
     )
 }
