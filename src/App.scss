@@ -16,7 +16,7 @@ body {
     top: 0;
     bottom: 0;
     font-weight: 500;
-    padding-top: $navbar-height;
+    padding: $navbar-height 0 0;
     .nav-link {
         color: var(--dark);
     }

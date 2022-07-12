@@ -20,8 +20,8 @@ export const getUser = (login) => {
 }
 
 export const navLinks = [
-    { name: 'Home', path: '/', icon: <Users /> },
-    { name: 'Search', path: '/search', icon: <Search /> },
+    { name: 'Home', path: '/', icon: <Users size={16} /> },
+    { name: 'Search', path: '/search', icon: <Search size={16} /> },
 ]
 
 export const options = {
