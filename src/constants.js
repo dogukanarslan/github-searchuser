@@ -1,5 +1,6 @@
 import { get } from '../src/request'
-
+import { Users } from 'react-feather'
+import { Search } from 'react-feather'
 export const getUsers = (startingId, resultsPerPage) => {
     const searchParams = new URLSearchParams()
 
@@ -19,8 +20,8 @@ export const getUser = (login) => {
 }
 
 export const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'Search', path: '/search' },
+    { name: 'Home', path: '/', icon: <Users /> },
+    { name: 'Search', path: '/search', icon: <Search /> },
 ]
 
 export const options = {

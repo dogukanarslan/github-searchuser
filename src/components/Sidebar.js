@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { Nav, NavLink } from 'reactstrap'
 import { navLinks } from '../constants'
 import { CustomLink } from './CustomLink'
-
 export const Sidebar = () => {
     const [page, setPage] = useState(navLinks[0].name)
 
@@ -22,7 +21,8 @@ export const Sidebar = () => {
                         />
                     )}
                 >
-                    {link.name}
+                    {link.icon}
+                    <span className="ml-2">{link.name}</span>
                 </Link>
             ))}
         </Nav>
