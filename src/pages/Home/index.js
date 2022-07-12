@@ -1,4 +1,5 @@
-import { Users, Filters } from '../components'
+import { Users } from '../../components'
+import { Filters } from './Filters'
 
 export const Home = () => (
     <>

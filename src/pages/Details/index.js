@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getUser } from '../constants'
+import { getUser } from '../../constants'
 import { Row, Col } from 'reactstrap'
 export const Details = (props) => {
     const [user, setUser] = useState({})

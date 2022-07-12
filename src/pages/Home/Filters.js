@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Row, Col, Button, Form, FormGroup, Label, Input } from 'reactstrap'
-import { fetchUsers } from '../features/users/usersSlice'
+import { fetchUsers } from '../../features/users/usersSlice'
 
 export const Filters = () => {
     const [startingId, setStartingId] = useState('')
