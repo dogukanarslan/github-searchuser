@@ -14,7 +14,7 @@ body {
 .sidebar {
     position: fixed;
     top: 0;
-    bottom: 0;
+    height: 100%;
     font-weight: 500;
     padding: $navbar-height 0 0;
     .nav-link {
