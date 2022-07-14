@@ -19,6 +19,10 @@ export const getUser = (login) => {
     return get(`/users/${login}`)
 }
 
+export const getSearch = (type, q) => {
+    return get(`/search/${type}?q=${q}`)
+}
+
 export const navLinks = [
     { name: 'Home', path: '/', icon: <Users size={16} /> },
     { name: 'Search', path: '/search', icon: <Search size={16} /> },

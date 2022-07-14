@@ -1,9 +1,6 @@
-import { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import ContentLoader from 'react-content-loader'
 import { Row, Col, Card } from 'reactstrap'
 import { User } from './User'
-import { fetchUsers } from '../features/users/usersSlice'
 
 const MyLoader = () => (
     <ContentLoader
@@ -19,28 +16,8 @@ const MyLoader = () => (
     </ContentLoader>
 )
 
-export const Users = () => {
-    const dispatch = useDispatch()
-    const users = useSelector((state) => state.users.users)
-
-    useEffect(() => {
-        dispatch(fetchUsers())
-    }, [dispatch])
-
-    if (users.length !== 0) {
-        return (
-            <>
-                <p className="lead">{users.length} results</p>
-                <Row xs="2" sm="4" md="6">
-                    {users.map((item) => (
-                        <Col key={item.id}>
-                            <User page={'home'} {...item} />
-                        </Col>
-                    ))}
-                </Row>
-            </>
-        )
-    } else {
+export const Users = ({ users }) => {
+    if (users.status === 'loading') {
         return (
             <Row>
                 {[1, 2, 3, 4, 5, 6].map((item) => {
@@ -53,6 +30,21 @@ export const Users = () => {
                     )
                 })}
             </Row>
+        )
+    }
+
+    if (users.status === 'succeeded') {
+        return (
+            <>
+                <p className="lead">{users.data.length} results</p>
+                <Row xs="2" sm="4" md="6">
+                    {users.data.map((item) => (
+                        <Col key={item.id}>
+                            <User page={'home'} {...item} />
+                        </Col>
+                    ))}
+                </Row>
+            </>
         )
     }
 }

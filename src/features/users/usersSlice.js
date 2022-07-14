@@ -15,8 +15,8 @@ export const fetchUsers = createAsyncThunk(
 )
 
 const initialState = {
-    users: [],
-    status: 'loading',
+    data: [],
+    status: 'idle',
 }
 
 export const usersSlice = createSlice({
@@ -30,7 +30,7 @@ export const usersSlice = createSlice({
             })
             .addCase(fetchUsers.fulfilled, (state, action) => {
                 state.status = 'succeeded'
-                state.users = action.payload
+                state.data = action.payload
             })
     },
 })
