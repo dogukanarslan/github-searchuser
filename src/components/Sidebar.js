@@ -1,10 +1,9 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { Nav, NavLink } from 'reactstrap'
 import { navLinks } from '../constants'
 import { CustomLink } from './CustomLink'
 export const Sidebar = () => {
-    const [page, setPage] = useState(navLinks[0].name)
+    const location = useLocation()
 
     return (
         <Nav vertical>
@@ -15,8 +14,7 @@ export const Sidebar = () => {
                     component={(props) => (
                         <CustomLink
                             component={NavLink}
-                            onClick={() => setPage(link.name)}
-                            active={page === link.name}
+                            active={location.pathname === link.path}
                             {...props}
                         />
                     )}
