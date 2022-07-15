@@ -15,7 +15,7 @@ export const fetchSearch = createAsyncThunk(
 )
 
 const initialState = {
-    data: [],
+    data: null,
     status: 'idle',
 }
 
@@ -30,7 +30,7 @@ export const searchSlice = createSlice({
             })
             .addCase(fetchSearch.fulfilled, (state, action) => {
                 state.status = 'succeeded'
-                state.data = action.payload.items
+                state.data = action.payload
             })
     },
 })

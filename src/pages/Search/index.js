@@ -3,12 +3,16 @@ import { Users } from '../../components/Users'
 import { useSelector } from 'react-redux'
 
 export const Search = () => {
-    const search = useSelector((state) => state.search)
+    const { data, status } = useSelector((state) => state.search)
 
     return (
         <>
             <Filters />
-            <Users users={search} />
+            <Users
+                users={data?.items}
+                count={data?.total_count}
+                status={status}
+            />
         </>
     )
 }

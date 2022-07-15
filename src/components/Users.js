@@ -16,8 +16,8 @@ const MyLoader = () => (
     </ContentLoader>
 )
 
-export const Users = ({ users }) => {
-    if (users.status === 'loading') {
+export const Users = ({ users, count, status }) => {
+    if (status === 'loading') {
         return (
             <Row>
                 {[1, 2, 3, 4, 5, 6].map((item) => {
@@ -33,12 +33,12 @@ export const Users = ({ users }) => {
         )
     }
 
-    if (users.status === 'succeeded') {
+    if (status === 'succeeded') {
         return (
             <>
-                <p className="lead">{users.data.length} results</p>
+                <p className="lead">{count} results</p>
                 <Row xs="2" sm="4" md="6">
-                    {users.data.map((item) => (
+                    {users?.map((item) => (
                         <Col key={item.id}>
                             <User page={'home'} {...item} />
                         </Col>

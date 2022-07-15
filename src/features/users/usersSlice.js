@@ -15,7 +15,7 @@ export const fetchUsers = createAsyncThunk(
 )
 
 const initialState = {
-    data: [],
+    data: null,
     status: 'idle',
 }
 

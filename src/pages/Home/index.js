@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchUsers } from '../../features/users/usersSlice'
 
 export const Home = () => {
-    const users = useSelector((state) => state.users)
+    const { data, status } = useSelector((state) => state.users)
 
     const dispatch = useDispatch()
 
@@ -16,7 +16,7 @@ export const Home = () => {
     return (
         <>
             <Filters />
-            <Users users={users} />
+            <Users users={data} count={data?.length} status={status} />
         </>
     )
 }
