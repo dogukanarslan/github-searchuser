@@ -4,6 +4,12 @@ $navbar-height: 54.38px;
 
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
 
+.nav-tabs .nav-link,
+.nav-pills .nav-link {
+    cursor: pointer;
+    color: inherit;
+}
+
 body {
     padding-top: $navbar-height;
 }
