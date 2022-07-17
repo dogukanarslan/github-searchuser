@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Col, Card, CardBody, CardTitle, CardImg } from 'reactstrap'
+import { Card, CardBody, CardTitle, CardImg } from 'reactstrap'
 
 export const User = (props) => {
     return (
