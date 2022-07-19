@@ -1,7 +1,7 @@
 import { get } from '../src/request'
 import { Users } from 'react-feather'
 import { Search } from 'react-feather'
-export const getUsers = (startingId, resultsPerPage) => {
+export const getUsers = (startingId: string, resultsPerPage: string) => {
     const searchParams = new URLSearchParams()
 
     if (startingId) {
@@ -15,11 +15,11 @@ export const getUsers = (startingId, resultsPerPage) => {
     return get('/users', searchParams.toString())
 }
 
-export const getUser = (login) => {
+export const getUser = (login: string) => {
     return get(`/users/${login}`)
 }
 
-export const getSearch = (type, q) => {
+export const getSearch = (type: string, q: string) => {
     return get(`/search/${type}?q=${q}`)
 }
 
