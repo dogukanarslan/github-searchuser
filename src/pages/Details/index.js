@@ -6,7 +6,7 @@ export const Details = (props) => {
 
     useEffect(() => {
         getUser(props.match.params.login).then((data) => setUser(data))
-    }, [])
+    }, [props.match.params.login])
 
     const {
         avatar_url,
