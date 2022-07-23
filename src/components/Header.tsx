@@ -6,15 +6,10 @@ import { GitHub } from 'react-feather'
 export const Header = () => {
     return (
         <Navbar fixed="top" color="dark" dark>
-            <Link
-                to="/"
-                component={(props) => (
-                    <CustomLink component={NavbarBrand} {...props} />
-                )}
-            >
+            <CustomLink to="/" classes="text-light">
                 <GitHub />
                 <span className="ml-2">GitHub</span>
-            </Link>
+            </CustomLink>
         </Navbar>
     )
 }

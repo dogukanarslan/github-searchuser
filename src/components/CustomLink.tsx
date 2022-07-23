@@ -1,14 +1,22 @@
+import { Link } from 'react-router-dom'
+
 interface CustomLinkProps {
-    navigate: any
-    component: React.ElementType
+    to: any
     children: React.ReactNode
+    active?: boolean
+    classes?: string
 }
 
-export const CustomLink = ({
-    navigate,
-    component: Component,
-    children,
-    ...props
-}: CustomLinkProps) => {
-    return <Component {...props}>{children}</Component>
+export const CustomLink = (props: CustomLinkProps) => {
+    const { to, children, active, classes } = props
+    return (
+        <Link
+            className={`nav-link${active ? ' active' : ''}${
+                classes ? ' ' + classes : ''
+            }`}
+            to={to}
+        >
+            {children}
+        </Link>
+    )
 }
