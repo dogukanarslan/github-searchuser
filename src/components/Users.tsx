@@ -18,8 +18,8 @@ const MyLoader = () => (
 )
 
 interface UsersProps {
-    users: IUser[]
-    count: number
+    users: IUser[] | null
+    count: number | undefined
     status: string
 }
 
@@ -42,18 +42,16 @@ export const Users = (props: UsersProps) => {
         )
     }
 
-    if (status === 'succeeded') {
-        return (
-            <>
-                <p className="lead">{count} results</p>
-                <Row xs="2" sm="4" md="6">
-                    {users?.map((user) => (
-                        <Col key={user.id}>
-                            <User user={user} />
-                        </Col>
-                    ))}
-                </Row>
-            </>
-        )
-    }
+    return (
+        <>
+            <p className="lead">{count} results</p>
+            <Row xs="2" sm="4" md="6">
+                {users?.map((user) => (
+                    <Col key={user.id}>
+                        <User user={user} />
+                    </Col>
+                ))}
+            </Row>
+        </>
+    )
 }

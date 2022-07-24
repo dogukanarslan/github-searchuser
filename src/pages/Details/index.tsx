@@ -37,7 +37,7 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
                 </Col>
                 <Col md="9">
                     <p>
-                        0<strong>Username</strong>
+                        <strong>Username</strong>
                         <br />
                         {login}
                     </p>
