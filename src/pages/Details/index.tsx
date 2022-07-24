@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { getUser } from '../../constants'
 import { Row, Col } from 'reactstrap'
-export const Details = (props) => {
-    const [user, setUser] = useState({})
+import { RouteComponentProps } from 'react-router-dom'
+import { IUser } from '../../models'
+
+export const Details = (props: RouteComponentProps<{ login: string }>) => {
+    const [user, setUser] = useState({} as IUser)
+
+    const { match } = props
 
     useEffect(() => {
-        getUser(props.match.params.login).then((data) => setUser(data))
-    }, [props.match.params.login])
+        getUser(match.params.login).then((data) => setUser(data))
+    }, [match.params.login])
 
     const {
         avatar_url,
@@ -32,7 +37,7 @@ export const Details = (props) => {
                 </Col>
                 <Col md="9">
                     <p>
-                        <strong>Username</strong>
+                        0<strong>Username</strong>
                         <br />
                         {login}
                     </p>

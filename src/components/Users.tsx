@@ -1,7 +1,8 @@
 import ContentLoader from 'react-content-loader'
 import { Row, Col, Card } from 'reactstrap'
 import { User } from './User'
-import { UserProps } from './User'
+import { IUser } from '../models'
+
 const MyLoader = () => (
     <ContentLoader
         height={446}
@@ -17,12 +18,14 @@ const MyLoader = () => (
 )
 
 interface UsersProps {
-    users: UserProps[]
+    users: IUser[]
     count: number
     status: string
 }
 
-export const Users = ({ users, count, status }: UsersProps) => {
+export const Users = (props: UsersProps) => {
+    const { users, count, status } = props
+
     if (status === 'loading') {
         return (
             <Row>
@@ -44,9 +47,9 @@ export const Users = ({ users, count, status }: UsersProps) => {
             <>
                 <p className="lead">{count} results</p>
                 <Row xs="2" sm="4" md="6">
-                    {users?.map((user: UserProps) => (
+                    {users?.map((user) => (
                         <Col key={user.id}>
-                            <User {...user} />
+                            <User user={user} />
                         </Col>
                     ))}
                 </Row>

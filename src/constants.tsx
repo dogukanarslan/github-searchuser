@@ -1,6 +1,7 @@
 import { get } from '../src/request'
 import { Users } from 'react-feather'
 import { Search } from 'react-feather'
+
 export const getUsers = (startingId: string, resultsPerPage: string) => {
     const searchParams = new URLSearchParams()
 

@@ -13,10 +13,7 @@ const request = async (url: string, params?: string, method = 'GET') => {
         options.body = JSON.stringify(params)
     }
 
-    let response = await fetch(apiURL + url, options)
-    response = await response.json()
-
-    return response
+    return await (await fetch(apiURL + url, options)).json()
 }
 
 export const get = (url: string, params?: string) => {
