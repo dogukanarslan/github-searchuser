@@ -3,13 +3,14 @@ import { Filters } from './Filters'
 import { Users } from '../../components/Users'
 import { useSelector } from 'react-redux'
 import { Nav, NavLink, NavItem, TabContent, TabPane } from 'reactstrap'
+import { RootState } from '../../app/store'
 
 export const Search = () => {
-    const { data, status } = useSelector((state) => state.search)
+    const { data, status } = useSelector((state: RootState) => state.search)
 
     const [activeTab, setActiveTab] = useState('users')
 
-    const toggle = (tab) => {
+    const toggle = (tab: string) => {
         if (activeTab !== tab) {
             setActiveTab(tab)
         }

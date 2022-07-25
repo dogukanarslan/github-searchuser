@@ -1,14 +1,14 @@
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useState, FormEvent } from 'react'
 import { Row, Col, Button, Form, FormGroup, Label, Input } from 'reactstrap'
+import { useAppDispatch } from '../../app/store'
 import { fetchSearch } from '../../features/search/searchSlice'
 
 export const Filters = () => {
     const [username, setUsername] = useState('')
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         dispatch(fetchSearch({ type: 'users', q: username }))
     }
