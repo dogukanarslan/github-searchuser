@@ -12,3 +12,9 @@ export interface IUser {
     followers: number
     following: number
 }
+
+export interface IRepository {
+    id: number
+    name: string
+    description: string
+}
