@@ -21,3 +21,11 @@ export interface IRepository {
         login: string
     }
 }
+
+export interface ICommit {
+    author: { name: string }
+    node_id: string
+    commit: {
+        message: string
+    }
+}

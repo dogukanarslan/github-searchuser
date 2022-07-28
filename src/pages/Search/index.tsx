@@ -1,16 +1,22 @@
 import { useState } from 'react'
-import { Filters } from './Filters'
-import { RepositoryFilters } from './RepositoryFilters'
-import { Users } from '../../components/Users'
+
 import { useSelector } from 'react-redux'
 import { Nav, NavLink, NavItem, TabContent, TabPane } from 'reactstrap'
 import { RootState } from '../../app/store'
+import { Users } from '../../components/Users'
 import { Repositories } from '../../components/Repositories'
+import { Commits } from '../../components/Commits'
+import { Filters } from './Filters'
+import { RepositoryFilters } from './RepositoryFilters'
+import { CommitFilters } from './CommitFilters'
 
 export const Search = () => {
     const { data, status } = useSelector((state: RootState) => state.search)
     const { data: repositoriesData, status: repositoriesStatus } = useSelector(
         (state: RootState) => state.searchRepository
+    )
+    const { data: commitsData, status: commitsStatus } = useSelector(
+        (state: RootState) => state.commitRepository
     )
 
     const [activeTab, setActiveTab] = useState('users')
@@ -67,7 +73,14 @@ export const Search = () => {
                         status={repositoriesStatus}
                     />
                 </TabPane>
-                <TabPane tabId="commits">Tab3</TabPane>
+                <TabPane tabId="commits">
+                    <CommitFilters />
+                    <Commits
+                        commits={commitsData?.items}
+                        count={commitsData?.total_count}
+                        status={commitsStatus}
+                    />
+                </TabPane>
             </TabContent>
         </>
     )
