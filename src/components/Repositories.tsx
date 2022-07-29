@@ -9,7 +9,7 @@ interface RepositoriesProps {
 }
 
 export const Repositories = (props: RepositoriesProps) => {
-    const { repositories, count, status } = props
+    const { repositories, count } = props
 
     return (
         <>
