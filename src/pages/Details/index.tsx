@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { getUser } from '../../constants'
-import { Row, Col } from 'reactstrap'
+import { Row, Col, Button } from 'reactstrap'
 import { RouteComponentProps } from 'react-router-dom'
 import { IUser } from '../../models'
+import { ArrowLeft } from 'react-feather'
 
 export const Details = (props: RouteComponentProps<{ login: string }>) => {
     const [user, setUser] = useState({} as IUser)
@@ -28,9 +29,14 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
     } = user
     return (
         <>
-            <span onClick={() => props.history.goBack()}>
-                <i className="fas fa-arrow-left fa-2x text-dark"></i>
-            </span>
+            <Button
+                className="mb-2"
+                onClick={() => props.history.goBack()}
+                color="dark"
+                outline
+            >
+                <ArrowLeft />
+            </Button>
             <Row>
                 <Col md="3">
                     <img className="img-fluid" src={avatar_url} alt="" />
