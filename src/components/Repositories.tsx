@@ -13,7 +13,7 @@ export const Repositories = (props: RepositoriesProps) => {
 
     return (
         <>
-            <p className="lead">{count} results</p>
+            {count !== undefined && <p className="lead">{count} results</p>}
             <Row xs="2" sm="4" md="6">
                 {repositories?.map((repository) => (
                     <Col key={repository.id}>

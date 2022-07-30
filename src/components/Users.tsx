@@ -44,7 +44,7 @@ export const Users = (props: UsersProps) => {
 
     return (
         <>
-            <p className="lead">{count} results</p>
+            {count !== undefined && <p className="lead">{count} results</p>}
             <Row xs="2" sm="4" md="6">
                 {users?.map((user) => (
                     <Col key={user.id}>
