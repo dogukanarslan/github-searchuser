@@ -11,17 +11,15 @@ export const Home = () => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        dispatch(fetchUsers())
-    }, [dispatch])
+        if (data === null) {
+            dispatch(fetchUsers())
+        }
+    }, [data, dispatch])
 
     return (
         <>
             <Filters />
-            <Users
-                users={data}
-                count={data?.length}
-                status={status}
-            />
+            <Users users={data} count={data?.length} status={status} />
         </>
     )
 }
