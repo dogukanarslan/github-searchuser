@@ -31,7 +31,7 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
         <>
             <Button
                 className="mb-2"
-                onClick={() => props.history.goBack()}
+                onClick={props.history.goBack}
                 color="dark"
                 outline
             >
