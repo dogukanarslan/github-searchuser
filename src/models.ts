@@ -10,6 +10,7 @@ export interface IUser {
     bio: string
     public_repos: number
     followers: number
+    followers_url: string
     following: number
 }
 
