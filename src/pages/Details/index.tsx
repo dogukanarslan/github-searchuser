@@ -35,7 +35,7 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
     const getFollowers = async (tab: string) => {
         setSelectedTab('followers')
         if (followersList.length === 0) {
-            const followers = await get(
+            const followers = await get<IUser[]>(
                 `/users/${match.params.login}/followers`
             )
             setFollowersList(followers)

@@ -16,7 +16,7 @@ const request = async (url: string, params?: string, method = 'GET') => {
     return await (await fetch(apiURL + url, options)).json()
 }
 
-export const get = (url: string, params?: string) => {
+export const get = <T>(url: string, params?: string): Promise<T> => {
     return request(url, params, 'GET')
 }
 

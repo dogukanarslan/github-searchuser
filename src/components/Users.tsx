@@ -18,7 +18,7 @@ const MyLoader = () => (
 )
 
 interface UsersProps {
-    users: IUser[] | null
+    users: IUser[] | null | undefined
     count: number | undefined
     status: string
 }
