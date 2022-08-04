@@ -53,11 +53,11 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
                 <ArrowLeft />
             </Button>
             <Row>
-                <Col md="3">
-                    <img className="img-fluid" src={avatar_url} alt="" />
+                <Col className="text-center mb-5" md="12">
+                    <img className="img-fluid rounded-circle shadow-lg" width={200} src={avatar_url} alt="" />
                 </Col>
-                <Col md="9">
-                    <Nav className="mb-2" pills>
+                <Col className="text-center" md="12">
+                    <Nav className="justify-content-center mb-2" pills>
                         <NavItem>
                             <NavLink
                                 active={selectedTab === 'information'}

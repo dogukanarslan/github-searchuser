@@ -11,13 +11,13 @@ export const Followers = (props: FollowersProps) => {
         <ListGroup>
             {followers.map((follower) => (
                 <ListGroupItem key={follower.id}>
-                    <img
-                        className="rounded-circle mr-2"
-                        src={follower.avatar_url}
-                        width="60"
-                        alt="User"
-                    />
-                    {follower.login}
+                        <img
+                            className="rounded-circle"
+                            src={follower.avatar_url}
+                            width="40"
+                            alt="User"
+                        />
+                        {follower.login}
                 </ListGroupItem>
             ))}
         </ListGroup>
