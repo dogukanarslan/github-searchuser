@@ -30,7 +30,7 @@ export const CommitFilters = () => {
                 </Col>
             </Row>
 
-            <Button color="dark" type="submit">
+            <Button color="dark" type="submit" disabled={!commitMessage}>
                 Fetch
             </Button>
         </Form>

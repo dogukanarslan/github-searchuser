@@ -30,7 +30,7 @@ export const Filters = () => {
                 </Col>
             </Row>
 
-            <Button color="dark" type="submit">
+            <Button color="dark" type="submit" disabled={!username}>
                 Fetch
             </Button>
         </Form>

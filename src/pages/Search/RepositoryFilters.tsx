@@ -10,7 +10,9 @@ export const RepositoryFilters = () => {
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        dispatch(fetchSearchRepository({ type: 'repositories', q: repositoryName }))
+        dispatch(
+            fetchSearchRepository({ type: 'repositories', q: repositoryName })
+        )
     }
 
     return (
@@ -30,7 +32,7 @@ export const RepositoryFilters = () => {
                 </Col>
             </Row>
 
-            <Button color="dark" type="submit">
+            <Button color="dark" type="submit" disabled={!repositoryName}>
                 Fetch
             </Button>
         </Form>
