@@ -9,8 +9,6 @@ interface CommitProps {
 export const Commit = (props: CommitProps) => {
     const { commit } = props
 
-    console.log(commit)
-
     return (
         <Card className="mb-4">
             <CardBody>
