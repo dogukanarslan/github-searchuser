@@ -54,7 +54,7 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
             </Button>
             <Row>
                 <Col className="text-center mb-5" md="12">
-                    <img className="img-fluid rounded-circle shadow-lg" width={200} src={avatar_url} alt="" />
+                    <img className="img-fluid rounded-circle shadow-sm" width={200} src={avatar_url} alt="" />
                 </Col>
                 <Col className="text-center" md="12">
                     <Nav className="justify-content-center mb-2" pills>

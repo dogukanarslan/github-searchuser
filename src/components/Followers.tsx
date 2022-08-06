@@ -11,6 +11,7 @@ export const Followers = (props: FollowersProps) => {
         <ListGroup>
             {followers.map((follower) => (
                 <ListGroupItem key={follower.id}>
+                    <div className="w-25 mx-auto d-flex align-items-center justify-content-between">
                         <img
                             className="rounded-circle"
                             src={follower.avatar_url}
@@ -18,6 +19,7 @@ export const Followers = (props: FollowersProps) => {
                             alt="User"
                         />
                         {follower.login}
+                    </div>
                 </ListGroupItem>
             ))}
         </ListGroup>
