@@ -24,7 +24,7 @@ export interface IRepository {
 }
 
 export interface ICommit {
-    author: { name: string }
+    author: { name: string } | null
     node_id: string
     commit: {
         message: string

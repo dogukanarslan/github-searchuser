@@ -12,7 +12,7 @@ export const Commit = (props: CommitProps) => {
     return (
         <Card className="mb-4">
             <CardBody>
-                <CardText>{commit.author.name}</CardText>
+                <CardText>{commit.author?.name}</CardText>
                 <CardText>{commit.commit.message}</CardText>
             </CardBody>
         </Card>
