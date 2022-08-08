@@ -1,10 +1,10 @@
-import { useLocation } from 'react-router-dom'
-import { Nav, NavItem } from 'reactstrap'
-import { navLinks } from '../constants'
-import { CustomLink } from './CustomLink'
+import { useLocation } from 'react-router-dom';
+import { Nav, NavItem } from 'reactstrap';
+import { navLinks } from '../constants';
+import { CustomLink } from './CustomLink';
 
 export const Sidebar = () => {
-    const location = useLocation()
+    const location = useLocation();
 
     return (
         <Nav vertical>
@@ -20,5 +20,5 @@ export const Sidebar = () => {
                 </NavItem>
             ))}
         </Nav>
-    )
-}
+    );
+};

@@ -1,12 +1,12 @@
-import { IUser } from 'models'
-import { ListGroup, ListGroupItem } from 'reactstrap'
+import { IUser } from 'models';
+import { ListGroup, ListGroupItem } from 'reactstrap';
 
 interface FollowersProps {
-    followers: IUser[]
+    followers: IUser[];
 }
 
 export const Followers = (props: FollowersProps) => {
-    const { followers } = props
+    const { followers } = props;
     return (
         <ListGroup>
             {followers.map((follower) => (
@@ -23,5 +23,5 @@ export const Followers = (props: FollowersProps) => {
                 </ListGroupItem>
             ))}
         </ListGroup>
-    )
-}
+    );
+};

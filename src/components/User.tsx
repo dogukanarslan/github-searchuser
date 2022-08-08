@@ -1,16 +1,16 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { Card, CardBody, CardTitle, CardImg } from 'reactstrap'
-import { IUser } from '../models'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Card, CardBody, CardTitle, CardImg } from 'reactstrap';
+import { IUser } from '../models';
 
 export interface UserProps {
-    user: IUser
+    user: IUser;
 }
 
 export const User = (props: UserProps) => {
     const {
         user: { avatar_url, login },
-    } = props
+    } = props;
 
     return (
         <Card className="mb-4">
@@ -25,5 +25,5 @@ export const User = (props: UserProps) => {
                 </Link>
             </CardBody>
         </Card>
-    )
-}
+    );
+};

@@ -1,15 +1,15 @@
-import React from 'react'
-import { Card, CardBody, CardTitle, CardText } from 'reactstrap'
-import { IRepository } from '../models'
+import React from 'react';
+import { Card, CardBody, CardTitle, CardText } from 'reactstrap';
+import { IRepository } from '../models';
 
 interface RepositoryProps {
-    repository: IRepository
+    repository: IRepository;
 }
 
 export const Repository = (props: RepositoryProps) => {
     const {
         repository: { name, description, owner },
-    } = props
+    } = props;
 
     return (
         <Card className="mb-4">
@@ -19,5 +19,5 @@ export const Repository = (props: RepositoryProps) => {
                 <CardText>Owner: {owner.login}</CardText>
             </CardBody>
         </Card>
-    )
-}
+    );
+};

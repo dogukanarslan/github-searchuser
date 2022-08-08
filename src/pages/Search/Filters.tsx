@@ -1,17 +1,17 @@
-import { useState, FormEvent } from 'react'
-import { Row, Col, Button, Form, FormGroup, Label, Input } from 'reactstrap'
-import { useAppDispatch } from '../../app/store'
-import { fetchSearch } from '../../features/search/searchSlice'
+import { useState, FormEvent } from 'react';
+import { Row, Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { useAppDispatch } from '../../app/store';
+import { fetchSearch } from '../../features/search/searchSlice';
 
 export const Filters = () => {
-    const [username, setUsername] = useState('')
+    const [username, setUsername] = useState('');
 
-    const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        dispatch(fetchSearch({ type: 'users', q: username }))
-    }
+        e.preventDefault();
+        dispatch(fetchSearch({ type: 'users', q: username }));
+    };
 
     return (
         <Form onSubmit={handleSubmit}>
@@ -34,5 +34,5 @@ export const Filters = () => {
                 Fetch
             </Button>
         </Form>
-    )
-}
+    );
+};

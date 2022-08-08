@@ -1,15 +1,15 @@
-import { Row, Col } from 'reactstrap'
-import { Commit } from './Commit'
-import { ICommit } from '../models'
+import { Row, Col } from 'reactstrap';
+import { Commit } from './Commit';
+import { ICommit } from '../models';
 
 interface CommitsProps {
-    commits: ICommit[] | null
-    count: number | undefined
-    status: string
+    commits: ICommit[] | null;
+    count: number | undefined;
+    status: string;
 }
 
 export const Commits = (props: CommitsProps) => {
-    const { commits, count } = props
+    const { commits, count } = props;
 
     return (
         <>
@@ -22,5 +22,5 @@ export const Commits = (props: CommitsProps) => {
                 ))}
             </Row>
         </>
-    )
-}
+    );
+};

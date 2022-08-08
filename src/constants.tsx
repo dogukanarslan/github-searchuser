@@ -1,34 +1,34 @@
-import { get } from '../src/request'
-import { Users } from 'react-feather'
-import { Search } from 'react-feather'
-import { IUser } from 'models'
+import { get } from '../src/request';
+import { Users } from 'react-feather';
+import { Search } from 'react-feather';
+import { IUser } from 'models';
 
 export const getUsers = (startingId: string, resultsPerPage: string) => {
-    const searchParams = new URLSearchParams()
+    const searchParams = new URLSearchParams();
 
     if (startingId) {
-        searchParams.append('since', startingId)
+        searchParams.append('since', startingId);
     }
 
     if (resultsPerPage) {
-        searchParams.append('per_page', resultsPerPage)
+        searchParams.append('per_page', resultsPerPage);
     }
 
-    return get<IUser[]>('/users', searchParams.toString())
-}
+    return get<IUser[]>('/users', searchParams.toString());
+};
 
 export const getUser = (login: string) => {
-    return get<IUser>(`/users/${login}`)
-}
+    return get<IUser>(`/users/${login}`);
+};
 
 export const getSearch = (type: string, q: string) => {
-    return get(`/search/${type}?q=${q}`)
-}
+    return get(`/search/${type}?q=${q}`);
+};
 
 export const navLinks = [
     { name: 'Home', path: '/', icon: <Users size={16} /> },
     { name: 'Search', path: '/search', icon: <Search size={16} /> },
-]
+];
 
 export const options = {
     locationOptions: [
@@ -52,4 +52,4 @@ export const options = {
         { name: 'Followers - High to Low', value: 'followers' },
         { name: 'Repositories - High to Low', value: 'repositories' },
     ],
-}
+};

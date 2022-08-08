@@ -1,31 +1,31 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
-import { useSelector } from 'react-redux'
-import { Nav, NavLink, NavItem, TabContent, TabPane } from 'reactstrap'
-import { RootState } from '../../app/store'
-import { Users } from '../../components/Users'
-import { Repositories } from '../../components/Repositories'
-import { Commits } from '../../components/Commits'
-import { Filters } from './Filters'
-import { RepositoryFilters } from './RepositoryFilters'
-import { CommitFilters } from './CommitFilters'
+import { useSelector } from 'react-redux';
+import { Nav, NavLink, NavItem, TabContent, TabPane } from 'reactstrap';
+import { RootState } from '../../app/store';
+import { Users } from '../../components/Users';
+import { Repositories } from '../../components/Repositories';
+import { Commits } from '../../components/Commits';
+import { Filters } from './Filters';
+import { RepositoryFilters } from './RepositoryFilters';
+import { CommitFilters } from './CommitFilters';
 
 export const Search = () => {
-    const { data, status } = useSelector((state: RootState) => state.search)
+    const { data, status } = useSelector((state: RootState) => state.search);
     const { data: repositoriesData, status: repositoriesStatus } = useSelector(
         (state: RootState) => state.searchRepository
-    )
+    );
     const { data: commitsData, status: commitsStatus } = useSelector(
         (state: RootState) => state.commitRepository
-    )
+    );
 
-    const [activeTab, setActiveTab] = useState('users')
+    const [activeTab, setActiveTab] = useState('users');
 
     const toggle = (tab: string) => {
         if (activeTab !== tab) {
-            setActiveTab(tab)
+            setActiveTab(tab);
         }
-    }
+    };
 
     return (
         <>
@@ -83,5 +83,5 @@ export const Search = () => {
                 </TabPane>
             </TabContent>
         </>
-    )
-}
+    );
+};

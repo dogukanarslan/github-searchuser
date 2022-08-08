@@ -1,19 +1,19 @@
-import { useState, FormEvent } from 'react'
-import { Row, Col, Button, Form, FormGroup, Label, Input } from 'reactstrap'
-import { useAppDispatch } from '../../app/store'
-import { fetchSearchRepository } from '../../features/search/searchRepositorySlice'
+import { useState, FormEvent } from 'react';
+import { Row, Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { useAppDispatch } from '../../app/store';
+import { fetchSearchRepository } from '../../features/search/searchRepositorySlice';
 
 export const RepositoryFilters = () => {
-    const [repositoryName, setRepositoryName] = useState('')
+    const [repositoryName, setRepositoryName] = useState('');
 
-    const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
+        e.preventDefault();
         dispatch(
             fetchSearchRepository({ type: 'repositories', q: repositoryName })
-        )
-    }
+        );
+    };
 
     return (
         <Form onSubmit={handleSubmit}>
@@ -36,5 +36,5 @@ export const RepositoryFilters = () => {
                 Fetch
             </Button>
         </Form>
-    )
-}
+    );
+};

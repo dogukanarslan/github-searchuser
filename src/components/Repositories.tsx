@@ -1,15 +1,15 @@
-import { Row, Col } from 'reactstrap'
-import { Repository } from './Repository'
-import { IRepository } from '../models'
+import { Row, Col } from 'reactstrap';
+import { Repository } from './Repository';
+import { IRepository } from '../models';
 
 interface RepositoriesProps {
-    repositories: IRepository[] | null
-    count: number | undefined
-    status: string
+    repositories: IRepository[] | null;
+    count: number | undefined;
+    status: string;
 }
 
 export const Repositories = (props: RepositoriesProps) => {
-    const { repositories, count } = props
+    const { repositories, count } = props;
 
     return (
         <>
@@ -22,5 +22,5 @@ export const Repositories = (props: RepositoriesProps) => {
                 ))}
             </Row>
         </>
-    )
-}
+    );
+};

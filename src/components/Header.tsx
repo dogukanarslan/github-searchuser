@@ -1,6 +1,6 @@
-import { Navbar } from 'reactstrap'
-import { CustomLink } from './CustomLink'
-import { GitHub } from 'react-feather'
+import { Navbar } from 'reactstrap';
+import { CustomLink } from './CustomLink';
+import { GitHub } from 'react-feather';
 
 export const Header = () => {
     return (
@@ -10,5 +10,5 @@ export const Header = () => {
                 <span className="ml-2">GitHub</span>
             </CustomLink>
         </Navbar>
-    )
-}
+    );
+};

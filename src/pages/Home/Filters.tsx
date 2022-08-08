@@ -1,18 +1,18 @@
-import { FormEvent, useState } from 'react'
-import { Row, Col, Button, Form, FormGroup, Label, Input } from 'reactstrap'
-import { useAppDispatch } from '../../app/store'
-import { fetchUsers } from '../../features/users/usersSlice'
+import { FormEvent, useState } from 'react';
+import { Row, Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { useAppDispatch } from '../../app/store';
+import { fetchUsers } from '../../features/users/usersSlice';
 
 export const Filters = () => {
-    const [startingId, setStartingId] = useState('')
-    const [resultsPerPage, setResultsPerPage] = useState('')
+    const [startingId, setStartingId] = useState('');
+    const [resultsPerPage, setResultsPerPage] = useState('');
 
-    const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        dispatch(fetchUsers({ startingId, resultsPerPage }))
-    }
+        e.preventDefault();
+        dispatch(fetchUsers({ startingId, resultsPerPage }));
+    };
 
     return (
         <Form onSubmit={handleSubmit}>
@@ -50,5 +50,5 @@ export const Filters = () => {
                 Fetch
             </Button>
         </Form>
-    )
-}
+    );
+};

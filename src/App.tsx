@@ -1,6 +1,6 @@
-import { Container, Row, Col } from 'reactstrap'
-import './App.scss'
-import { Header, Sidebar, Main } from './components'
+import { Container, Row, Col } from 'reactstrap';
+import './App.scss';
+import { Header, Sidebar, Main } from './components';
 
 export const App = () => (
     <div className="App">
@@ -16,4 +16,4 @@ export const App = () => (
             </Row>
         </Container>
     </div>
-)
+);

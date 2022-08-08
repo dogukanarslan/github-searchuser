@@ -1,7 +1,7 @@
-import ContentLoader from 'react-content-loader'
-import { Row, Col, Card } from 'reactstrap'
-import { User } from './User'
-import { IUser } from '../models'
+import ContentLoader from 'react-content-loader';
+import { Row, Col, Card } from 'reactstrap';
+import { User } from './User';
+import { IUser } from '../models';
 
 const MyLoader = () => (
     <ContentLoader
@@ -15,16 +15,16 @@ const MyLoader = () => (
         <rect x="20" y="380" rx="0" ry="0" width="80" height="10" />
         <rect x="20" y="400" rx="5" ry="5" width="100" height="25" />
     </ContentLoader>
-)
+);
 
 interface UsersProps {
-    users: IUser[] | null | undefined
-    count: number | undefined
-    status: string
+    users: IUser[] | null | undefined;
+    count: number | undefined;
+    status: string;
 }
 
 export const Users = (props: UsersProps) => {
-    const { users, count, status } = props
+    const { users, count, status } = props;
 
     if (status === 'loading') {
         return (
@@ -36,10 +36,10 @@ export const Users = (props: UsersProps) => {
                                 <MyLoader />
                             </Card>
                         </Col>
-                    )
+                    );
                 })}
             </Row>
-        )
+        );
     }
 
     return (
@@ -53,5 +53,5 @@ export const Users = (props: UsersProps) => {
                 ))}
             </Row>
         </>
-    )
-}
+    );
+};

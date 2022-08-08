@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react'
-import { getUser } from '../../constants'
-import { Row, Col, Button, Nav, NavItem, NavLink } from 'reactstrap'
-import { RouteComponentProps } from 'react-router-dom'
-import { get } from 'request'
-import { IUser } from '../../models'
-import { ArrowLeft } from 'react-feather'
-import { Followers } from 'components/Followers'
+import React, { useEffect, useState } from 'react';
+import { getUser } from '../../constants';
+import { Row, Col, Button, Nav, NavItem, NavLink } from 'reactstrap';
+import { RouteComponentProps } from 'react-router-dom';
+import { get } from 'request';
+import { IUser } from '../../models';
+import { ArrowLeft } from 'react-feather';
+import { Followers } from 'components/Followers';
 
 export const Details = (props: RouteComponentProps<{ login: string }>) => {
-    const [user, setUser] = useState({} as IUser)
-    const [selectedTab, setSelectedTab] = useState('information')
-    const [followersList, setFollowersList] = useState<IUser[]>([])
+    const [user, setUser] = useState({} as IUser);
+    const [selectedTab, setSelectedTab] = useState('information');
+    const [followersList, setFollowersList] = useState<IUser[]>([]);
 
-    const { match } = props
+    const { match } = props;
 
     useEffect(() => {
-        getUser(match.params.login).then((data) => setUser(data))
-    }, [match.params.login])
+        getUser(match.params.login).then((data) => setUser(data));
+    }, [match.params.login]);
 
     const {
         avatar_url,
@@ -30,17 +30,17 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
         public_repos,
         followers,
         following,
-    } = user
+    } = user;
 
     const getFollowers = async (tab: string) => {
-        setSelectedTab('followers')
+        setSelectedTab('followers');
         if (followersList.length === 0) {
             const followers = await get<IUser[]>(
                 `/users/${match.params.login}/followers`
-            )
-            setFollowersList(followers)
+            );
+            setFollowersList(followers);
         }
-    }
+    };
 
     return (
         <>
@@ -54,7 +54,12 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
             </Button>
             <Row>
                 <Col className="text-center mb-5" md="12">
-                    <img className="img-fluid rounded-circle shadow-sm" width={200} src={avatar_url} alt="" />
+                    <img
+                        className="img-fluid rounded-circle shadow-sm"
+                        width={200}
+                        src={avatar_url}
+                        alt=""
+                    />
                 </Col>
                 <Col className="text-center" md="12">
                     <Nav className="justify-content-center mb-2" pills>
@@ -137,5 +142,5 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
                 </Col>
             </Row>
         </>
-    )
-}
+    );
+};
