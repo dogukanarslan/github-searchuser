@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { ISearch } from 'models';
 import { getSearch } from '../../constants';
 
 type ArgsType = {
@@ -7,7 +8,7 @@ type ArgsType = {
 };
 
 type SliceState = {
-    data: any;
+    data: ISearch | null | undefined;
     status: string;
 };
 
@@ -20,7 +21,7 @@ export const fetchSearch = createAsyncThunk(
             return response;
         } catch (err) {
             if (err instanceof Error) {
-                return err.message;
+                console.error(err.message);
             } else {
                 console.log('Unexpected error', err);
             }

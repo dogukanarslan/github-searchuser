@@ -30,3 +30,9 @@ export interface ICommit {
         message: string;
     };
 }
+
+export interface ISearch {
+    incomplete_results: boolean;
+    items: any[];
+    total_count: number;
+}

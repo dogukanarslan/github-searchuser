@@ -1,7 +1,7 @@
 import { get } from '../src/request';
 import { Users } from 'react-feather';
 import { Search } from 'react-feather';
-import { IUser } from 'models';
+import { ISearch, IUser } from 'models';
 
 export const getUsers = (startingId: string, resultsPerPage: string) => {
     const searchParams = new URLSearchParams();
@@ -22,7 +22,7 @@ export const getUser = (login: string) => {
 };
 
 export const getSearch = (type: string, q: string) => {
-    return get(`/search/${type}?q=${q}`);
+    return get<ISearch>(`/search/${type}?q=${q}`);
 };
 
 export const navLinks = [
