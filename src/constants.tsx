@@ -1,6 +1,5 @@
 import { get } from '../src/request';
-import { Users } from 'react-feather';
-import { Search } from 'react-feather';
+import { Users, Search } from 'react-feather';
 import { ISearch, IUser } from 'models';
 
 export const getUsers = (startingId: string, resultsPerPage: string) => {
