@@ -1,22 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import { getUser } from '../../constants';
 import { Row, Col, Button, Nav, NavItem, NavLink } from 'reactstrap';
 import { RouteComponentProps } from 'react-router-dom';
 import { get } from 'request';
 import { IUser } from '../../models';
 import { ArrowLeft } from 'react-feather';
 import { Followers } from 'components/Followers';
+import { RootState, useAppDispatch } from 'app/store';
+import { fetchSingleUser } from 'features/singleUser/singleUserSlice';
+import { useSelector } from 'react-redux';
 
 export const Details = (props: RouteComponentProps<{ login: string }>) => {
-    const [user, setUser] = useState({} as IUser);
+    const { match } = props;
+
     const [selectedTab, setSelectedTab] = useState('information');
     const [followersList, setFollowersList] = useState<IUser[]>([]);
 
-    const { match } = props;
+    const dispatch = useAppDispatch();
+
+    const { user } = useSelector((state: RootState) => state.singleUser);
 
     useEffect(() => {
-        getUser(match.params.login).then((data) => setUser(data));
-    }, [match.params.login]);
+        dispatch(fetchSingleUser({ login: match.params.login }));
+    }, [match.params.login, dispatch]);
 
     const {
         avatar_url,

@@ -4,6 +4,7 @@ import usersReducer from '../features/users/usersSlice';
 import searchReducer from '../features/search/searchSlice';
 import searchRepositoryReducer from '../features/search/searchRepositorySlice';
 import commitRepositoryReducer from '../features/search/searchCommitSlice';
+import singleUserReducer from '../features/singleUser/singleUserSlice';
 
 export const store = configureStore({
     reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
         search: searchReducer,
         searchRepository: searchRepositoryReducer,
         commitRepository: commitRepositoryReducer,
+        singleUser: singleUserReducer,
     },
 });
 
