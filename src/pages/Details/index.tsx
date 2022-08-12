@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Row, Col, Button, Nav, NavItem, NavLink } from 'reactstrap';
+import { Row, Col, Button, Nav, NavItem, NavLink, Spinner } from 'reactstrap';
 import { RouteComponentProps } from 'react-router-dom';
 import { get } from 'request';
 import { IUser } from '../../models';
@@ -17,7 +17,9 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
 
     const dispatch = useAppDispatch();
 
-    const { user } = useSelector((state: RootState) => state.singleUser);
+    const { user, status } = useSelector(
+        (state: RootState) => state.singleUser
+    );
 
     useEffect(() => {
         dispatch(fetchSingleUser({ login: match.params.login }));
@@ -46,6 +48,14 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
             setFollowersList(followers);
         }
     };
+
+    if (status === 'loading') {
+        return (
+            <div className="d-flex justify-content-center">
+                <Spinner />
+            </div>
+        );
+    }
 
     return (
         <>
