@@ -24,6 +24,10 @@ export const getSearch = (type: string, q: string) => {
     return get<ISearch>(`/search/${type}?q=${q}`);
 };
 
+export const getFollowers = (login: string) => {
+    return get<IUser[]>(`/users/${login}/followers`);
+};
+
 export const navLinks = [
     { name: 'Home', path: '/', icon: <Users size={16} /> },
     { name: 'Search', path: '/search', icon: <Search size={16} /> },

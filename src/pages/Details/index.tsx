@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Button, Nav, NavItem, NavLink, Spinner } from 'reactstrap';
 import { RouteComponentProps } from 'react-router-dom';
-import { get } from 'request';
 import { IUser } from '../../models';
 import { ArrowLeft } from 'react-feather';
 import { Followers } from 'components/Followers';
 import { RootState, useAppDispatch } from 'app/store';
 import { fetchSingleUser } from 'features/singleUser/singleUserSlice';
 import { useSelector } from 'react-redux';
+import { getFollowers } from 'constants';
 
 export const Details = (props: RouteComponentProps<{ login: string }>) => {
     const { match } = props;
@@ -39,14 +39,10 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
         following,
     } = user;
 
-    const getFollowers = async (tab: string) => {
+    const handleFollowersClick = async (tab: string) => {
         setSelectedTab('followers');
-        if (followersList.length === 0) {
-            const followers = await get<IUser[]>(
-                `/users/${match.params.login}/followers`
-            );
-            setFollowersList(followers);
-        }
+        const followers = await getFollowers(match.params.login);
+        setFollowersList(followers);
     };
 
     if (status === 'loading') {
@@ -89,7 +85,9 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
                         <NavItem>
                             <NavLink
                                 active={selectedTab === 'followers'}
-                                onClick={() => getFollowers('followers')}
+                                onClick={() =>
+                                    handleFollowersClick('followers')
+                                }
                             >
                                 Followers
                             </NavLink>
