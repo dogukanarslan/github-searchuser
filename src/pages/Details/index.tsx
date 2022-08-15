@@ -7,7 +7,7 @@ import { Followers } from 'components/Followers';
 import { RootState, useAppDispatch } from 'app/store';
 import { fetchSingleUser } from 'features/singleUser/singleUserSlice';
 import { useSelector } from 'react-redux';
-import { getFollowers } from 'constants';
+import { getFollowers } from '../../constants';
 
 export const Details = (props: RouteComponentProps<{ login: string }>) => {
     const { match } = props;
