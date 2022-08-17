@@ -1,25 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Button, Nav, NavItem, NavLink, Spinner } from 'reactstrap';
 import { RouteComponentProps } from 'react-router-dom';
-import { IUser } from '../../models';
 import { ArrowLeft } from 'react-feather';
 import { Followers } from 'components/Followers';
 import { RootState, useAppDispatch } from 'app/store';
-import { fetchSingleUser } from 'features/singleUser/singleUserSlice';
+import {
+    fetchFollowers,
+    fetchSingleUser,
+} from 'features/singleUser/singleUserSlice';
 import { useSelector } from 'react-redux';
-import { getFollowers } from '../../constants';
 
 export const Details = (props: RouteComponentProps<{ login: string }>) => {
     const { match } = props;
 
     const [selectedTab, setSelectedTab] = useState('information');
-    const [followersList, setFollowersList] = useState<IUser[]>([]);
 
     const dispatch = useAppDispatch();
 
-    const { user, status } = useSelector(
-        (state: RootState) => state.singleUser
-    );
+    const {
+        user,
+        followers: followersList,
+        status,
+    } = useSelector((state: RootState) => state.singleUser);
 
     useEffect(() => {
         dispatch(fetchSingleUser({ login: match.params.login }));
@@ -39,10 +41,9 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
         following,
     } = user;
 
-    const handleFollowersClick = async (tab: string) => {
+    const handleFollowersClick = (tab: string) => {
         setSelectedTab('followers');
-        const followers = await getFollowers(match.params.login);
-        setFollowersList(followers);
+        dispatch(fetchFollowers(match.params.login));
     };
 
     if (status === 'loading') {
