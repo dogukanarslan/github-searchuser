@@ -7,7 +7,7 @@ export const Main = () => {
         <div className="mt-2">
             <Switch>
                 <Route exact path="/" component={Home} />
-                <Route exact path="/details/:login" component={Details} />
+                <Route path="/details/:login" component={Details} />
                 <Route path="/search" component={Search} />
             </Switch>
         </div>
