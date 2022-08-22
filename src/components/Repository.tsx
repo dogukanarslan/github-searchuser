@@ -14,7 +14,7 @@ export const Repository = (props: RepositoryProps) => {
     return (
         <Card className="mb-4">
             <CardBody>
-                <CardTitle tag="p">Name: {name}</CardTitle>
+                <CardTitle>Name: {name}</CardTitle>
                 <CardText>Description: {description}</CardText>
                 <CardText>Owner: {owner.login}</CardText>
             </CardBody>
