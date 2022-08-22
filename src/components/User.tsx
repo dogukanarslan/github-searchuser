@@ -16,7 +16,7 @@ export const User = (props: UserProps) => {
         <Card className="mb-4">
             <CardImg top src={avatar_url} alt="" />
             <CardBody>
-                <CardTitle tag="p">{login}</CardTitle>
+                <CardTitle>{login}</CardTitle>
                 <Link
                     to={`/details/${login}`}
                     className="btn btn-outline-dark btn-sm"
