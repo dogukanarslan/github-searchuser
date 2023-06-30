@@ -6,27 +6,27 @@ $navbar-height: 54.38px;
 
 .nav-tabs .nav-link,
 .nav-pills .nav-link {
-    cursor: pointer;
-    color: inherit;
+  cursor: pointer;
+  color: inherit;
 }
 
 body {
-    padding-top: $navbar-height;
+  padding-top: $navbar-height;
 }
 
 /* 
  * Sidebar 
  */
 .sidebar {
-    position: fixed;
-    top: 0;
-    height: 100%;
-    font-weight: 500;
-    padding: $navbar-height 0 0;
-    .nav-link {
-        color: var(--dark);
-    }
-    .nav-link.active {
-        color: var(--primary);
-    }
+  position: fixed;
+  top: 0;
+  height: 100%;
+  font-weight: 500;
+  padding: $navbar-height 0 0;
+  .nav-link {
+    color: var(--dark);
+  }
+  .nav-link.active {
+    color: var(--primary);
+  }
 }
