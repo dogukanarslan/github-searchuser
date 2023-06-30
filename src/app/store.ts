@@ -7,13 +7,13 @@ import commitRepositoryReducer from '../features/search/searchCommitSlice';
 import singleUserReducer from '../features/singleUser/singleUserSlice';
 
 export const store = configureStore({
-    reducer: {
-        users: usersReducer,
-        search: searchReducer,
-        searchRepository: searchRepositoryReducer,
-        commitRepository: commitRepositoryReducer,
-        singleUser: singleUserReducer,
-    },
+  reducer: {
+    users: usersReducer,
+    search: searchReducer,
+    searchRepository: searchRepositoryReducer,
+    commitRepository: commitRepositoryReducer,
+    singleUser: singleUserReducer,
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;
