@@ -1,5 +1,5 @@
 import { useState, FormEvent } from 'react';
-import { Row, Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Row, Col, Button, Form, FormGroup, Input } from 'reactstrap';
 import { useAppDispatch } from '../../app/store';
 import { fetchSearchCommit } from '../../features/search/searchCommitSlice';
 
@@ -18,19 +18,17 @@ export const CommitFilters = () => {
       <Row>
         <Col xs="12">
           <FormGroup>
-            <Label for="commitMessage">Commit Message</Label>
             <Input
               type="text"
               value={commitMessage}
               onChange={(e) => setCommitMessage(e.target.value)}
-              placeholder="Username"
-              id="commitMessage"
+              placeholder="Commit message"
             />
           </FormGroup>
         </Col>
       </Row>
 
-      <Button color="dark" type="submit" disabled={!commitMessage}>
+      <Button color="primary" type="submit" disabled={!commitMessage}>
         Fetch
       </Button>
     </Form>

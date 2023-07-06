@@ -25,6 +25,7 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
 
   useEffect(() => {
     dispatch(fetchSingleUser({ login: match.params.login }));
+    dispatch(fetchFollowers(match.params.login));
   }, [match.params.login, dispatch]);
 
   const {
@@ -41,11 +42,6 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
     following,
   } = user;
 
-  const handleFollowersClick = (tab: string) => {
-    setSelectedTab('followers');
-    dispatch(fetchFollowers(match.params.login));
-  };
-
   if (status === 'loading') {
     return (
       <div className="d-flex justify-content-center">
@@ -57,10 +53,10 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
   return (
     <>
       <Button
+        color="primary"
         className="mb-2"
+        size="sm"
         onClick={props.history.goBack}
-        color="dark"
-        outline
       >
         <ArrowLeft />
       </Button>
@@ -77,6 +73,7 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
           <Nav className="justify-content-center mb-2" pills>
             <NavItem>
               <NavLink
+                href="#"
                 active={selectedTab === 'information'}
                 onClick={() => setSelectedTab('information')}
               >
@@ -85,8 +82,9 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
             </NavItem>
             <NavItem>
               <NavLink
+                href="#"
                 active={selectedTab === 'followers'}
-                onClick={() => handleFollowersClick('followers')}
+                onClick={() => setSelectedTab('followers')}
               >
                 Followers
               </NavLink>

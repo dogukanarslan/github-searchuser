@@ -1,18 +1,4 @@
-$font-size-base: 0.875rem;
-
-$navbar-height: 54.38px;
-
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
-
-.nav-tabs .nav-link,
-.nav-pills .nav-link {
-  cursor: pointer;
-  color: inherit;
-}
-
-body {
-  padding-top: $navbar-height;
-}
 
 /* 
  * Sidebar 
@@ -22,11 +8,4 @@ body {
   top: 0;
   height: 100%;
   font-weight: 500;
-  padding: $navbar-height 0 0;
-  .nav-link {
-    color: var(--dark);
-  }
-  .nav-link.active {
-    color: var(--primary);
-  }
 }
