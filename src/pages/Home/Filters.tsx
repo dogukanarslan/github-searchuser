@@ -46,7 +46,7 @@ export const Filters = () => {
         </Col>
       </Row>
 
-      <Button color="dark" type="submit">
+      <Button color="primary" type="submit">
         Fetch
       </Button>
     </Form>

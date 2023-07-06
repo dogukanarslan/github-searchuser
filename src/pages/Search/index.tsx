@@ -31,6 +31,7 @@ export const Search = () => {
       <Nav tabs>
         <NavItem>
           <NavLink
+            href="#"
             onClick={() => toggle('users')}
             active={activeTab === 'users'}
           >
@@ -39,6 +40,7 @@ export const Search = () => {
         </NavItem>
         <NavItem>
           <NavLink
+            href="#"
             onClick={() => toggle('repositories')}
             active={activeTab === 'repositories'}
           >
@@ -47,6 +49,7 @@ export const Search = () => {
         </NavItem>
         <NavItem>
           <NavLink
+            href="#"
             onClick={() => toggle('commits')}
             active={activeTab === 'commits'}
           >
@@ -54,7 +57,7 @@ export const Search = () => {
           </NavLink>
         </NavItem>
       </Nav>
-
+      <br />
       <TabContent activeTab={activeTab}>
         <TabPane tabId="users">
           <Filters />

@@ -13,11 +13,14 @@ export const User = (props: UserProps) => {
   } = props;
 
   return (
-    <Card className="mb-4">
+    <Card className="mb-4 shadow-sm">
       <CardImg top src={avatar_url} alt="" />
       <CardBody>
         <CardTitle>{login}</CardTitle>
-        <Link to={`/details/${login}`} className="btn btn-outline-dark btn-sm">
+        <Link
+          to={`/details/${login}`}
+          className="btn btn-outline-primary btn-sm"
+        >
           More Info
         </Link>
       </CardBody>

@@ -29,7 +29,7 @@ export const getFollowers = (login: string) => {
 };
 
 export const navLinks = [
-  { name: 'Home', path: '/', icon: <Users size={16} /> },
+  { name: 'Users', path: '/', icon: <Users size={16} /> },
   { name: 'Search', path: '/search', icon: <Search size={16} /> },
 ];
 

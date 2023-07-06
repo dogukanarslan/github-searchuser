@@ -1,5 +1,6 @@
+import { Link } from 'react-router-dom';
+import { ListGroup } from 'reactstrap';
 import { IUser } from 'models';
-import { ListGroup, ListGroupItem } from 'reactstrap';
 
 interface FollowersProps {
   followers: IUser[];
@@ -7,20 +8,23 @@ interface FollowersProps {
 
 export const Followers = (props: FollowersProps) => {
   const { followers } = props;
+  console.log('followers', followers);
   return (
-    <ListGroup>
+    <ListGroup style={{ maxWidth: 400 }} className="mx-auto">
       {followers.map((follower) => (
-        <ListGroupItem key={follower.id}>
-          <div className="w-25 mx-auto d-flex align-items-center justify-content-between">
-            <img
-              className="rounded-circle"
-              src={follower.avatar_url}
-              width="40"
-              alt="User"
-            />
-            {follower.login}
-          </div>
-        </ListGroupItem>
+        <Link
+          key={follower.id}
+          to={`/details/${follower.login}`}
+          className="list-group-item list-group-item-action d-flex align-items-center gap-3 py-3"
+        >
+          <img
+            className="rounded-circle"
+            src={follower.avatar_url}
+            width="40"
+            alt="User"
+          />
+          <h6>{follower.login}</h6>
+        </Link>
       ))}
     </ListGroup>
   );
