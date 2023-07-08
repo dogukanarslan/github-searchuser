@@ -16,16 +16,9 @@ export const fetchSearch = createAsyncThunk(
   'search/fetchSearch',
   async (args: ArgsType = { type: '', q: '' }) => {
     const { type, q } = args;
-    try {
-      const response = await getSearch(type, q);
-      return response;
-    } catch (err) {
-      if (err instanceof Error) {
-        console.error(err.message);
-      } else {
-        console.log('Unexpected error', err);
-      }
-    }
+
+    const response = await getSearch(type, q);
+    return response;
   }
 );
 
@@ -45,7 +38,7 @@ export const searchSlice = createSlice({
       })
       .addCase(fetchSearch.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.data = action.payload;
+        state.data = action.payload.data;
       });
   },
 });

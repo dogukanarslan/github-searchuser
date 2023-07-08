@@ -28,6 +28,27 @@ export const getFollowers = (login: string) => {
   return get<IUser[]>(`/users/${login}/followers`);
 };
 
+export const parseLinkHeader = (header: string) => {
+  if (header.length === 0) {
+    throw new Error('input must not be of zero length');
+  }
+
+  const parts = header.split(',');
+  const links: Record<string, string> = {};
+
+  parts.forEach((part: string) => {
+    var section = part.split(';');
+    if (section.length !== 2) {
+      throw new Error("section could not be split on ';'");
+    }
+    const url = section[0].replace(/<(.*)>/, '$1').trim();
+    const name = section[1].replace(/rel="(.*)"/, '$1').trim();
+    links[name] = url;
+  });
+
+  return links;
+};
+
 export const navLinks = [
   { name: 'Users', path: '/', icon: <Users size={16} /> },
   { name: 'Search', path: '/search', icon: <Search size={16} /> },
