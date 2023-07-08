@@ -1,3 +1,5 @@
+import { parseLinkHeader } from '../src/constants';
+
 const apiURL = 'https://api.github.com';
 
 const request = async <T>(url: string, params?: string, method = 'GET') => {
@@ -13,7 +15,19 @@ const request = async <T>(url: string, params?: string, method = 'GET') => {
     options.body = JSON.stringify(params);
   }
 
-  return (await (await fetch(apiURL + url, options)).json()) as T;
+  const response = await fetch(apiURL + url, options);
+
+  const linkHeader = response.headers.get('link');
+
+  let parsedLinkHeader;
+
+  if (linkHeader) {
+    parsedLinkHeader = parseLinkHeader(linkHeader);
+  }
+
+  const data = (await response.json()) as T;
+
+  return { data, links: parsedLinkHeader };
 };
 
 export const get = <T>(url: string, params?: string) => {

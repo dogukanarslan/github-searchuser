@@ -35,14 +35,14 @@ export const singleUserSlice = createSlice({
       })
       .addCase(fetchSingleUser.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.user = action.payload;
+        state.user = action.payload.data;
       })
       .addCase(fetchFollowers.pending, (state) => {
         state.status = 'loading';
       })
       .addCase(fetchFollowers.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.followers = action.payload;
+        state.followers = action.payload.data;
       });
   },
 });

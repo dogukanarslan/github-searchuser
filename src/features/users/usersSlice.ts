@@ -8,7 +8,8 @@ type argsType = {
 };
 
 type SliceState = {
-  data: IUser[] | null | undefined;
+  data: IUser[];
+  links?: any;
   status: string;
 };
 
@@ -16,21 +17,14 @@ export const fetchUsers = createAsyncThunk(
   'users/fetchUsers',
   async (args: argsType = { startingId: '', resultsPerPage: '' }) => {
     const { startingId, resultsPerPage } = args;
-    try {
-      const response = await getUsers(startingId, resultsPerPage);
-      return response;
-    } catch (err) {
-      if (err instanceof Error) {
-        console.error(err.message);
-      } else {
-        console.log('Unexpected error', err);
-      }
-    }
+
+    const response = await getUsers(startingId, resultsPerPage);
+    return response;
   }
 );
 
 const initialState: SliceState = {
-  data: null,
+  data: [],
   status: 'idle',
 };
 
@@ -45,7 +39,8 @@ export const usersSlice = createSlice({
       })
       .addCase(fetchUsers.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.data = action.payload;
+        state.links = action.payload.links;
+        state.data = [...state.data, ...action.payload.data];
       });
   },
 });
