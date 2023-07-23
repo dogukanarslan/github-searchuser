@@ -4,7 +4,7 @@ import { Button } from 'reactstrap';
 
 import { Users } from '../../components';
 import { Filters } from './Filters';
-import { fetchUsers } from '../../features/users/usersSlice';
+import { fetchUsers, resetUsers } from '../../features/users/usersSlice';
 import { RootState, useAppDispatch } from '../../app/store';
 
 export const Home = () => {
@@ -23,10 +23,9 @@ export const Home = () => {
   };
 
   useEffect(() => {
-    if (data.length === 0) {
-      dispatch(fetchUsers());
-    }
-  }, [data, dispatch]);
+    dispatch(resetUsers());
+    dispatch(fetchUsers());
+  }, [dispatch]);
 
   return (
     <>

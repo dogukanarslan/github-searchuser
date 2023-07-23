@@ -1,7 +1,7 @@
 import { FormEvent, useState } from 'react';
 import { Row, Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { useAppDispatch } from '../../app/store';
-import { fetchUsers } from '../../features/users/usersSlice';
+import { fetchUsers, resetUsers } from '../../features/users/usersSlice';
 
 export const Filters = () => {
   const [startingId, setStartingId] = useState('');
@@ -11,6 +11,7 @@ export const Filters = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    dispatch(resetUsers());
     dispatch(fetchUsers({ startingId, resultsPerPage }));
   };
 
