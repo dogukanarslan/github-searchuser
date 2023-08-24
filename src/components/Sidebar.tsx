@@ -8,7 +8,7 @@ export const Sidebar = () => {
 
   return (
     <div className="p-2">
-      <Link to="/" className="flex items-center mt-3">
+      <Link to="/" className="flex justify-center items-center mt-3">
         <GitHub size={30} /> <span>GitHub Search</span>
       </Link>
 

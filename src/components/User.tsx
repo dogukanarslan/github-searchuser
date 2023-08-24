@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Card, CardBody, CardTitle, CardImg } from 'reactstrap';
 import { IUser } from '../models';
 
 export interface UserProps {
@@ -13,17 +12,12 @@ export const User = (props: UserProps) => {
   } = props;
 
   return (
-    <Card className="mb-4 shadow-sm">
-      <CardImg top src={avatar_url} alt="" />
-      <CardBody>
-        <CardTitle>{login}</CardTitle>
-        <Link
-          to={`/details/${login}`}
-          className="btn btn-outline-primary btn-sm"
-        >
-          More Info
-        </Link>
-      </CardBody>
-    </Card>
+    <div className="rounded-lg shadow-sm overflow-hidden hover:bg-red-500 ">
+      <img src={avatar_url} className="h-64 w-full object-cover" />
+      <div className="bg-white p-4">
+        <h4>{login}</h4>
+        <Link to={`/details/${login}`}>More Info</Link>
+      </div>
+    </div>
   );
 };

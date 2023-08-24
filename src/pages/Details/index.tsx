@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Row, Col, Nav, NavItem, NavLink, Spinner } from 'reactstrap';
-import { RouteComponentProps } from 'react-router-dom';
-import { ArrowLeft } from 'react-feather';
+import { Link, RouteComponentProps } from 'react-router-dom';
 import { Followers } from 'components/Followers';
-import { Button } from 'components/Button';
 import { RootState, useAppDispatch } from 'app/store';
 import {
   fetchFollowers,
@@ -44,109 +41,96 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
   } = user;
 
   if (status === 'loading') {
-    return (
-      <div className="d-flex justify-content-center">
-        <Spinner />
-      </div>
-    );
+    return 'Loading...';
   }
 
   return (
     <>
-      <Button className="mb-2" onClick={props.history.goBack}>
-        <ArrowLeft />
-      </Button>
-      <Row>
-        <Col className="text-center mb-5" md="12">
-          <img
-            className="img-fluid rounded-circle shadow-sm"
-            width={200}
-            src={avatar_url}
-            alt=""
-          />
-        </Col>
-        <Col className="text-center" md="12">
-          <Nav className="justify-content-center mb-2" pills>
-            <NavItem>
-              <NavLink
-                href="#"
-                active={selectedTab === 'information'}
-                onClick={() => setSelectedTab('information')}
-              >
-                Information
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                href="#"
-                active={selectedTab === 'followers'}
-                onClick={() => setSelectedTab('followers')}
-              >
-                Followers
-              </NavLink>
-            </NavItem>
-          </Nav>
-          {selectedTab === 'information' && (
-            <>
+      <div>
+        <img width={200} src={avatar_url} alt="" />
+
+        <nav className="flex gap-6" aria-label="Tabs">
+          <Link
+            to="#"
+            className={`${
+              selectedTab === 'information' ? 'bg-gray-100 ' : ''
+            }shrink-0 rounded-lg p-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700`}
+            onClick={() => setSelectedTab('information')}
+          >
+            Information
+          </Link>
+
+          <Link
+            to="#"
+            className={`${
+              selectedTab === 'followers' ? 'bg-gray-100 ' : ''
+            }shrink-0 rounded-lg p-2 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700`}
+            onClick={() => setSelectedTab('followers')}
+          >
+            Followers
+          </Link>
+        </nav>
+      </div>
+
+      <div>
+        {selectedTab === 'information' && (
+          <>
+            <p>
+              <strong>Username</strong>
+              <br />
+              {login}
+            </p>
+            <p>
+              <strong>Name</strong>
+              <br /> {name}
+            </p>
+            {company && (
               <p>
-                <strong>Username</strong>
-                <br />
-                {login}
+                <strong>Company</strong>
+                <br /> {company}
               </p>
+            )}
+            {blog && (
               <p>
-                <strong>Name</strong>
-                <br /> {name}
+                <strong>Blog</strong>
+                <br /> {blog}
               </p>
-              {company && (
-                <p>
-                  <strong>Company</strong>
-                  <br /> {company}
-                </p>
-              )}
-              {blog && (
-                <p>
-                  <strong>Blog</strong>
-                  <br /> {blog}
-                </p>
-              )}
-              {location && (
-                <p>
-                  <strong>Location</strong>
-                  <br /> {location}
-                </p>
-              )}
-              {email && (
-                <p>
-                  <strong>Email</strong>
-                  <br /> {email}
-                </p>
-              )}
-              {bio && (
-                <p>
-                  <strong>Bio</strong>
-                  <br /> {bio}
-                </p>
-              )}
+            )}
+            {location && (
               <p>
-                <strong>Public Repositories</strong>
-                <br />
-                {public_repos}
+                <strong>Location</strong>
+                <br /> {location}
               </p>
+            )}
+            {email && (
               <p>
-                <strong>Followers</strong>
-                <br /> {followers}
+                <strong>Email</strong>
+                <br /> {email}
               </p>
+            )}
+            {bio && (
               <p>
-                <strong>Following</strong>
-                <br /> {following}
+                <strong>Bio</strong>
+                <br /> {bio}
               </p>
-            </>
-          )}
-          {selectedTab === 'followers' && (
-            <Followers followers={followersList} />
-          )}
-        </Col>
-      </Row>
+            )}
+            <p>
+              <strong>Public Repositories</strong>
+              <br />
+              {public_repos}
+            </p>
+            <p>
+              <strong>Followers</strong>
+              <br /> {followers}
+            </p>
+            <p>
+              <strong>Following</strong>
+              <br /> {following}
+            </p>
+          </>
+        )}
+        {selectedTab === 'followers' && <Followers followers={followersList} />}
+      </div>
     </>
   );
 };

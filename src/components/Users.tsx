@@ -14,13 +14,11 @@ export const Users = (props: UsersProps) => {
   return (
     <>
       {count !== undefined && <p className="lead">{count} results</p>}
-      <Row xs="2" sm="4" md="6">
+      <div className="grid grid-cols-5 gap-4">
         {users?.map((user) => (
-          <Col key={user.id}>
-            <User user={user} />
-          </Col>
+          <User key={user.id} user={user} />
         ))}
-      </Row>
+      </div>
     </>
   );
 };

@@ -1,5 +1,4 @@
 import { FormEvent, useState } from 'react';
-import { Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
 import { Button } from 'components/Button';
 import { useAppDispatch } from '../../app/store';
 import { fetchUsers, resetUsers } from '../../features/users/usersSlice';
@@ -17,40 +16,44 @@ export const Filters = () => {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Row>
-        <Col xs="12" sm="6">
-          <FormGroup>
-            <Label for="startingId">Starting ID</Label>
-            <Input
-              type="number"
-              value={startingId}
-              onChange={(e) => setStartingId(e.target.value)}
-              placeholder="Starting ID"
-              id="startingId"
-            />
-          </FormGroup>
-        </Col>
-        <Col xs="12" sm="6">
-          <FormGroup>
-            <Label for="resultsPerPage">Results Per Page</Label>
-            <Input
-              type="select"
-              value={resultsPerPage}
-              onChange={(e) => setResultsPerPage(e.target.value)}
-              id="resultsPerPage"
-            >
-              <option value={30}>30</option>
-              <option value={50}>50</option>
-              <option value={100}>100</option>45
-            </Input>
-          </FormGroup>
-        </Col>
-      </Row>
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label
+          htmlFor="startingId"
+          className="block text-xs font-medium text-gray-700"
+        >
+          Starting ID
+        </label>
+        <input
+          id="startingId"
+          className="mt-1 w-full rounded-md border-gray-200 shadow-sm text-sm"
+          type="number"
+          value={startingId}
+          onChange={(e) => setStartingId(e.target.value)}
+          placeholder="Starting ID"
+        />
+      </div>
 
-      <Button color="primary" type="submit">
+      <label
+        htmlFor="resultsPerPage"
+        className="block text-xs font-medium text-gray-700"
+      >
+        Results Per Page
+      </label>
+      <select
+        id="resultsPerPage"
+        className="mt-1 w-full rounded-md border-gray-200 shadow-sm text-sm"
+        value={resultsPerPage}
+        onChange={(e) => setResultsPerPage(e.target.value)}
+      >
+        <option value={30}>30</option>
+        <option value={50}>50</option>
+        <option value={100}>100</option>45
+      </select>
+
+      <Button className="mt-1" type="submit">
         Fetch
       </Button>
-    </Form>
+    </form>
   );
 };

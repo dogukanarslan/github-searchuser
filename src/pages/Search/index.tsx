@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Nav, NavLink, NavItem, TabContent, TabPane } from 'reactstrap';
 import { RootState } from '../../app/store';
 import { Users } from '../../components/Users';
 import { Repositories } from '../../components/Repositories';
@@ -8,6 +7,7 @@ import { Commits } from '../../components/Commits';
 import { Filters } from './Filters';
 import { RepositoryFilters } from './RepositoryFilters';
 import { CommitFilters } from './CommitFilters';
+import { Link } from 'react-router-dom';
 
 export const Search = () => {
   const { data, status } = useSelector((state: RootState) => state.search);
@@ -28,62 +28,67 @@ export const Search = () => {
 
   return (
     <>
-      <Nav tabs>
-        <NavItem>
-          <NavLink
-            href="#"
-            onClick={() => toggle('users')}
-            active={activeTab === 'users'}
-          >
-            Users
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink
-            href="#"
-            onClick={() => toggle('repositories')}
-            active={activeTab === 'repositories'}
-          >
-            Repositories
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink
-            href="#"
-            onClick={() => toggle('commits')}
-            active={activeTab === 'commits'}
-          >
-            Commits
-          </NavLink>
-        </NavItem>
-      </Nav>
+      <nav className="flex gap-6" aria-label="Tabs">
+        <Link
+          to="#"
+          className={`${
+            activeTab === 'users' ? 'bg-gray-100 ' : ''
+          }shrink-0 rounded-lg p-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700`}
+          onClick={() => toggle('users')}
+        >
+          Users
+        </Link>
+
+        <Link
+          to="#"
+          className={`${
+            activeTab === 'repositories' ? 'bg-gray-100 ' : ''
+          }shrink-0 rounded-lg p-2 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700`}
+          onClick={() => toggle('repositories')}
+        >
+          Repositories
+        </Link>
+        <Link
+          to="#"
+          className={`${
+            activeTab === 'commits' ? 'bg-gray-100 ' : ''
+          }shrink-0 rounded-lg p-2 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700`}
+          onClick={() => toggle('commits')}
+        >
+          Commits
+        </Link>
+      </nav>
+
       <br />
-      <TabContent activeTab={activeTab}>
-        <TabPane tabId="users">
+
+      {activeTab === 'users' ? (
+        <>
           <Filters />
           <Users
             users={data?.items}
             count={data?.total_count}
             status={status}
           />
-        </TabPane>
-        <TabPane tabId="repositories">
+        </>
+      ) : activeTab === 'repositories' ? (
+        <>
           <RepositoryFilters />
           <Repositories
             repositories={repositoriesData?.items}
             count={repositoriesData?.total_count}
             status={repositoriesStatus}
           />
-        </TabPane>
-        <TabPane tabId="commits">
+        </>
+      ) : (
+        <>
           <CommitFilters />
           <Commits
             commits={commitsData?.items}
             count={commitsData?.total_count}
             status={commitsStatus}
           />
-        </TabPane>
-      </TabContent>
+        </>
+      )}
     </>
   );
 };
