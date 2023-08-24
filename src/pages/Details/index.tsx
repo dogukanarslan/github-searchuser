@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Row, Col, Button, Nav, NavItem, NavLink, Spinner } from 'reactstrap';
+import { Row, Col, Nav, NavItem, NavLink, Spinner } from 'reactstrap';
 import { RouteComponentProps } from 'react-router-dom';
 import { ArrowLeft } from 'react-feather';
 import { Followers } from 'components/Followers';
+import { Button } from 'components/Button';
 import { RootState, useAppDispatch } from 'app/store';
 import {
   fetchFollowers,
@@ -52,12 +53,7 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
 
   return (
     <>
-      <Button
-        color="primary"
-        className="mb-2"
-        size="sm"
-        onClick={props.history.goBack}
-      >
+      <Button className="mb-2" onClick={props.history.goBack}>
         <ArrowLeft />
       </Button>
       <Row>

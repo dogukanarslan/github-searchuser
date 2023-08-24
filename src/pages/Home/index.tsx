@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Button } from 'reactstrap';
-
+import { Button } from 'components/Button';
 import { Users } from '../../components';
 import { Filters } from './Filters';
 import { fetchUsers, resetUsers } from '../../features/users/usersSlice';
@@ -32,11 +31,7 @@ export const Home = () => {
       <Filters />
       <Users users={data} count={data?.length} status={status} />
       <div className="text-center">
-        <Button
-          color="primary"
-          onClick={() => loadMore()}
-          disabled={!links?.next}
-        >
+        <Button onClick={() => loadMore()} disabled={!links?.next}>
           Load More
         </Button>
       </div>

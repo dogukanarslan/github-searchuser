@@ -1,5 +1,6 @@
 import { useState, FormEvent } from 'react';
-import { Row, Col, Button, Form, FormGroup, Input } from 'reactstrap';
+import { Row, Col, Form, FormGroup, Input } from 'reactstrap';
+import { Button } from 'components/Button';
 import { useAppDispatch } from '../../app/store';
 import { fetchSearchRepository } from '../../features/search/searchRepositorySlice';
 
@@ -30,7 +31,7 @@ export const RepositoryFilters = () => {
         </Col>
       </Row>
 
-      <Button color="primary" type="submit" disabled={!repositoryName}>
+      <Button type="submit" disabled={!repositoryName}>
         Fetch
       </Button>
     </Form>
