@@ -1,5 +1,6 @@
 import { useState, FormEvent } from 'react';
-import { Row, Col, Button, Form, FormGroup, Input } from 'reactstrap';
+import { Row, Col, Form, FormGroup, Input } from 'reactstrap';
+import { Button } from 'components/Button';
 import { useAppDispatch } from '../../app/store';
 import { fetchSearch } from '../../features/search/searchSlice';
 
@@ -28,7 +29,7 @@ export const Filters = () => {
         </Col>
       </Row>
 
-      <Button color="primary" type="submit" disabled={!username}>
+      <Button type="submit" disabled={!username}>
         Fetch
       </Button>
     </Form>

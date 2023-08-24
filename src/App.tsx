@@ -6,7 +6,7 @@ export const App = () => (
   <div className="App">
     <Container fluid>
       <Row>
-        <Col className="sidebar bg-light shadow" md="2">
+        <Col className="fixed h-full bg-gray-100 shadow-md" md="2">
           <Sidebar />
         </Col>
         <Col className="ms-auto" md="10">

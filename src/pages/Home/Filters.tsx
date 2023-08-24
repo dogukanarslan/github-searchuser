@@ -1,5 +1,6 @@
 import { FormEvent, useState } from 'react';
-import { Row, Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button } from 'components/Button';
 import { useAppDispatch } from '../../app/store';
 import { fetchUsers, resetUsers } from '../../features/users/usersSlice';
 
