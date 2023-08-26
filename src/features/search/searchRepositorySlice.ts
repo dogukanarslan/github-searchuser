@@ -13,14 +13,14 @@ type SliceState = {
 
 export const fetchSearchRepository = createAsyncThunk(
   'search/fetchSearchRepository',
-  async (args: ArgsType = { type: '', q: '' }) => {
+  async (args: ArgsType = { type: '', q: '' }, thunkApi) => {
     const { type, q } = args;
     try {
       const response = await getSearch(type, q);
       return response;
     } catch (err) {
       if (err instanceof Error) {
-        return err.message;
+        return thunkApi.rejectWithValue(err.message);
       } else {
         console.log('Unexpected error', err);
       }
@@ -43,8 +43,10 @@ export const searchRepositorySlice = createSlice({
         state.status = 'loading';
       })
       .addCase(fetchSearchRepository.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.data = action.payload;
+        if (action.payload) {
+          state.status = 'succeeded';
+          state.data = action.payload.data;
+        }
       });
   },
 });
