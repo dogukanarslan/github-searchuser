@@ -1,4 +1,3 @@
-import { Row, Col } from 'reactstrap';
 import { User } from './User';
 import { IUser } from '../models';
 

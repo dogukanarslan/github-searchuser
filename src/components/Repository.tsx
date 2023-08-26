@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card, CardBody, CardTitle, CardText } from 'reactstrap';
 import { IRepository } from '../models';
+import { Card } from './Card';
 
 interface RepositoryProps {
   repository: IRepository;
@@ -8,16 +8,8 @@ interface RepositoryProps {
 
 export const Repository = (props: RepositoryProps) => {
   const {
-    repository: { name, description, owner },
+    repository: { name, description },
   } = props;
 
-  return (
-    <Card className="mb-4">
-      <CardBody>
-        <CardTitle>Name: {name}</CardTitle>
-        <CardText>Description: {description}</CardText>
-        <CardText>Owner: {owner.login}</CardText>
-      </CardBody>
-    </Card>
-  );
+  return <Card title={`Name: ${name}`} body={`Description: ${description}`} />;
 };

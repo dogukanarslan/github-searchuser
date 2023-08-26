@@ -1,5 +1,4 @@
 import { Sidebar, Main } from './components';
-import './App.scss';
 
 export const App = () => (
   <div className="p-2">

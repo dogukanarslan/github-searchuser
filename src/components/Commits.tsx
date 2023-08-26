@@ -1,4 +1,3 @@
-import { Row, Col } from 'reactstrap';
 import { Commit } from './Commit';
 import { ICommit } from '../models';
 
@@ -14,13 +13,11 @@ export const Commits = (props: CommitsProps) => {
   return (
     <>
       {count !== undefined && <p className="lead">{count} results</p>}
-      <Row xs="2" sm="4" md="6">
+      <div className="grid grid-cols-5 gap-4">
         {commits?.map((commit) => (
-          <Col key={commit.node_id}>
-            <Commit commit={commit} />
-          </Col>
+          <Commit key={commit.node_id} commit={commit} />
         ))}
-      </Row>
+      </div>
     </>
   );
 };

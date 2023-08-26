@@ -59,8 +59,6 @@ export const Search = () => {
         </Link>
       </nav>
 
-      <br />
-
       {activeTab === 'users' ? (
         <>
           <Filters />

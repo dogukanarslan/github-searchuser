@@ -1,4 +1,3 @@
-import { Row, Col } from 'reactstrap';
 import { Repository } from './Repository';
 import { IRepository } from '../models';
 
@@ -14,13 +13,11 @@ export const Repositories = (props: RepositoriesProps) => {
   return (
     <>
       {count !== undefined && <p className="lead">{count} results</p>}
-      <Row xs="2" sm="4" md="6">
+      <div className="grid grid-cols-5 gap-4">
         {repositories?.map((repository) => (
-          <Col key={repository.id}>
-            <Repository repository={repository} />
-          </Col>
+          <Repository key={repository.id} repository={repository} />
         ))}
-      </Row>
+      </div>
     </>
   );
 };

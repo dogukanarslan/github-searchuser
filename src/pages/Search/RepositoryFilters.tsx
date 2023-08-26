@@ -1,5 +1,5 @@
 import { useState, FormEvent } from 'react';
-import { Row, Col, Form, FormGroup, Input } from 'reactstrap';
+import { Input } from 'components';
 import { Button } from 'components/Button';
 import { useAppDispatch } from '../../app/store';
 import { fetchSearchRepository } from '../../features/search/searchRepositorySlice';
@@ -17,23 +17,17 @@ export const RepositoryFilters = () => {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Row>
-        <Col xs="12">
-          <FormGroup>
-            <Input
-              type="text"
-              value={repositoryName}
-              onChange={(e) => setRepositoryName(e.target.value)}
-              placeholder="Repository name"
-            />
-          </FormGroup>
-        </Col>
-      </Row>
+    <form onSubmit={handleSubmit}>
+      <Input
+        type="text"
+        value={repositoryName}
+        onChange={(e) => setRepositoryName(e.target.value)}
+        placeholder="Repository name"
+      />
 
-      <Button type="submit" disabled={!repositoryName}>
+      <Button className="mt-1" type="submit" disabled={!repositoryName}>
         Fetch
       </Button>
-    </Form>
+    </form>
   );
 };

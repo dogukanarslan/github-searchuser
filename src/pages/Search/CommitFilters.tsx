@@ -1,5 +1,5 @@
 import { useState, FormEvent } from 'react';
-import { Row, Col, Form, FormGroup, Input } from 'reactstrap';
+import { Input } from 'components';
 import { Button } from 'components/Button';
 import { useAppDispatch } from '../../app/store';
 import { fetchSearchCommit } from '../../features/search/searchCommitSlice';
@@ -15,23 +15,17 @@ export const CommitFilters = () => {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Row>
-        <Col xs="12">
-          <FormGroup>
-            <Input
-              type="text"
-              value={commitMessage}
-              onChange={(e) => setCommitMessage(e.target.value)}
-              placeholder="Commit message"
-            />
-          </FormGroup>
-        </Col>
-      </Row>
+    <form onSubmit={handleSubmit}>
+      <Input
+        type="text"
+        value={commitMessage}
+        onChange={(e) => setCommitMessage(e.target.value)}
+        placeholder="Commit message"
+      />
 
-      <Button type="submit" disabled={!commitMessage}>
+      <Button className="mt-1" type="submit" disabled={!commitMessage}>
         Fetch
       </Button>
-    </Form>
+    </form>
   );
 };
