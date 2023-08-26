@@ -1,5 +1,5 @@
 import { useState, FormEvent } from 'react';
-import { Row, Col, Form, FormGroup, Input } from 'reactstrap';
+import { Input } from 'components';
 import { Button } from 'components/Button';
 import { useAppDispatch } from '../../app/store';
 import { fetchSearch } from '../../features/search/searchSlice';
@@ -15,23 +15,17 @@ export const Filters = () => {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Row>
-        <Col xs="12">
-          <FormGroup>
-            <Input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="Username"
-            />
-          </FormGroup>
-        </Col>
-      </Row>
+    <form onSubmit={handleSubmit}>
+      <Input
+        type="text"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        placeholder="Username"
+      />
 
-      <Button type="submit" disabled={!username}>
+      <Button className="mt-1" type="submit" disabled={!username}>
         Fetch
       </Button>
-    </Form>
+    </form>
   );
 };

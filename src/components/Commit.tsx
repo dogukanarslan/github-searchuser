@@ -1,6 +1,7 @@
 import React from 'react';
-import { Card, CardBody, CardText } from 'reactstrap';
+
 import { ICommit } from '../models';
+import { Card } from './Card';
 
 interface CommitProps {
   commit: ICommit;
@@ -9,12 +10,5 @@ interface CommitProps {
 export const Commit = (props: CommitProps) => {
   const { commit } = props;
 
-  return (
-    <Card className="mb-4">
-      <CardBody>
-        <CardText>{commit.author?.name}</CardText>
-        <CardText>{commit.commit.message}</CardText>
-      </CardBody>
-    </Card>
-  );
+  return <Card title={commit.author?.name} body={commit.commit.message} />;
 };
