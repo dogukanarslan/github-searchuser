@@ -1,14 +1,30 @@
-import { Sidebar, Main } from './components';
+import { useState } from 'react';
+import { Menu } from 'react-feather';
+import { Sidebar, Main, Button } from 'components';
 
-export const App = () => (
-  <div className="p-2">
-    <div className="grid grid-cols-5 gap-4">
-      <div className="bg-gray-100 shadow-md">
-        <Sidebar />
+export const App = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+  return (
+    <>
+      <div
+        className={`transition-[width] duration-500 fixed top-0 h-full overflow-x-hidden${
+          isSidebarOpen ? ' w-[200px]' : ' w-16'
+        } bg-gray-100 shadow-md`}
+      >
+        <Sidebar isOpen={isSidebarOpen} />
       </div>
-      <div className="col-span-4">
+
+      <div
+        className={`${
+          isSidebarOpen ? 'ml-[200px] ' : 'ml-16 '
+        }px-6 transition-[margin] duration-500`}
+      >
+        <Button onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+          <Menu />
+        </Button>
         <Main />
       </div>
-    </div>
-  </div>
-);
+    </>
+  );
+};
