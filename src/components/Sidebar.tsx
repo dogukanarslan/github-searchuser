@@ -2,13 +2,19 @@ import { Link, useLocation } from 'react-router-dom';
 import { navLinks } from '../constants';
 import { GitHub } from 'react-feather';
 
-export const Sidebar = () => {
+interface SidebarProps {
+  isOpen: boolean;
+}
+
+export const Sidebar = (props: SidebarProps) => {
+  const { isOpen } = props;
+
   const location = useLocation();
 
   return (
     <div className="p-2">
       <Link to="/" className="flex justify-center items-center mt-3">
-        <GitHub size={30} /> <span>GitHub Search</span>
+        <GitHub size={30} /> {isOpen && <span>GitHub Search</span>}
       </Link>
 
       <hr className="my-2" />
@@ -22,7 +28,7 @@ export const Sidebar = () => {
                 location.pathname === link.path ? 'bg-gray-200' : ''
               } flex items-center rounded-lg text-sm hover:bg-gray-200 px-2 py-2 hover:text-gray-700`}
             >
-              {link.icon} <span className="ml-2">{link.name}</span>
+              {link.icon} <span className="ml-2">{isOpen && link.name}</span>
             </Link>
           </li>
         ))}
