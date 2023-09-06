@@ -13,7 +13,7 @@ export const Sidebar = (props: SidebarProps) => {
 
   return (
     <div className="p-2">
-      <Link to="/" className="flex justify-center items-center mt-3">
+      <Link to="/" className="mt-3 flex items-center justify-center">
         <GitHub size={30} /> {isOpen && <span>GitHub Search</span>}
       </Link>
 
@@ -26,7 +26,7 @@ export const Sidebar = (props: SidebarProps) => {
               to={link.path}
               className={`${
                 location.pathname === link.path ? 'bg-gray-200' : ''
-              } flex items-center rounded-lg text-sm hover:bg-gray-200 px-2 py-2 hover:text-gray-700`}
+              } flex items-center rounded-lg px-2 py-2 text-sm hover:bg-gray-200 hover:text-gray-700`}
             >
               {link.icon} <span className="ml-2">{isOpen && link.name}</span>
             </Link>

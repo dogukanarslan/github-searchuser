@@ -8,7 +8,7 @@ export const App = () => {
   return (
     <>
       <div
-        className={`transition-[width] duration-500 fixed top-0 h-full overflow-x-hidden${
+        className={`fixed top-0 h-full transition-[width] duration-500 overflow-x-hidden${
           isSidebarOpen ? ' w-[200px]' : ' w-16'
         } bg-gray-100 shadow-md`}
       >

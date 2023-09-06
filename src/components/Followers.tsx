@@ -12,11 +12,7 @@ export const Followers = (props: FollowersProps) => {
     <ul>
       {followers.map((follower) => (
         <Link key={follower.id} to={`/details/${follower.login}`} className="">
-          <img
-            src={follower.avatar_url}
-            width="80"
-            alt="User"
-          />
+          <img src={follower.avatar_url} width="80" alt="User" />
           <h6>{follower.login}</h6>
         </Link>
       ))}
