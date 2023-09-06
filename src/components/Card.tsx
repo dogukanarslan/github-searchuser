@@ -12,7 +12,7 @@ export const Card = (props: CardProps) => {
   const history = useHistory();
 
   return (
-    <div className="rounded-lg shadow-sm overflow-hidden">
+    <div className="overflow-hidden rounded-lg shadow-sm">
       {img && <img src={img} className="h-64 w-full object-cover" />}
 
       <div className="bg-white p-4">

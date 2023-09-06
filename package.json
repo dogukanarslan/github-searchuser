@@ -21,7 +21,7 @@
         "preview": "vite preview",
         "predeploy": "npm run build",
         "deploy": "gh-pages -d build",
-        "format": "prettier --write '**/*.{css,ts,tsx}'"
+        "format": "prettier --write ."
     },
     "eslintConfig": {
         "extends": "react-app"
@@ -48,6 +48,7 @@
         "gh-pages": "^2.1.1",
         "postcss": "^8.4.27",
         "prettier": "^2.7.1",
+        "prettier-plugin-tailwindcss": "^0.5.3",
         "tailwindcss": "^3.3.3",
         "vite-tsconfig-paths": "^4.2.0"
     }
