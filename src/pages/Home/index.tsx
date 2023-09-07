@@ -31,7 +31,12 @@ export const Home = () => {
       <Filters />
       <Users users={data} count={data?.length} status={status} />
       <div className="text-center">
-        <Button onClick={() => loadMore()} disabled={!links?.next}>
+        <Button
+          color="primary"
+          className="my-5"
+          onClick={() => loadMore()}
+          disabled={!links?.next}
+        >
           Load More
         </Button>
       </div>

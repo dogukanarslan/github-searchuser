@@ -25,7 +25,7 @@ export const RepositoryFilters = () => {
         placeholder="Repository name"
       />
 
-      <Button className="mt-1" type="submit" disabled={!repositoryName}>
+      <Button color="primary" className="mt-1" type="submit" disabled={!repositoryName}>
         Fetch
       </Button>
     </form>

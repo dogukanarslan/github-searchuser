@@ -23,7 +23,7 @@ export const CommitFilters = () => {
         placeholder="Commit message"
       />
 
-      <Button className="mt-1" type="submit" disabled={!commitMessage}>
+      <Button color="primary" className="mt-1" type="submit" disabled={!commitMessage}>
         Fetch
       </Button>
     </form>
