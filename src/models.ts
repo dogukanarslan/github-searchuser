@@ -12,6 +12,7 @@ export interface IUser {
   followers: number;
   followers_url: string;
   following: number;
+  type: string;
 }
 
 export interface IRepository {

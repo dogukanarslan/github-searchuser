@@ -18,36 +18,38 @@ export const Filters = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <FormLabel htmlFor="startingId">Starting ID</FormLabel>
-        <Input
-          id="startingId"
-          type="number"
-          value={startingId}
-          onChange={(e) => setStartingId(e.target.value)}
-          placeholder="Starting ID"
-        />
+      <div className="grid grid-cols-2 gap-5">
+        <div>
+          <FormLabel htmlFor="startingId">Starting ID</FormLabel>
+          <Input
+            id="startingId"
+            type="number"
+            value={startingId}
+            onChange={(e) => setStartingId(e.target.value)}
+            placeholder="Starting ID"
+          />
+        </div>
+
+        <div>
+          <FormLabel
+            htmlFor="resultsPerPage"
+            className="block text-xs font-medium text-gray-700"
+          >
+            Results Per Page
+          </FormLabel>
+          <Select
+            id="resultsPerPage"
+            value={resultsPerPage}
+            onChange={(e) => setResultsPerPage(e.target.value)}
+          >
+            <option value={30}>30</option>
+            <option value={50}>50</option>
+            <option value={100}>100</option>45
+          </Select>
+        </div>
       </div>
 
-      <div>
-        <FormLabel
-          htmlFor="resultsPerPage"
-          className="block text-xs font-medium text-gray-700"
-        >
-          Results Per Page
-        </FormLabel>
-        <Select
-          id="resultsPerPage"
-          value={resultsPerPage}
-          onChange={(e) => setResultsPerPage(e.target.value)}
-        >
-          <option value={30}>30</option>
-          <option value={50}>50</option>
-          <option value={100}>100</option>45
-        </Select>
-      </div>
-
-      <Button className="mt-1" type="submit">
+      <Button color="primary" className="mt-1" type="submit">
         Fetch
       </Button>
     </form>
