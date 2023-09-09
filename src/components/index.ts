@@ -8,6 +8,7 @@ import { Button } from './Button';
 import { FormLabel } from './FormLabel';
 import { Input } from './Input';
 import { Select } from './Select';
+import { Header } from './Header';
 
 export {
   Main,
@@ -20,4 +21,5 @@ export {
   FormLabel,
   Input,
   Select,
+  Header,
 };
