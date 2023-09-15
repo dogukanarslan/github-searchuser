@@ -1,6 +1,6 @@
 import { get } from '../src/request';
-import { Users, Search } from 'react-feather';
-import { ISearch, IUser } from 'models';
+import { Users, Search, Book } from 'react-feather';
+import { ISearch, IUser, IRepository } from 'models';
 
 export const getUsers = (startingId: string, resultsPerPage: string) => {
   const searchParams = new URLSearchParams();
@@ -28,6 +28,10 @@ export const getFollowers = (login: string) => {
   return get<IUser[]>(`/users/${login}/followers`);
 };
 
+export const getRepositories = () => {
+  return get<IRepository[]>('/repositories');
+};
+
 export const parseLinkHeader = (header: string) => {
   if (header.length === 0) {
     throw new Error('input must not be of zero length');
@@ -51,6 +55,7 @@ export const parseLinkHeader = (header: string) => {
 
 export const navLinks = [
   { name: 'Users', path: '/', icon: <Users size={16} /> },
+  { name: 'Repositories', path: '/repositories', icon: <Book size={16} /> },
   { name: 'Search', path: '/search', icon: <Search size={16} /> },
 ];
 

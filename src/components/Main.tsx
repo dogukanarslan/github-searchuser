@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { Home, Details, Search } from '../pages';
+import { Home, Details, Search, Repositories } from '../pages';
 
 export const Main = () => {
   return (
@@ -9,6 +9,7 @@ export const Main = () => {
         <Route exact path="/" component={Home} />
         <Route path="/details/:login" component={Details} />
         <Route path="/search" component={Search} />
+        <Route path="/repositories" component={Repositories} />
       </Switch>
     </div>
   );
