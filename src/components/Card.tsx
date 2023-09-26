@@ -18,7 +18,7 @@ export const Card = (props: CardProps) => {
       <div className="bg-white p-4">
         {title && <h4>{title}</h4>}
         {body && <p>{body}</p>}
-        {link && <Button primary onClick={() => history.push(link)}>More Info</Button>}
+        {link && <Button onClick={() => history.push(link)}>More Info</Button>}
       </div>
     </div>
   );
