@@ -5,7 +5,12 @@ module.exports = {
     fontFamily: {
       sans: ['Quicksand'],
     },
-    extend: {},
+    extend: {
+      colors: {
+        primary: '#191919',
+        secondary: '#E3651D',
+      },
+    },
   },
   plugins: [require('@tailwindcss/forms')],
 };

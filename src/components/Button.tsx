@@ -19,7 +19,7 @@ export const Button = (props: ButtonProps) => {
     className,
     'inline-block cursor-pointer rounded-lg px-3 py-2',
     {
-      'bg-indigo-600 text-white': color === 'primary',
+      'bg-primary text-white': color === 'primary',
       'bg-gray-400 text-white': color === 'default',
       'bg-transparent text-black': color === 'transparent',
       'px-2 py-1': size === 'sm',

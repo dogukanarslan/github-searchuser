@@ -8,17 +8,17 @@ export const Header = () => {
   const { pathname } = useLocation();
 
   return (
-    <header className="border-b px-24 py-4">
+    <header className="bg-primary px-24 py-4 text-white">
       <nav className="mx-auto flex items-center font-semibold">
-        <GitHub size={36} className="mr-10" />
+        <GitHub size={24} className="mr-3" />
 
-        <ul className="flex items-center gap-x-5">
+        <ul className="flex items-center gap-x-3">
           {navLinks.map((navLink) => {
             return (
               <li
                 key={navLink.name}
-                className={clsx('hover:text-indigo-600', {
-                  'text-indigo-600': pathname === navLink.path,
+                className={clsx('hover:text-secondary', {
+                  'text-secondary': pathname === navLink.path,
                 })}
               >
                 <Link to={navLink.path}>{navLink.name}</Link>
