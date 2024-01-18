@@ -27,8 +27,14 @@ export const User = (props: UserProps) => {
           <div className="flow-root">
             <ul className="-m-1 flex flex-wrap">
               <li className="p-1 leading-none">
-                <Link to="/followers" className="text-xs font-medium">
-                  Followers{' '}
+                <Link
+                  to={{
+                    pathname: `/details/${login}`,
+                    search: '?tab=followers',
+                  }}
+                  className="text-xs font-medium"
+                >
+                  Followers
                 </Link>
               </li>
 
