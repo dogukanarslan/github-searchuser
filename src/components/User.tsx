@@ -9,27 +9,39 @@ export interface UserProps {
 
 export const User = (props: UserProps) => {
   const {
-    user: { avatar_url, login, type },
+    user: { avatar_url, login, type, followers_url, following_url },
   } = props;
 
   return (
-    <Link
-      className="group relative block h-96 bg-black"
-      to={`/details/${login}`}
-    >
-      <img
-        alt="User"
-        src={avatar_url}
-        className="absolute inset-0 h-full w-full object-cover opacity-75 transition-opacity group-hover:opacity-50"
-      />
+    <div className="block rounded-xl border p-4">
+      <div className="flex items-center gap-4">
+        <Link to={`/details/${login}`}>
+          <img
+            src={avatar_url}
+            className="h-16 w-16 rounded-full object-cover"
+            alt="User image"
+          />
+        </Link>
+        <div>
+          <h3 className="text-lg font-bold">{login}</h3>
+          <div className="flow-root">
+            <ul className="-m-1 flex flex-wrap">
+              <li className="p-1 leading-none">
+                <Link to="/followers" className="text-xs font-medium">
+                  Followers{' '}
+                </Link>
+              </li>
 
-      <div className="relative p-4 sm:p-6 lg:p-8">
-        <p className="text-sm font-medium uppercase tracking-widest text-white">
-          {type}
-        </p>
-
-        <p className="text-xl font-bold text-white sm:text-2xl">{login}</p>
+              <li className="p-1 leading-none">
+                <Link to="/following" className="text-xs font-medium">
+                  Following
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div></div>
       </div>
-    </Link>
+    </div>
   );
 };
