@@ -11,6 +11,7 @@ export interface IUser {
   public_repos: number;
   followers: number;
   followers_url: string;
+  following_url: string;
   following: number;
   type: string;
 }
