@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 
 import { IUser } from '../models';
-import { Button } from './Button';
 
 export interface UserProps {
   user: IUser;
@@ -46,7 +45,6 @@ export const User = (props: UserProps) => {
             </ul>
           </div>
         </div>
-        <div></div>
       </div>
     </div>
   );
