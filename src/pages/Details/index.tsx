@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, RouteComponentProps } from 'react-router-dom';
+import { Link, RouteComponentProps, useLocation } from 'react-router-dom';
 import { Followers } from 'components/Followers';
 import { RootState, useAppDispatch } from 'app/store';
 import {
@@ -10,8 +10,12 @@ import { useSelector } from 'react-redux';
 
 export const Details = (props: RouteComponentProps<{ login: string }>) => {
   const { match } = props;
+  const { search } = useLocation();
+  const searchParams = new URLSearchParams(search);
 
-  const [selectedTab, setSelectedTab] = useState('information');
+  const [selectedTab, setSelectedTab] = useState(
+    searchParams.get('tab') || 'information'
+  );
 
   const dispatch = useAppDispatch();
 
