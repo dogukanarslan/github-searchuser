@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { IUser } from 'models';
-import { getFollowers, getUser } from '../../constants';
+import { getFollowers, getFollowing, getUser } from '../../constants';
 
 export const fetchSingleUser = createAsyncThunk(
   'singleUser/fetchSingleUser',
@@ -20,11 +20,21 @@ export const fetchFollowers = createAsyncThunk(
   }
 );
 
+export const fetchFollowing = createAsyncThunk(
+  'singleUser/fetchFollowing',
+  async (login: string) => {
+    const response = await getFollowing(login);
+
+    return response;
+  }
+);
+
 export const singleUserSlice = createSlice({
   name: 'singleUser',
   initialState: {
     user: {} as IUser,
     followers: [] as IUser[],
+    following: [] as IUser[],
     status: 'idle',
   },
   reducers: {},
@@ -43,6 +53,9 @@ export const singleUserSlice = createSlice({
       .addCase(fetchFollowers.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.followers = action.payload.data;
+      })
+      .addCase(fetchFollowing.fulfilled, (state, action) => {
+        state.following = action.payload.data;
       });
   },
 });

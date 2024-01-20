@@ -38,7 +38,13 @@ export const User = (props: UserProps) => {
               </li>
 
               <li className="p-1 leading-none">
-                <Link to="/following" className="text-xs font-medium">
+                <Link
+                  to={{
+                    pathname: `/details/${login}`,
+                    search: '?tab=following',
+                  }}
+                  className="text-xs font-medium"
+                >
                   Following
                 </Link>
               </li>
