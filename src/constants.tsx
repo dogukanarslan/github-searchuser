@@ -28,6 +28,10 @@ export const getFollowers = (login: string) => {
   return get<IUser[]>(`/users/${login}/followers`);
 };
 
+export const getFollowing = (login: string) => {
+  return get<IUser[]>(`/users/${login}/following`);
+};
+
 export const getRepositories = () => {
   return get<IRepository[]>('/repositories');
 };

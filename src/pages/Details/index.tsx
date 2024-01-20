@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, RouteComponentProps, useLocation } from 'react-router-dom';
 import { Followers } from 'components/Followers';
+import { Following } from 'components/Following';
 import { RootState, useAppDispatch } from 'app/store';
 import {
   fetchFollowers,
+  fetchFollowing,
   fetchSingleUser,
 } from 'features/singleUser/singleUserSlice';
 import { useSelector } from 'react-redux';
@@ -22,12 +24,14 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
   const {
     user,
     followers: followersList,
+    following: followingList,
     status,
   } = useSelector((state: RootState) => state.singleUser);
 
   useEffect(() => {
     dispatch(fetchSingleUser({ login: match.params.login }));
     dispatch(fetchFollowers(match.params.login));
+    dispatch(fetchFollowing(match.params.login));
   }, [match.params.login, dispatch]);
 
   const {
@@ -72,6 +76,15 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
             onClick={() => setSelectedTab('followers')}
           >
             Followers
+          </Link>
+          <Link
+            to="#"
+            className={`${
+              selectedTab === 'following' ? 'bg-gray-100 ' : ''
+            }shrink-0 rounded-lg p-2 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700`}
+            onClick={() => setSelectedTab('following')}
+          >
+            Following
           </Link>
         </nav>
       </div>
@@ -134,6 +147,7 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
           </>
         )}
         {selectedTab === 'followers' && <Followers followers={followersList} />}
+        {selectedTab === 'following' && <Following following={followingList} />}
       </div>
     </>
   );
