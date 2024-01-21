@@ -109,12 +109,12 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
           </div>
         </div>
 
-        <nav className="flex gap-6" aria-label="Tabs">
+        <nav className="mb-2 flex gap-6 transition-all" aria-label="Tabs">
           <Link
             to="#"
             className={`${
-              selectedTab === 'followers' ? 'bg-gray-100 ' : ''
-            }shrink-0 rounded-lg p-2 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700`}
+              selectedTab === 'followers' ? 'border-b-2 ' : ''
+            }text-sm border-secondary font-medium`}
             onClick={() => setSelectedTab('followers')}
           >
             Followers
@@ -122,8 +122,8 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
           <Link
             to="#"
             className={`${
-              selectedTab === 'following' ? 'bg-gray-100 ' : ''
-            }shrink-0 rounded-lg p-2 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700`}
+              selectedTab === 'following' ? 'border-b-2 ' : ''
+            }text-sm border-secondary font-medium`}
             onClick={() => setSelectedTab('following')}
           >
             Following
