@@ -122,7 +122,7 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
             to="#"
             className={`${
               selectedTab === 'followers' ? 'border-b-2 ' : ''
-            }text-sm border-secondary font-medium`}
+            }text-sm border-secondary font-medium hover:border-b-2`}
             onClick={() => setSelectedTab('followers')}
           >
             Followers
@@ -131,7 +131,7 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
             to="#"
             className={`${
               selectedTab === 'following' ? 'border-b-2 ' : ''
-            }text-sm border-secondary font-medium`}
+            }text-sm border-secondary font-medium hover:border-b-2`}
             onClick={() => setSelectedTab('following')}
           >
             Following
