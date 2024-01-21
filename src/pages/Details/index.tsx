@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link, RouteComponentProps, useLocation } from 'react-router-dom';
 import { Followers } from 'components/Followers';
 import { Following } from 'components/Following';
@@ -15,11 +15,19 @@ import { Briefcase, MapPin, Mail, Link as LinkIcon } from 'react-feather';
 export const Details = (props: RouteComponentProps<{ login: string }>) => {
   const { match } = props;
   const { search } = useLocation();
-  const searchParams = new URLSearchParams(search);
+
+  const searchParams = useMemo(() => new URLSearchParams(search), [search]);
 
   const [selectedTab, setSelectedTab] = useState(
     searchParams.get('tab') || 'followers'
   );
+
+  useEffect(() => {
+    const tab = searchParams.get('tab');
+    if (tab && tab !== selectedTab) {
+      setSelectedTab(tab);
+    }
+  }, [searchParams]);
 
   const dispatch = useAppDispatch();
 
