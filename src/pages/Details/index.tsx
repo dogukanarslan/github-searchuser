@@ -10,13 +10,15 @@ import {
 } from 'features/singleUser/singleUserSlice';
 import { useSelector } from 'react-redux';
 
+import { Briefcase, MapPin, Mail, Link as LinkIcon } from 'react-feather';
+
 export const Details = (props: RouteComponentProps<{ login: string }>) => {
   const { match } = props;
   const { search } = useLocation();
   const searchParams = new URLSearchParams(search);
 
   const [selectedTab, setSelectedTab] = useState(
-    searchParams.get('tab') || 'information'
+    searchParams.get('tab') || 'followers'
   );
 
   const dispatch = useAppDispatch();
@@ -55,19 +57,59 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
   return (
     <>
       <div>
-        <img width={200} src={avatar_url} alt="" />
+        <div className="flex items-center">
+          <img className="w-48 rounded-full" src={avatar_url} alt="" />
+          <div className="ml-10">
+            <ul className="flex gap-x-5 text-center">
+              <li>
+                <div>
+                  <div className="font-bold">{public_repos}</div>
+                  <h3>Repositories</h3>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <div className="font-bold">{followers}</div>
+                  <h3>Followers</h3>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <div className="font-bold">{following}</div>
+                  <h3>Following</h3>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div className="py-5">
+          <h1 className="text-lg font-bold">{name}</h1>
+          <h3>{login}</h3>
+          <div className="mt-2">
+            {company && (
+              <div className="flex items-center gap-x-2">
+                <Briefcase size="16" /> {company}
+              </div>
+            )}
+            {location && (
+              <div className="flex items-center gap-x-2">
+                <MapPin size="16" /> {location}
+              </div>
+            )}
+            {email && (
+              <div className="flex items-center gap-x-2">
+                <Mail size="16" /> {email}
+              </div>
+            )}
+            {blog && (
+              <div className="flex items-center gap-x-2">
+                <LinkIcon size="16" /> {blog}
+              </div>
+            )}
+          </div>
+        </div>
 
         <nav className="flex gap-6" aria-label="Tabs">
-          <Link
-            to="#"
-            className={`${
-              selectedTab === 'information' ? 'bg-gray-100 ' : ''
-            }shrink-0 rounded-lg p-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700`}
-            onClick={() => setSelectedTab('information')}
-          >
-            Information
-          </Link>
-
           <Link
             to="#"
             className={`${
@@ -89,66 +131,8 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
         </nav>
       </div>
 
-      <div>
-        {selectedTab === 'information' && (
-          <>
-            <p>
-              <strong>Username</strong>
-              <br />
-              {login}
-            </p>
-            <p>
-              <strong>Name</strong>
-              <br /> {name}
-            </p>
-            {company && (
-              <p>
-                <strong>Company</strong>
-                <br /> {company}
-              </p>
-            )}
-            {blog && (
-              <p>
-                <strong>Blog</strong>
-                <br /> {blog}
-              </p>
-            )}
-            {location && (
-              <p>
-                <strong>Location</strong>
-                <br /> {location}
-              </p>
-            )}
-            {email && (
-              <p>
-                <strong>Email</strong>
-                <br /> {email}
-              </p>
-            )}
-            {bio && (
-              <p>
-                <strong>Bio</strong>
-                <br /> {bio}
-              </p>
-            )}
-            <p>
-              <strong>Public Repositories</strong>
-              <br />
-              {public_repos}
-            </p>
-            <p>
-              <strong>Followers</strong>
-              <br /> {followers}
-            </p>
-            <p>
-              <strong>Following</strong>
-              <br /> {following}
-            </p>
-          </>
-        )}
-        {selectedTab === 'followers' && <Followers followers={followersList} />}
-        {selectedTab === 'following' && <Following following={followingList} />}
-      </div>
+      {selectedTab === 'followers' && <Followers followers={followersList} />}
+      {selectedTab === 'following' && <Following following={followingList} />}
     </>
   );
 };
