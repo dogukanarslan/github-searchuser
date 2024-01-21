@@ -16,7 +16,10 @@ export const Repositories = () => {
   return (
     <div className="space-y-2">
       {data.map((repository) => (
-        <div className="overflow-hidden rounded-lg shadow transition hover:shadow-lg">
+        <div
+          key={repository.id}
+          className="overflow-hidden rounded-lg shadow transition hover:shadow-lg"
+        >
           <div className="bg-white p-4 sm:p-6">
             <h3 className="mt-0.5 text-lg text-gray-900">{repository.name}</h3>
             <p className="mt-2 text-sm text-gray-500">
