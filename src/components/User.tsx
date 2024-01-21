@@ -8,7 +8,7 @@ export interface UserProps {
 
 export const User = (props: UserProps) => {
   const {
-    user: { avatar_url, login, type, followers_url, following_url },
+    user: { avatar_url, login },
   } = props;
 
   return (
