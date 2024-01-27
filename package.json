@@ -3,6 +3,7 @@
   "name": "githubsearch",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.3",
     "@vitejs/plugin-react": "^4.2.1",
