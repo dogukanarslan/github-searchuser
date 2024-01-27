@@ -4,7 +4,6 @@ import { IUser } from '../models';
 interface UsersProps {
   users: IUser[] | null | undefined;
   count: number | undefined;
-  status: string;
 }
 
 export const Users = (props: UsersProps) => {
