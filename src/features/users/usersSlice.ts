@@ -15,10 +15,14 @@ type SliceState = {
 
 export const fetchUsers = createAsyncThunk(
   'users/fetchUsers',
-  async (args: argsType = { startingId: '', resultsPerPage: '' }) => {
-    const { startingId, resultsPerPage } = args;
+  async (args?: argsType) => {
+    if (args) {
+      const { startingId, resultsPerPage } = args;
+      const response = await getUsers(startingId, resultsPerPage);
+      return response;
+    }
 
-    const response = await getUsers(startingId, resultsPerPage);
+    const response = await getUsers();
     return response;
   }
 );

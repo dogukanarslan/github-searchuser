@@ -23,8 +23,10 @@ export const Home = () => {
   };
 
   useEffect(() => {
-    dispatch(resetUsers());
     dispatch(fetchUsers());
+    return () => {
+      dispatch(resetUsers());
+    };
   }, [dispatch]);
 
   return (
