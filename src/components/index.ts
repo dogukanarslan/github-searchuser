@@ -9,6 +9,7 @@ import { FormLabel } from './FormLabel';
 import { Input } from './Input';
 import { Select } from './Select';
 import { Header } from './Header';
+import { Spinner } from './Spinner';
 
 export {
   Main,
@@ -22,4 +23,5 @@ export {
   Input,
   Select,
   Header,
+  Spinner,
 };

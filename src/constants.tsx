@@ -24,12 +24,24 @@ export const getSearch = (type: string, q: string) => {
   return get<ISearch>(`/search/${type}?q=${q}`);
 };
 
-export const getFollowers = (login: string) => {
-  return get<IUser[]>(`/users/${login}/followers`);
+export const getFollowers = (login: string, page: string) => {
+  const searchParams = new URLSearchParams();
+
+  if (page) {
+    searchParams.append('page', page);
+  }
+
+  return get<IUser[]>(`/users/${login}/followers`, searchParams.toString());
 };
 
-export const getFollowing = (login: string) => {
-  return get<IUser[]>(`/users/${login}/following`);
+export const getFollowing = (login: string, page: string) => {
+  const searchParams = new URLSearchParams();
+
+  if (page) {
+    searchParams.append('page', page);
+  }
+
+  return get<IUser[]>(`/users/${login}/following`, searchParams.toString());
 };
 
 export const getRepositories = () => {
