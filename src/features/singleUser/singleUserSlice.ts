@@ -11,10 +11,16 @@ export const fetchSingleUser = createAsyncThunk(
   }
 );
 
+type argsType = {
+  login: string;
+  page?: string;
+};
+
 export const fetchFollowers = createAsyncThunk(
   'singleUser/fetchFollowers',
-  async (login: string) => {
-    const response = await getFollowers(login);
+  async (args: argsType = { login: '', page: '' }) => {
+    const { login, page } = args;
+    const response = await getFollowers(login, page || '');
 
     return response;
   }
@@ -22,21 +28,35 @@ export const fetchFollowers = createAsyncThunk(
 
 export const fetchFollowing = createAsyncThunk(
   'singleUser/fetchFollowing',
-  async (login: string) => {
-    const response = await getFollowing(login);
+  async (args: argsType = { login: '', page: '' }) => {
+    const { login, page } = args;
+    const response = await getFollowing(login, page || '');
 
     return response;
   }
 );
 
+type SliceState = {
+  user: IUser | null;
+  followersLinks: any | null;
+  followingLinks: any | null;
+  followers: IUser[];
+  following: IUser[];
+  status: string;
+};
+
+const initialState: SliceState = {
+  user: null,
+  followersLinks: null,
+  followingLinks: null,
+  followers: [],
+  following: [],
+  status: 'idle',
+};
+
 export const singleUserSlice = createSlice({
   name: 'singleUser',
-  initialState: {
-    user: {} as IUser,
-    followers: [] as IUser[],
-    following: [] as IUser[],
-    status: 'idle',
-  },
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
@@ -47,14 +67,12 @@ export const singleUserSlice = createSlice({
         state.status = 'succeeded';
         state.user = action.payload.data;
       })
-      .addCase(fetchFollowers.pending, (state) => {
-        state.status = 'loading';
-      })
       .addCase(fetchFollowers.fulfilled, (state, action) => {
-        state.status = 'succeeded';
+        state.followersLinks = action.payload.links || {};
         state.followers = action.payload.data;
       })
       .addCase(fetchFollowing.fulfilled, (state, action) => {
+        state.followingLinks = action.payload.links || {};
         state.following = action.payload.data;
       });
   },

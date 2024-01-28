@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link, RouteComponentProps, useLocation } from 'react-router-dom';
 import { Followers } from 'components/Followers';
 import { Following } from 'components/Following';
+import { Spinner } from 'components';
 import { RootState, useAppDispatch } from 'app/store';
 import {
   fetchFollowers,
@@ -31,18 +32,23 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
 
   const dispatch = useAppDispatch();
 
-  const {
-    user,
-    followers: followersList,
-    following: followingList,
-    status,
-  } = useSelector((state: RootState) => state.singleUser);
+  const { user, status } = useSelector((state: RootState) => state.singleUser);
 
   useEffect(() => {
     dispatch(fetchSingleUser({ login: match.params.login }));
-    dispatch(fetchFollowers(match.params.login));
-    dispatch(fetchFollowing(match.params.login));
   }, [match.params.login, dispatch]);
+
+  if (status === 'loading') {
+    return (
+      <div className="text-center">
+        <Spinner />
+      </div>
+    );
+  }
+
+  if (!user) {
+    return <h1 className="text-center text-2xl font-bold">USER NOT FOUND</h1>;
+  }
 
   const {
     avatar_url,
@@ -57,10 +63,6 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
     followers,
     following,
   } = user;
-
-  if (status === 'loading') {
-    return 'Loading...';
-  }
 
   return (
     <>
@@ -139,8 +141,8 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
         </nav>
       </div>
 
-      {selectedTab === 'followers' && <Followers followers={followersList} />}
-      {selectedTab === 'following' && <Following following={followingList} />}
+      {selectedTab === 'followers' && <Followers />}
+      {selectedTab === 'following' && <Following />}
     </>
   );
 };
