@@ -2,7 +2,7 @@ import { get } from '../src/request';
 import { Users, Search, Book } from 'react-feather';
 import { ISearch, IUser, IRepository } from 'models';
 
-export const getUsers = (startingId: string, resultsPerPage: string) => {
+export const getUsers = (startingId?: string, resultsPerPage?: string) => {
   const searchParams = new URLSearchParams();
 
   if (startingId) {
