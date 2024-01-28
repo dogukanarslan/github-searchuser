@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch, TypedUseSelectorHook } from 'react-redux';
 import usersReducer from '../features/users/usersSlice';
 import searchReducer from '../features/search/searchSlice';
 import searchRepositoryReducer from '../features/search/searchRepositorySlice';
@@ -22,3 +22,4 @@ export type RootState = ReturnType<typeof store.getState>;
 
 type AppDispatch = typeof store.dispatch;
 export const useAppDispatch: () => AppDispatch = useDispatch;
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
