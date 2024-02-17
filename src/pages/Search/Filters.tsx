@@ -23,7 +23,12 @@ export const Filters = () => {
         placeholder="Username"
       />
 
-      <Button color="primary" className="mt-1" type="submit" disabled={!username}>
+      <Button
+        color="primary"
+        className="mt-1"
+        type="submit"
+        disabled={!username}
+      >
         Fetch
       </Button>
     </form>
