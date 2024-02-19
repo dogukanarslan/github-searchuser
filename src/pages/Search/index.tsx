@@ -10,7 +10,7 @@ import { CommitFilters } from './CommitFilters';
 import { Link } from 'react-router-dom';
 
 export const Search = () => {
-  const { data, status } = useSelector((state: RootState) => state.search);
+  const { data } = useSelector((state: RootState) => state.search);
   const { data: repositoriesData, status: repositoriesStatus } = useSelector(
     (state: RootState) => state.searchRepository
   );
@@ -62,11 +62,7 @@ export const Search = () => {
       {activeTab === 'users' ? (
         <>
           <Filters />
-          <Users
-            users={data?.items}
-            count={data?.total_count}
-            status={status}
-          />
+          <Users users={data?.items} count={data?.total_count} />
         </>
       ) : activeTab === 'repositories' ? (
         <>

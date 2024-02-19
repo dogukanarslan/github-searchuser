@@ -1,36 +1,27 @@
-import { useState, FormEvent } from 'react';
+import { useState, useEffect } from 'react';
 import { Input } from 'components';
-import { Button } from 'components/Button';
 import { useAppDispatch } from '../../app/store';
 import { fetchSearch } from '../../features/search/searchSlice';
+import { useDebouncedValue } from 'hooks/useDebouncedValue';
 
 export const Filters = () => {
   const [username, setUsername] = useState('');
+  const debouncedSearchValue = useDebouncedValue(username);
 
   const dispatch = useAppDispatch();
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    dispatch(fetchSearch({ type: 'users', q: username }));
-  };
+  useEffect(() => {
+    if (debouncedSearchValue) {
+      dispatch(fetchSearch({ type: 'users', q: debouncedSearchValue }));
+    }
+  }, [debouncedSearchValue, dispatch]);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Input
-        type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        placeholder="Username"
-      />
-
-      <Button
-        color="primary"
-        className="mt-1"
-        type="submit"
-        disabled={!username}
-      >
-        Fetch
-      </Button>
-    </form>
+    <Input
+      type="text"
+      value={username}
+      onChange={(e) => setUsername(e.target.value)}
+      placeholder="Username"
+    />
   );
 };

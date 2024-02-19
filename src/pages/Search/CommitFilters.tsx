@@ -1,36 +1,28 @@
-import { useState, FormEvent } from 'react';
+import { useState, useEffect } from 'react';
 import { Input } from 'components';
-import { Button } from 'components/Button';
 import { useAppDispatch } from '../../app/store';
 import { fetchSearchCommit } from '../../features/search/searchCommitSlice';
+import { useDebouncedValue } from 'hooks/useDebouncedValue';
 
 export const CommitFilters = () => {
   const [commitMessage, setCommitMessage] = useState('');
 
   const dispatch = useAppDispatch();
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    dispatch(fetchSearchCommit({ type: 'commits', q: commitMessage }));
-  };
+  const debouncedSearchValue = useDebouncedValue(commitMessage);
+
+  useEffect(() => {
+    if (debouncedSearchValue) {
+      dispatch(fetchSearchCommit({ type: 'commits', q: commitMessage }));
+    }
+  }, [debouncedSearchValue, commitMessage, dispatch]);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Input
-        type="text"
-        value={commitMessage}
-        onChange={(e) => setCommitMessage(e.target.value)}
-        placeholder="Commit message"
-      />
-
-      <Button
-        color="primary"
-        className="mt-1"
-        type="submit"
-        disabled={!commitMessage}
-      >
-        Fetch
-      </Button>
-    </form>
+    <Input
+      type="text"
+      value={commitMessage}
+      onChange={(e) => setCommitMessage(e.target.value)}
+      placeholder="Commit message"
+    />
   );
 };
