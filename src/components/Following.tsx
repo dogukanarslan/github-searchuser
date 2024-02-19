@@ -17,7 +17,7 @@ export const Following = () => {
 
   useEffect(() => {
     dispatch(fetchFollowing({ login: params.login }));
-  }, [params]);
+  }, [params, dispatch]);
 
   const loadMore = () => {
     console.log('fetching');

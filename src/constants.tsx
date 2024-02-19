@@ -57,7 +57,7 @@ export const parseLinkHeader = (header: string) => {
   const links: Record<string, string> = {};
 
   parts.forEach((part: string) => {
-    var section = part.split(';');
+    const section = part.split(';');
     if (section.length !== 2) {
       throw new Error("section could not be split on ';'");
     }

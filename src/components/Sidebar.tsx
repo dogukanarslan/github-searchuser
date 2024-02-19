@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { GitHub, Rewind, FastForward } from 'react-feather';
+import { Rewind, FastForward } from 'react-feather';
 import { Button } from './Button';
 import { navLinks } from '../constants';
 

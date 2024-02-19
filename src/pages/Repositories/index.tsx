@@ -11,7 +11,7 @@ export const Repositories = () => {
 
   useEffect(() => {
     dispatch(fetchRepositories());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="space-y-2">
