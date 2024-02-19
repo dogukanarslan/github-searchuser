@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 interface CustomLinkProps {
-  to: any;
+  to: string;
   children: React.ReactNode;
   active?: boolean;
   classes?: string;

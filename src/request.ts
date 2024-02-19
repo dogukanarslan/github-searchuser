@@ -3,7 +3,7 @@ import { parseLinkHeader } from '../src/constants';
 const apiURL = 'https://api.github.com';
 
 const request = async <T>(url: string, params?: string, method = 'GET') => {
-  let options: { method: string; body?: string } = { method };
+  const options: { method: string; body?: string } = { method };
 
   if (method === 'GET') {
     if (params) {

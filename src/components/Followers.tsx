@@ -17,7 +17,7 @@ export const Followers = () => {
 
   useEffect(() => {
     dispatch(fetchFollowers({ login: params.login }));
-  }, [params]);
+  }, [params, dispatch]);
 
   const loadMore = () => {
     const urlParams = new URL(followersLinks.next).searchParams;

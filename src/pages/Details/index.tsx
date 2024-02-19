@@ -4,11 +4,7 @@ import { Followers } from 'components/Followers';
 import { Following } from 'components/Following';
 import { Spinner } from 'components';
 import { RootState, useAppDispatch } from 'app/store';
-import {
-  fetchFollowers,
-  fetchFollowing,
-  fetchSingleUser,
-} from 'features/singleUser/singleUserSlice';
+import { fetchSingleUser } from 'features/singleUser/singleUserSlice';
 import { useSelector } from 'react-redux';
 
 import { Briefcase, MapPin, Mail, Link as LinkIcon } from 'react-feather';
@@ -28,7 +24,7 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
     if (tab && tab !== selectedTab) {
       setSelectedTab(tab);
     }
-  }, [searchParams]);
+  }, [searchParams, selectedTab]);
 
   const dispatch = useAppDispatch();
 
@@ -58,7 +54,6 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
     blog,
     location,
     email,
-    bio,
     public_repos,
     followers,
     following,
