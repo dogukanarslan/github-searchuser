@@ -60,10 +60,10 @@ export const Search = () => {
       </nav>
 
       {activeTab === 'users' ? (
-        <>
+        <div className="space-y-2">
           <Filters />
           <Users users={data?.items} count={data?.total_count} />
-        </>
+        </div>
       ) : activeTab === 'repositories' ? (
         <>
           <RepositoryFilters />
