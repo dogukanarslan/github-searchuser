@@ -1,38 +1,30 @@
-import { useState, FormEvent } from 'react';
+import { useState, useEffect } from 'react';
 import { Input } from 'components';
-import { Button } from 'components/Button';
 import { useAppDispatch } from '../../app/store';
 import { fetchSearchRepository } from '../../features/search/searchRepositorySlice';
+import { useDebouncedValue } from 'hooks/useDebouncedValue';
 
 export const RepositoryFilters = () => {
   const [repositoryName, setRepositoryName] = useState('');
 
   const dispatch = useAppDispatch();
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    dispatch(
-      fetchSearchRepository({ type: 'repositories', q: repositoryName })
-    );
-  };
+  const debouncedSearchValue = useDebouncedValue(repositoryName);
+
+  useEffect(() => {
+    if (debouncedSearchValue) {
+      dispatch(
+        fetchSearchRepository({ type: 'repositories', q: debouncedSearchValue })
+      );
+    }
+  }, [debouncedSearchValue, dispatch]);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Input
-        type="text"
-        value={repositoryName}
-        onChange={(e) => setRepositoryName(e.target.value)}
-        placeholder="Repository name"
-      />
-
-      <Button
-        color="primary"
-        className="mt-1"
-        type="submit"
-        disabled={!repositoryName}
-      >
-        Fetch
-      </Button>
-    </form>
+    <Input
+      type="text"
+      value={repositoryName}
+      onChange={(e) => setRepositoryName(e.target.value)}
+      placeholder="Repository name"
+    />
   );
 };
