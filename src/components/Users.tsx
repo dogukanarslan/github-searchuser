@@ -13,10 +13,6 @@ export const Users = (props: UsersProps) => {
 
   const { status } = useAppSelector((state) => state.search);
 
-  if (status === 'idle') {
-    return <h1 className="text-xl">Search a user</h1>;
-  }
-
   if (status === 'loading') {
     return <Spinner />;
   }
