@@ -1,4 +1,3 @@
-import { useAppSelector } from 'app/store';
 import { Spinner } from 'components';
 import { User } from './User';
 import { IUser } from '../models';
@@ -6,18 +5,13 @@ import { IUser } from '../models';
 interface UsersProps {
   users: IUser[] | null | undefined;
   count: number | undefined;
+  isLoading?: boolean;
 }
 
 export const Users = (props: UsersProps) => {
-  const { users, count } = props;
+  const { users, count, isLoading } = props;
 
-  const { status } = useAppSelector((state) => state.search);
-
-  if (status === 'idle') {
-    return <h1 className="text-xl">Search a user</h1>;
-  }
-
-  if (status === 'loading') {
+  if (isLoading) {
     return <Spinner />;
   }
 

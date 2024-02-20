@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-import { User } from './User';
 import { useAppDispatch, useAppSelector } from 'app/store';
-import { Button } from 'components';
+import { Button, Users } from 'components';
 import { fetchFollowers } from 'features/singleUser/singleUserSlice';
 import { SkipForward, SkipBack } from 'react-feather';
 import { useRouteMatch } from 'react-router-dom';
@@ -19,8 +18,8 @@ export const Followers = () => {
     dispatch(fetchFollowers({ login: params.login }));
   }, [params, dispatch]);
 
-  const loadMore = () => {
-    const urlParams = new URL(followersLinks.next).searchParams;
+  const loadMore = (type: string) => {
+    const urlParams = new URL(followersLinks[type]).searchParams;
     const page = urlParams.get('page');
 
     if (user && page) {
@@ -32,23 +31,24 @@ export const Followers = () => {
   return (
     <div className="space-y-2">
       <h1 className="font-bold">Page {currentPage}</h1>
-      {followers.map((follower) => (
-        <User key={follower.id} user={follower} />
-      ))}
+      <Users
+        users={followers}
+        count={followers.length}
+      />
       <div className="text-center">
         <div className="space-x-2">
           <Button
             color="primary"
             className="my-5"
-            onClick={() => loadMore()}
-            disabled={!followersLinks?.next}
+            onClick={() => loadMore('prev')}
+            disabled={!followersLinks?.prev}
           >
             <SkipBack />
           </Button>
           <Button
             color="primary"
             className="my-5"
-            onClick={() => loadMore()}
+            onClick={() => loadMore('next')}
             disabled={!followersLinks?.next}
           >
             <SkipForward />
