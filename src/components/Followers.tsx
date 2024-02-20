@@ -19,8 +19,8 @@ export const Followers = () => {
     dispatch(fetchFollowers({ login: params.login }));
   }, [params, dispatch]);
 
-  const loadMore = () => {
-    const urlParams = new URL(followersLinks.next).searchParams;
+  const loadMore = (type: string) => {
+    const urlParams = new URL(followersLinks[type]).searchParams;
     const page = urlParams.get('page');
 
     if (user && page) {
@@ -40,15 +40,15 @@ export const Followers = () => {
           <Button
             color="primary"
             className="my-5"
-            onClick={() => loadMore()}
-            disabled={!followersLinks?.next}
+            onClick={() => loadMore('prev')}
+            disabled={!followersLinks?.prev}
           >
             <SkipBack />
           </Button>
           <Button
             color="primary"
             className="my-5"
-            onClick={() => loadMore()}
+            onClick={() => loadMore('next')}
             disabled={!followersLinks?.next}
           >
             <SkipForward />
