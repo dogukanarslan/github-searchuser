@@ -24,7 +24,11 @@ const initialState: SliceState = {
 export const repositoriesSlice = createSlice({
   name: 'repositories',
   initialState,
-  reducers: {},
+  reducers: {
+    resetRepositories: (state) => {
+      state.data = [];
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchRepositories.pending, (state) => {
@@ -37,5 +41,7 @@ export const repositoriesSlice = createSlice({
       });
   },
 });
+
+export const { resetRepositories } = repositoriesSlice.actions;
 
 export default repositoriesSlice.reducer;
