@@ -3,7 +3,10 @@ import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from 'app/store';
 
 import { useEffect } from 'react';
-import { fetchRepositories } from 'features/repositories/repositoriesSlice';
+import {
+  fetchRepositories,
+  resetRepositories,
+} from 'features/repositories/repositoriesSlice';
 
 export const Repositories = () => {
   const dispatch = useAppDispatch();
@@ -11,6 +14,9 @@ export const Repositories = () => {
 
   useEffect(() => {
     dispatch(fetchRepositories());
+    return () => {
+      dispatch(resetRepositories());
+    };
   }, [dispatch]);
 
   return (
