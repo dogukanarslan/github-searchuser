@@ -20,9 +20,9 @@ export interface IRepository {
   id: number;
   name: string;
   description: string;
-  owner: {
-    login: string;
-  };
+  full_name: string;
+  owner: IUser;
+  branches_url: string;
 }
 
 export interface ICommit {
@@ -37,4 +37,9 @@ export interface ISearch {
   incomplete_results: boolean;
   items: any[];
   total_count: number;
+}
+
+export interface IBranch {
+  name: string;
+  protected: boolean;
 }

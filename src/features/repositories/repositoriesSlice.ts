@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getRepositories } from '../../constants';
-import { IRepository } from '../../models';
+import { getBranches, getRepositories } from '../../constants';
+import { IBranch, IRepository } from '../../models';
 
 export const fetchRepositories = createAsyncThunk(
   'repositories/fetchRepositories',
@@ -10,14 +10,24 @@ export const fetchRepositories = createAsyncThunk(
   }
 );
 
+export const fetchBranches = createAsyncThunk(
+  'repositories/fetchBranches',
+  async (args: { login: string; repo: string }) => {
+    const response = await getBranches(args.login, args.repo);
+    return response;
+  }
+);
+
 type SliceState = {
   data: IRepository[];
+  branches: Record<string, IBranch[]>;
   links?: any;
   status: string;
 };
 
 const initialState: SliceState = {
   data: [],
+  branches: {},
   status: 'idle',
 };
 
@@ -38,6 +48,10 @@ export const repositoriesSlice = createSlice({
         state.status = 'succeeded';
         state.links = action.payload.links;
         state.data = [...state.data, ...action.payload.data];
+      })
+      .addCase(fetchBranches.fulfilled, (state, action) => {
+        const { repo } = action.meta.arg;
+        state.branches[repo] = action.payload.data;
       });
   },
 });
