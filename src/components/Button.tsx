@@ -20,6 +20,7 @@ export const Button = (props: ButtonProps) => {
     'inline-block cursor-pointer rounded-lg',
     {
       'bg-primary text-white': color === 'primary',
+      'bg-secondary text-white': color === 'secondary',
       'bg-gray-400 text-white': color === 'default',
       'bg-transparent text-black': color === 'transparent',
       'cursor-not-allowed opacity-60': disabled,
