@@ -4,9 +4,14 @@ import { IBranch, IRepository } from '../../models';
 
 export const fetchRepositories = createAsyncThunk(
   'repositories/fetchRepositories',
-  async () => {
-    const response = await getRepositories();
-    return response;
+  async (since?: string) => {
+    if (since) {
+      const response = await getRepositories(since);
+      return response;
+    } else {
+      const response = await getRepositories();
+      return response;
+    }
   }
 );
 
