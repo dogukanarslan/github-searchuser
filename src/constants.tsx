@@ -44,8 +44,13 @@ export const getFollowing = (login: string, page: string) => {
   return get<IUser[]>(`/users/${login}/following`, searchParams.toString());
 };
 
-export const getRepositories = () => {
-  return get<IRepository[]>('/repositories');
+export const getRepositories = (since?: string) => {
+  const searchParams = new URLSearchParams();
+  if (since) {
+    searchParams.append('since', since);
+  }
+
+  return get<IRepository[]>('/repositories', searchParams.toString());
 };
 
 export const getBranches = (login: string, repo: string) => {
