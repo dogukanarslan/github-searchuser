@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getBranches, getRepositories } from '../../constants';
-import { IBranch, IRepository } from '../../models';
+import { getBranches, getRepositories, getLabels } from '../../constants';
+import { IBranch, ILabel, IRepository } from '../../models';
 
 export const fetchRepositories = createAsyncThunk(
   'repositories/fetchRepositories',
@@ -23,9 +23,18 @@ export const fetchBranches = createAsyncThunk(
   }
 );
 
+export const fetchLabels = createAsyncThunk(
+  'repositories/fetchLabels',
+  async (args: { login: string; repo: string }) => {
+    const response = await getLabels(args.login, args.repo);
+    return response;
+  }
+);
+
 type SliceState = {
   data: IRepository[];
   branches: Record<string, IBranch[]>;
+  labels: Record<string, ILabel[]>;
   links?: any;
   status: string;
 };
@@ -33,6 +42,7 @@ type SliceState = {
 const initialState: SliceState = {
   data: [],
   branches: {},
+  labels: {},
   status: 'idle',
 };
 
@@ -57,6 +67,10 @@ export const repositoriesSlice = createSlice({
       .addCase(fetchBranches.fulfilled, (state, action) => {
         const { repo } = action.meta.arg;
         state.branches[repo] = action.payload.data;
+      })
+      .addCase(fetchLabels.fulfilled, (state, action) => {
+        const { repo } = action.meta.arg;
+        state.labels[repo] = action.payload.data;
       });
   },
 });

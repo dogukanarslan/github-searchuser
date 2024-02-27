@@ -43,3 +43,9 @@ export interface IBranch {
   name: string;
   protected: boolean;
 }
+
+export interface ILabel {
+  color: string;
+  name: string;
+  description: string | null;
+}

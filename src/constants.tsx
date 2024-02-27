@@ -1,6 +1,6 @@
 import { get } from '../src/request';
 import { Users, Search, Book } from 'react-feather';
-import { ISearch, IUser, IRepository, IBranch } from 'models';
+import { ISearch, IUser, IRepository, IBranch, ILabel } from 'models';
 
 export const getUsers = (startingId?: string, resultsPerPage?: string) => {
   const searchParams = new URLSearchParams();
@@ -55,6 +55,10 @@ export const getRepositories = (since?: string) => {
 
 export const getBranches = (login: string, repo: string) => {
   return get<IBranch[]>(`/repos/${login}/${repo}/branches`);
+};
+
+export const getLabels = (login: string, repo: string) => {
+  return get<ILabel[]>(`/repos/${login}/${repo}/labels`);
 };
 
 export const parseLinkHeader = (header: string) => {
