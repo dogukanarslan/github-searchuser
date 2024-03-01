@@ -20,7 +20,6 @@ export const Following = () => {
   }, [params, dispatch]);
 
   const loadMore = () => {
-    console.log('fetching');
     const urlParams = new URL(followingLinks.next).searchParams;
     const page = urlParams.get('page');
 
