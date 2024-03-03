@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchFollowing } from 'features/singleUser/singleUserSlice';
-import { User } from './User';
 import { useAppDispatch, useAppSelector } from 'app/store';
-import { Button } from 'components';
+import { Button, Users } from 'components';
 import { SkipForward, SkipBack } from 'react-feather';
 import { useRouteMatch } from 'react-router-dom';
 
@@ -33,9 +32,7 @@ export const Following = () => {
   return (
     <div className="space-y-2">
       <h1 className="font-bold">Page {currentPage}</h1>
-      {following.map((user) => (
-        <User key={user.id} user={user} />
-      ))}
+      <Users users={following} count={following.length} />
       <div className="space-x-2 text-center">
         <Button
           color="primary"
