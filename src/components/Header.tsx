@@ -8,7 +8,7 @@ export const Header = () => {
   const { pathname } = useLocation();
 
   return (
-    <header className="bg-primary px-24 py-4 text-white">
+    <header className="fixed w-full bg-primary px-24 py-4 text-white">
       <nav className="mx-auto flex items-center font-semibold">
         <GitHub size={24} className="mr-3" />
 
