@@ -2,11 +2,9 @@ import { Main, Header } from 'components';
 
 export const App = () => {
   return (
-    <>
+    <div className="container mx-auto">
       <Header />
-      <div className="px-24 py-16">
-        <Main />
-      </div>
-    </>
+      <Main />
+    </div>
   );
 };
