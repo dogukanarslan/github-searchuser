@@ -18,7 +18,7 @@ export const Users = (props: UsersProps) => {
   return (
     <>
       {count !== undefined && <p className="lead">{count} results</p>}
-      <div className="space-y-2">
+      <div className="flex flex-wrap gap-4">
         {users?.map((user) => <User key={user.id} user={user} />)}
       </div>
     </>
