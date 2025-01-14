@@ -18,8 +18,8 @@ export const Filters = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="grid grid-cols-2 gap-5">
-        <div>
+      <div className="flex flex-col gap-4 sm:flex-row">
+        <div className="grow">
           <FormLabel htmlFor="startingId">Starting ID</FormLabel>
           <Input
             id="startingId"
@@ -30,7 +30,7 @@ export const Filters = () => {
           />
         </div>
 
-        <div>
+        <div className="grow">
           <FormLabel
             htmlFor="resultsPerPage"
             className="block text-xs font-medium text-gray-700"
@@ -48,8 +48,7 @@ export const Filters = () => {
           </Select>
         </div>
       </div>
-
-      <Button color="primary" className="mt-1" type="submit">
+      <Button color="primary" className="my-4" type="submit">
         Fetch
       </Button>
     </form>
