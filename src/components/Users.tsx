@@ -18,8 +18,12 @@ export const Users = (props: UsersProps) => {
   return (
     <>
       {count !== undefined && <p className="lead">{count} results</p>}
-      <div className="flex flex-wrap gap-4">
-        {users?.map((user) => <User key={user.id} user={user} />)}
+      <div className="flex flex-wrap">
+        {users?.map((user) => (
+          <div key={user.id} className="mt-4 w-full px-2 sm:w-1/4">
+            <User user={user} />
+          </div>
+        ))}
       </div>
     </>
   );

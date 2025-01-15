@@ -12,7 +12,7 @@ export const User = (props: UserProps) => {
   } = props;
 
   return (
-    <div className="block grow rounded-xl border p-4">
+    <div className="block rounded-xl border p-4">
       <div className="flex items-center gap-4">
         <Link to={`/details/${login}`}>
           <img
