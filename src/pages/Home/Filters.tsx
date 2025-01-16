@@ -48,7 +48,7 @@ export const Filters = () => {
           </Select>
         </div>
       </div>
-      <Button color="primary" className="my-4" type="submit">
+      <Button color="primary" className="my-4 w-full sm:w-auto" type="submit">
         Fetch
       </Button>
     </form>
