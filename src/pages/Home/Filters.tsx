@@ -4,9 +4,15 @@ import { fetchUsers, resetUsers } from '../../features/users/usersSlice';
 
 import { Button, FormLabel, Input, Select } from 'components';
 
-export const Filters = () => {
+interface Props {
+  resultsPerPage: string;
+  changeResultsPerPage: (count: string) => void;
+}
+
+export const Filters = (props: Props) => {
+  const { resultsPerPage, changeResultsPerPage } = props;
+
   const [startingId, setStartingId] = useState('');
-  const [resultsPerPage, setResultsPerPage] = useState('');
 
   const dispatch = useAppDispatch();
 
@@ -40,7 +46,7 @@ export const Filters = () => {
           <Select
             id="resultsPerPage"
             value={resultsPerPage}
-            onChange={(e) => setResultsPerPage(e.target.value)}
+            onChange={(e) => changeResultsPerPage(e.target.value)}
           >
             <option value={30}>30</option>
             <option value={50}>50</option>
