@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Button } from 'components/Button';
 import { Users } from '../../components';
@@ -8,8 +8,9 @@ import { fetchUsers, resetUsers } from '../../features/users/usersSlice';
 import { RootState, useAppDispatch } from '../../app/store';
 
 export const Home = () => {
-  const { data, status } = useSelector((state: RootState) => state.users);
+  const [resultsPerPage, setResultsPerPage] = useState('30');
 
+  const { data, status } = useSelector((state: RootState) => state.users);
   const { links } = useSelector((state: RootState) => state.users);
   const dispatch = useAppDispatch();
 
@@ -18,8 +19,12 @@ export const Home = () => {
     const since = urlParams.get('since');
 
     if (since) {
-      dispatch(fetchUsers({ startingId: since, resultsPerPage: '30' }));
+      dispatch(fetchUsers({ startingId: since, resultsPerPage }));
     }
+  };
+
+  const changeResultsPerPage = (count: string) => {
+    setResultsPerPage(count);
   };
 
   useEffect(() => {
@@ -31,7 +36,10 @@ export const Home = () => {
 
   return (
     <>
-      <Filters />
+      <Filters
+        resultsPerPage={resultsPerPage}
+        changeResultsPerPage={changeResultsPerPage}
+      />
       <Users users={data} count={data?.length} />
       <div className="text-center">
         {status === 'loading' ? (
