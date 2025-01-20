@@ -62,30 +62,28 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
   return (
     <>
       <div>
-        <div className="flex items-center">
+        <div className="flex flex-col items-center gap-10 sm:flex-row">
           <img className="w-48 rounded-full" src={avatar_url} alt="" />
-          <div className="ml-10">
-            <ul className="flex gap-x-5 text-center">
-              <li>
-                <div>
-                  <div className="font-bold">{public_repos}</div>
-                  <h3>Repositories</h3>
-                </div>
-              </li>
-              <li>
-                <div>
-                  <div className="font-bold">{followers}</div>
-                  <h3>Followers</h3>
-                </div>
-              </li>
-              <li>
-                <div>
-                  <div className="font-bold">{following}</div>
-                  <h3>Following</h3>
-                </div>
-              </li>
-            </ul>
-          </div>
+          <ul className="flex gap-x-5 text-center">
+            <li>
+              <div>
+                <div className="font-bold">{public_repos}</div>
+                <h3>Repositories</h3>
+              </div>
+            </li>
+            <li>
+              <div>
+                <div className="font-bold">{followers}</div>
+                <h3>Followers</h3>
+              </div>
+            </li>
+            <li>
+              <div>
+                <div className="font-bold">{following}</div>
+                <h3>Following</h3>
+              </div>
+            </li>
+          </ul>
         </div>
         <div className="py-5">
           <h1 className="text-lg font-bold">{name}</h1>
