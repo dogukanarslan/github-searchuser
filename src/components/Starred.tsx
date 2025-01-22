@@ -29,8 +29,6 @@ export const Starred = () => {
     }
   };
 
-  console.log(starred);
-
   return (
     <div className="space-y-2">
       <h1 className="font-bold">Page {currentPage}</h1>
