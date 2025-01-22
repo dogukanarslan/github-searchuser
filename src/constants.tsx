@@ -44,6 +44,16 @@ export const getFollowing = (login: string, page: string) => {
   return get<IUser[]>(`/users/${login}/following`, searchParams.toString());
 };
 
+export const getStarred = (login: string, page: string) => {
+  const searchParams = new URLSearchParams();
+
+  if (page) {
+    searchParams.append('page', page);
+  }
+
+  return get<IRepository[]>(`/users/${login}/starred`, searchParams.toString());
+};
+
 export const getRepositories = (since?: string) => {
   const searchParams = new URLSearchParams();
   if (since) {

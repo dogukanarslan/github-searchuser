@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link, RouteComponentProps, useLocation } from 'react-router-dom';
 import { Followers } from 'components/Followers';
 import { Following } from 'components/Following';
+import { Starred } from 'components/Starred';
 import { Spinner } from 'components';
 import { RootState, useAppDispatch } from 'app/store';
 import { fetchSingleUser } from 'features/singleUser/singleUserSlice';
@@ -131,11 +132,21 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
           >
             Following
           </Link>
+          <Link
+            to="#"
+            className={`${
+              selectedTab === 'starred' ? 'border-b-2 ' : ''
+            }text-sm border-secondary font-medium hover:border-b-2`}
+            onClick={() => setSelectedTab('starred')}
+          >
+            Starred
+          </Link>
         </nav>
       </div>
 
       {selectedTab === 'followers' && <Followers />}
       {selectedTab === 'following' && <Following />}
+      {selectedTab === 'starred' && <Starred />}
     </>
   );
 };
