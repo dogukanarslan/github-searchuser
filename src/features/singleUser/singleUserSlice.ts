@@ -1,11 +1,20 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { IRepository, IUser } from 'models';
-import { getFollowers, getFollowing, getStarred, getUser } from '../../constants';
+import {
+  getFollowers,
+  getFollowing,
+  getStarred,
+  getUser,
+} from '../../constants';
 
 export const fetchSingleUser = createAsyncThunk(
   'singleUser/fetchSingleUser',
-  async (args: { login: string }) => {
+  async (args: { login: string }, { rejectWithValue }) => {
     const response = await getUser(args.login);
+
+    if (!response) {
+      return rejectWithValue('rejected');
+    }
 
     return response;
   }
@@ -18,9 +27,13 @@ type argsType = {
 
 export const fetchFollowers = createAsyncThunk(
   'singleUser/fetchFollowers',
-  async (args: argsType = { login: '', page: '' }) => {
+  async (args: argsType = { login: '', page: '' }, { rejectWithValue }) => {
     const { login, page } = args;
     const response = await getFollowers(login, page || '');
+
+    if (!response) {
+      return rejectWithValue('rejected');
+    }
 
     return response;
   }
@@ -28,9 +41,13 @@ export const fetchFollowers = createAsyncThunk(
 
 export const fetchFollowing = createAsyncThunk(
   'singleUser/fetchFollowing',
-  async (args: argsType = { login: '', page: '' }) => {
+  async (args: argsType = { login: '', page: '' }, { rejectWithValue }) => {
     const { login, page } = args;
     const response = await getFollowing(login, page || '');
+
+    if (!response) {
+      return rejectWithValue('rejected');
+    }
 
     return response;
   }
@@ -38,9 +55,13 @@ export const fetchFollowing = createAsyncThunk(
 
 export const fetchStarred = createAsyncThunk(
   'singleUser/fetchStarred',
-  async (args: argsType = { login: '', page: '' }) => {
+  async (args: argsType = { login: '', page: '' }, { rejectWithValue }) => {
     const { login, page } = args;
     const response = await getStarred(login, page || '');
+
+    if (!response) {
+      return rejectWithValue('rejected');
+    }
 
     return response;
   }

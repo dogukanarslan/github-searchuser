@@ -25,6 +25,10 @@ const request = async <T>(url: string, params?: string, method = 'GET') => {
     parsedLinkHeader = parseLinkHeader(linkHeader);
   }
 
+  if (!response.ok) {
+    return;
+  }
+
   const data = (await response.json()) as T;
 
   return { data, links: parsedLinkHeader };

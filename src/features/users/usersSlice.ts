@@ -3,8 +3,8 @@ import { getUsers } from '../../constants';
 import { IUser } from '../../models';
 
 type argsType = {
-  startingId: string;
-  resultsPerPage: string;
+  startingId?: string;
+  resultsPerPage?: string;
 };
 
 type SliceState = {
@@ -15,14 +15,14 @@ type SliceState = {
 
 export const fetchUsers = createAsyncThunk(
   'users/fetchUsers',
-  async (args?: argsType) => {
-    if (args) {
-      const { startingId, resultsPerPage } = args;
-      const response = await getUsers(startingId, resultsPerPage);
-      return response;
+  async (args: argsType, { rejectWithValue }) => {
+    const { startingId, resultsPerPage } = args;
+    const response = await getUsers(startingId, resultsPerPage);
+
+    if (!response) {
+      return rejectWithValue('rejected');
     }
 
-    const response = await getUsers();
     return response;
   }
 );
@@ -49,6 +49,9 @@ export const usersSlice = createSlice({
         state.status = 'succeeded';
         state.links = action.payload.links;
         state.data = [...state.data, ...action.payload.data];
+      })
+      .addCase(fetchUsers.rejected, (state) => {
+        state.status = 'error';
       });
   },
 });
