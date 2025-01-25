@@ -28,11 +28,19 @@ export const Home = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchUsers());
+    dispatch(fetchUsers({}));
     return () => {
       dispatch(resetUsers());
     };
   }, [dispatch]);
+
+  if (status === 'loading') {
+    return <Spinner />;
+  }
+
+  if (status === 'error') {
+    return 'There was an error';
+  }
 
   return (
     <>
