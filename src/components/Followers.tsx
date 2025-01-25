@@ -31,10 +31,7 @@ export const Followers = () => {
   return (
     <div className="space-y-2">
       <h1 className="font-bold">Page {currentPage}</h1>
-      <Users
-        users={followers}
-        count={followers.length}
-      />
+      <Users users={followers} count={followers.length} />
       <div className="text-center">
         <div className="space-x-2">
           <Button
