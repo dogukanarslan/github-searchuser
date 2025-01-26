@@ -5,7 +5,13 @@ import { Button, Users } from 'components';
 import { SkipForward, SkipBack } from 'react-feather';
 import { useRouteMatch } from 'react-router-dom';
 
-export const Following = () => {
+interface Props {
+  status: string;
+}
+
+export const Following = (props: Props) => {
+  const { status } = props;
+
   const [currentPage, setCurrentPage] = useState(1);
   const { params } = useRouteMatch<{ login: string }>();
 
@@ -29,6 +35,9 @@ export const Following = () => {
     }
   };
 
+  if (status === 'error') {
+    return 'There was an error';
+  }
   return (
     <div className="space-y-2">
       <h1 className="font-bold">Page {currentPage}</h1>

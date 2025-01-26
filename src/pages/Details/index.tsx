@@ -47,10 +47,6 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
     return <h1 className="text-center text-2xl font-bold">USER NOT FOUND</h1>;
   }
 
-  if (status === 'error') {
-    return 'There was an error';
-  }
-
   const {
     avatar_url,
     login,
@@ -148,9 +144,9 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
         </nav>
       </div>
 
-      {selectedTab === 'followers' && <Followers />}
-      {selectedTab === 'following' && <Following />}
-      {selectedTab === 'starred' && <Starred />}
+      {selectedTab === 'followers' && <Followers status={status} />}
+      {selectedTab === 'following' && <Following status={status} />}
+      {selectedTab === 'starred' && <Starred status={status} />}
     </>
   );
 };

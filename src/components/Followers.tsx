@@ -5,7 +5,13 @@ import { fetchFollowers } from 'features/singleUser/singleUserSlice';
 import { SkipForward, SkipBack } from 'react-feather';
 import { useRouteMatch } from 'react-router-dom';
 
-export const Followers = () => {
+interface Props {
+  status: string;
+}
+
+export const Followers = (props: Props) => {
+  const { status } = props;
+
   const [currentPage, setCurrentPage] = useState(1);
   const { params } = useRouteMatch<{ login: string }>();
 
@@ -27,6 +33,10 @@ export const Followers = () => {
       dispatch(fetchFollowers({ login: user.login, page }));
     }
   };
+
+  if (status === 'error') {
+    return 'There was an error';
+  }
 
   return (
     <div className="space-y-2">
