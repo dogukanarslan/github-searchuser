@@ -113,6 +113,15 @@ export const singleUserSlice = createSlice({
       .addCase(fetchStarred.fulfilled, (state, action) => {
         state.starredLinks = action.payload.links || {};
         state.starred = action.payload.data;
+      })
+      .addCase(fetchFollowers.rejected, (state) => {
+        state.status = 'error';
+      })
+      .addCase(fetchFollowing.rejected, (state) => {
+        state.status = 'error';
+      })
+      .addCase(fetchStarred.rejected, (state) => {
+        state.status = 'error';
       });
   },
 });

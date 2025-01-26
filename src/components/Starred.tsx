@@ -6,7 +6,13 @@ import { SkipForward, SkipBack } from 'react-feather';
 import { useRouteMatch } from 'react-router-dom';
 import { Repository } from './Repository';
 
-export const Starred = () => {
+interface Props {
+  status: string;
+}
+
+export const Starred = (props: Props) => {
+  const { status } = props;
+
   const [currentPage, setCurrentPage] = useState(1);
   const { params } = useRouteMatch<{ login: string }>();
 
@@ -28,6 +34,10 @@ export const Starred = () => {
       dispatch(fetchStarred({ login: user.login, page }));
     }
   };
+
+  if (status === 'error') {
+    return 'There was an error';
+  }
 
   return (
     <div className="space-y-2">
