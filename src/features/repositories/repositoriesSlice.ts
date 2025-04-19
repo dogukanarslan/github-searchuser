@@ -4,29 +4,42 @@ import { IBranch, ILabel, IRepository } from '../../models';
 
 export const fetchRepositories = createAsyncThunk(
   'repositories/fetchRepositories',
-  async (since?: string) => {
+  async (since: string | undefined, { rejectWithValue }) => {
+    let response;
     if (since) {
-      const response = await getRepositories(since);
-      return response;
+      response = await getRepositories(since);
     } else {
-      const response = await getRepositories();
-      return response;
+      response = await getRepositories();
     }
+
+    if (!response) {
+      return rejectWithValue('rejected');
+    }
+
+    return response;
   }
 );
 
 export const fetchBranches = createAsyncThunk(
   'repositories/fetchBranches',
-  async (args: { login: string; repo: string }) => {
+  async (args: { login: string; repo: string }, { rejectWithValue }) => {
     const response = await getBranches(args.login, args.repo);
+    if (!response) {
+      return rejectWithValue('rejected');
+    }
+
     return response;
   }
 );
 
 export const fetchLabels = createAsyncThunk(
   'repositories/fetchLabels',
-  async (args: { login: string; repo: string }) => {
+  async (args: { login: string; repo: string }, { rejectWithValue }) => {
     const response = await getLabels(args.login, args.repo);
+    if (!response) {
+      return rejectWithValue('rejected');
+    }
+
     return response;
   }
 );

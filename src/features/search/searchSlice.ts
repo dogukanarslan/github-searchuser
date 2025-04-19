@@ -14,10 +14,15 @@ type SliceState = {
 
 export const fetchSearch = createAsyncThunk(
   'search/fetchSearch',
-  async (args: ArgsType = { type: '', q: '' }) => {
+  async (args: ArgsType = { type: '', q: '' }, { rejectWithValue }) => {
     const { type, q } = args;
 
     const response = await getSearch(type, q);
+
+    if (!response) {
+      return rejectWithValue('rejected');
+    }
+
     return response;
   }
 );

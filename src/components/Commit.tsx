@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { ICommit } from '../models';
 import { Card } from './Card';
 
