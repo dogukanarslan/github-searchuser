@@ -1,53 +1,75 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getBranches, getRepositories, getLabels } from '../../constants';
-import { IBranch, ILabel, IRepository } from '../../models';
+import { Endpoints } from '@octokit/types';
+import { parseLinkHeader } from '../../constants';
+import { octokit } from 'api/api';
 
 export const fetchRepositories = createAsyncThunk(
   'repositories/fetchRepositories',
   async (since: string | undefined, { rejectWithValue }) => {
     let response;
     if (since) {
-      response = await getRepositories(since);
+      response = await octokit.rest.repos.listPublic({ since: 2 });
     } else {
-      response = await getRepositories();
+      response = await octokit.rest.repos.listPublic();
     }
 
     if (!response) {
       return rejectWithValue('rejected');
     }
 
-    return response;
+    return {
+      data: response.data,
+      links: parseLinkHeader(response.headers.link || ''),
+    };
   }
 );
 
 export const fetchBranches = createAsyncThunk(
   'repositories/fetchBranches',
   async (args: { login: string; repo: string }, { rejectWithValue }) => {
-    const response = await getBranches(args.login, args.repo);
+    const response = await octokit.rest.repos.listBranches({
+      repo: args.repo,
+      owner: args.login,
+    });
+
     if (!response) {
       return rejectWithValue('rejected');
     }
 
-    return response;
+    return {
+      data: response.data,
+    };
   }
 );
 
 export const fetchLabels = createAsyncThunk(
   'repositories/fetchLabels',
   async (args: { login: string; repo: string }, { rejectWithValue }) => {
-    const response = await getLabels(args.login, args.repo);
+    const response = await octokit.request('GET /repos/{owner}/{repo}/labels', {
+      owner: args.login,
+      repo: args.repo,
+    });
+
     if (!response) {
       return rejectWithValue('rejected');
     }
 
-    return response;
+    return {
+      data: response.data,
+    };
   }
 );
 
 type SliceState = {
-  data: IRepository[];
-  branches: Record<string, IBranch[]>;
-  labels: Record<string, ILabel[]>;
+  data: Endpoints['GET /repositories']['response']['data'];
+  branches: Record<
+    string,
+    Endpoints['GET /repos/{owner}/{repo}/branches']['response']['data']
+  >;
+  labels: Record<
+    string,
+    Endpoints['GET /repos/{owner}/{repo}/labels']['response']['data']
+  >;
   links?: any;
   status: string;
 };

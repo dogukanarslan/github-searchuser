@@ -1,8 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { IRepository } from 'models';
-import { getStarred, parseLinkHeader } from '../../constants';
-import { octokit } from 'api/api';
 import { Endpoints } from '@octokit/types';
+import { parseLinkHeader } from '../../constants';
+import { octokit } from 'api/api';
 
 export const fetchSingleUser = createAsyncThunk(
   'singleUser/fetchSingleUser',
@@ -68,13 +67,24 @@ export const fetchStarred = createAsyncThunk(
   'singleUser/fetchStarred',
   async (args: argsType = { login: '', page: '' }, { rejectWithValue }) => {
     const { login, page } = args;
-    const response = await getStarred(login, page || '');
+    const response = await octokit.request('GET /users/{username}/starred', {
+      username: login,
+      ...(page && { page: parseInt(page) }),
+    });
 
     if (!response) {
       return rejectWithValue('rejected');
     }
 
-    return response;
+    return {
+      data: response.data as Extract<
+        Endpoints['GET /users/{username}/starred']['response']['data'],
+        {
+          id: number;
+        }[]
+      >,
+      links: parseLinkHeader(response.headers.link || ''),
+    };
   }
 );
 
@@ -85,7 +95,12 @@ type SliceState = {
   starredLinks: any | null;
   followers: Endpoints['GET /users/{username}/followers']['response']['data'];
   following: Endpoints['GET /users/{username}/following']['response']['data'];
-  starred: IRepository[];
+  starred: Extract<
+    Endpoints['GET /users/{username}/starred']['response']['data'],
+    {
+      id: number;
+    }[]
+  >;
   status: string;
 };
 

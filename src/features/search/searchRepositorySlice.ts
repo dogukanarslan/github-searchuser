@@ -1,8 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getSearch } from '../../constants';
+import { octokit } from 'api/api';
 
 type ArgsType = {
-  type: string;
   q: string;
 };
 
@@ -13,10 +12,10 @@ type SliceState = {
 
 export const fetchSearchRepository = createAsyncThunk(
   'search/fetchSearchRepository',
-  async (args: ArgsType = { type: '', q: '' }, thunkApi) => {
-    const { type, q } = args;
+  async (args: ArgsType = { q: '' }, thunkApi) => {
+    const { q } = args;
     try {
-      const response = await getSearch(type, q);
+      const response = await octokit.rest.search.repos({ q });
       return response;
     } catch (err) {
       if (err instanceof Error) {

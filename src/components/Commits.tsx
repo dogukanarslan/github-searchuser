@@ -1,8 +1,8 @@
 import { Commit } from './Commit';
-import { ICommit } from '../models';
+import { Endpoints } from '@octokit/types';
 
 interface CommitsProps {
-  commits: ICommit[] | null;
+  commits: Endpoints['GET /search/commits']['response']['data']['items'] | null;
   count: number | undefined;
   status: string;
 }
