@@ -13,7 +13,7 @@ export const CommitFilters = () => {
 
   useEffect(() => {
     if (debouncedSearchValue) {
-      dispatch(fetchSearchCommit({ type: 'commits', q: commitMessage }));
+      dispatch(fetchSearchCommit({ q: commitMessage }));
     }
   }, [debouncedSearchValue, commitMessage, dispatch]);
 

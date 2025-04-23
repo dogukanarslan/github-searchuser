@@ -1,22 +1,20 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { IRepository, IUser } from 'models';
-import {
-  getFollowers,
-  getFollowing,
-  getStarred,
-  getUser,
-} from '../../constants';
+import { Endpoints } from '@octokit/types';
+import { parseLinkHeader } from '../../constants';
+import { octokit } from 'api/api';
 
 export const fetchSingleUser = createAsyncThunk(
   'singleUser/fetchSingleUser',
   async (args: { login: string }, { rejectWithValue }) => {
-    const response = await getUser(args.login);
+    const user = await octokit.rest.users.getByUsername({
+      username: args.login,
+    });
 
-    if (!response) {
+    if (!user) {
       return rejectWithValue('rejected');
     }
 
-    return response;
+    return { data: user.data };
   }
 );
 
@@ -28,28 +26,40 @@ type argsType = {
 export const fetchFollowers = createAsyncThunk(
   'singleUser/fetchFollowers',
   async (args: argsType = { login: '', page: '' }, { rejectWithValue }) => {
-    const { login, page } = args;
-    const response = await getFollowers(login, page || '');
+    const { login, page = '1' } = args;
+    const followers = await octokit.rest.users.listFollowersForUser({
+      username: login,
+      page: parseInt(page),
+    });
 
-    if (!response) {
+    if (!followers) {
       return rejectWithValue('rejected');
     }
 
-    return response;
+    return {
+      data: followers.data,
+      links: parseLinkHeader(followers.headers.link || ''),
+    };
   }
 );
 
 export const fetchFollowing = createAsyncThunk(
   'singleUser/fetchFollowing',
   async (args: argsType = { login: '', page: '' }, { rejectWithValue }) => {
-    const { login, page } = args;
-    const response = await getFollowing(login, page || '');
+    const { login, page = '1' } = args;
+    const following = await octokit.rest.users.listFollowingForUser({
+      username: login,
+      page: parseInt(page),
+    });
 
-    if (!response) {
+    if (!following) {
       return rejectWithValue('rejected');
     }
 
-    return response;
+    return {
+      data: following.data,
+      links: parseLinkHeader(following.headers.link || ''),
+    };
   }
 );
 
@@ -57,24 +67,40 @@ export const fetchStarred = createAsyncThunk(
   'singleUser/fetchStarred',
   async (args: argsType = { login: '', page: '' }, { rejectWithValue }) => {
     const { login, page } = args;
-    const response = await getStarred(login, page || '');
+    const response = await octokit.request('GET /users/{username}/starred', {
+      username: login,
+      ...(page && { page: parseInt(page) }),
+    });
 
     if (!response) {
       return rejectWithValue('rejected');
     }
 
-    return response;
+    return {
+      data: response.data as Extract<
+        Endpoints['GET /users/{username}/starred']['response']['data'],
+        {
+          id: number;
+        }[]
+      >,
+      links: parseLinkHeader(response.headers.link || ''),
+    };
   }
 );
 
 type SliceState = {
-  user: IUser | null;
+  user: Endpoints['GET /users/{username}']['response']['data'] | null;
   followersLinks: any | null;
   followingLinks: any | null;
   starredLinks: any | null;
-  followers: IUser[];
-  following: IUser[];
-  starred: IRepository[];
+  followers: Endpoints['GET /users/{username}/followers']['response']['data'];
+  following: Endpoints['GET /users/{username}/following']['response']['data'];
+  starred: Extract<
+    Endpoints['GET /users/{username}/starred']['response']['data'],
+    {
+      id: number;
+    }[]
+  >;
   status: string;
 };
 

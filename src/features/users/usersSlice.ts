@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getUsers } from '../../constants';
-import { IUser } from '../../models';
+import { octokit } from 'api/api';
+import { Endpoints } from '@octokit/types';
+import { parseLinkHeader } from '../../constants';
 
 type argsType = {
   startingId?: string;
@@ -8,7 +9,7 @@ type argsType = {
 };
 
 type SliceState = {
-  data: IUser[];
+  data: Endpoints['GET /users']['response']['data'];
   links?: any;
   status: string;
 };
@@ -17,13 +18,19 @@ export const fetchUsers = createAsyncThunk(
   'users/fetchUsers',
   async (args: argsType, { rejectWithValue }) => {
     const { startingId, resultsPerPage } = args;
-    const response = await getUsers(startingId, resultsPerPage);
+    const users = await octokit.rest.users.list({
+      request: { startingId },
+      ...(resultsPerPage && { per_page: parseInt(resultsPerPage) }),
+    });
 
-    if (!response) {
+    if (!users) {
       return rejectWithValue('rejected');
     }
 
-    return response;
+    return {
+      data: users.data,
+      links: parseLinkHeader(users.headers.link || ''),
+    };
   }
 );
 

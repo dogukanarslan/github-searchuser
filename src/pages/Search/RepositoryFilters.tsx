@@ -13,9 +13,7 @@ export const RepositoryFilters = () => {
 
   useEffect(() => {
     if (debouncedSearchValue) {
-      dispatch(
-        fetchSearchRepository({ type: 'repositories', q: debouncedSearchValue })
-      );
+      dispatch(fetchSearchRepository({ q: debouncedSearchValue }));
     }
   }, [debouncedSearchValue, dispatch]);
 

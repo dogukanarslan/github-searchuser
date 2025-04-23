@@ -1,8 +1,8 @@
+import { Endpoints } from '@octokit/types';
 import { User } from './User';
-import { IUser } from '../models';
 
 interface UsersProps {
-  users: IUser[] | null | undefined;
+  users: Endpoints['GET /users']['response']['data'] | null | undefined;
   count: number | undefined;
 }
 

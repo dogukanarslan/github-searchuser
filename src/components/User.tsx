@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 
-import { IUser } from '../models';
+import { Endpoints } from '@octokit/types';
 
 export interface UserProps {
-  user: IUser;
+  user: Endpoints['GET /users']['response']['data'][0];
 }
 
 export const User = (props: UserProps) => {

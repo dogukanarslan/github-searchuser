@@ -1,4 +1,3 @@
-import { IRepository } from '../models';
 import { Button } from './Button';
 import { Badge } from './Badge';
 import { useAppDispatch, useAppSelector } from 'app/store';
@@ -8,23 +7,24 @@ import {
 } from 'features/repositories/repositoriesSlice';
 
 interface RepositoryProps {
-  repository: IRepository;
+  name: string;
+  owner: string;
+  description: string;
+  full_name: string;
 }
 
 export const Repository = (props: RepositoryProps) => {
-  const {
-    repository: { name, owner, description, full_name },
-  } = props;
+  const { name, owner, description, full_name } = props;
 
   const { branches, labels } = useAppSelector((state) => state.repositories);
   const dispatch = useAppDispatch();
 
   const getBranches = () => {
-    dispatch(fetchBranches({ login: owner.login, repo: name }));
+    dispatch(fetchBranches({ login: owner, repo: name }));
   };
 
   const getLabels = () => {
-    dispatch(fetchLabels({ login: owner.login, repo: name }));
+    dispatch(fetchLabels({ login: owner, repo: name }));
   };
 
   return (

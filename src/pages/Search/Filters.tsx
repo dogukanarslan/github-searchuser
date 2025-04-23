@@ -12,7 +12,7 @@ export const Filters = () => {
 
   useEffect(() => {
     if (debouncedSearchValue) {
-      dispatch(fetchSearch({ type: 'users', q: debouncedSearchValue }));
+      dispatch(fetchSearch({ q: debouncedSearchValue }));
     }
   }, [debouncedSearchValue, dispatch]);
 

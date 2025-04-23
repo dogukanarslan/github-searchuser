@@ -1,23 +1,27 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { ISearch } from 'models';
-import { getSearch } from '../../constants';
+import { Endpoints } from '@octokit/types';
+import { octokit } from 'api/api';
 
 type ArgsType = {
-  type: string;
   q: string;
 };
 
 type SliceState = {
-  data: ISearch | null | undefined;
+  data: Endpoints['GET /search/users']['response']['data'] | null | undefined;
   status: string;
 };
 
 export const fetchSearch = createAsyncThunk(
   'search/fetchSearch',
-  async (args: ArgsType = { type: '', q: '' }) => {
-    const { type, q } = args;
+  async (args: ArgsType = { q: '' }, { rejectWithValue }) => {
+    const { q } = args;
 
-    const response = await getSearch(type, q);
+    const response = await octokit.rest.search.users({ q });
+
+    if (!response) {
+      return rejectWithValue('rejected');
+    }
+
     return response;
   }
 );

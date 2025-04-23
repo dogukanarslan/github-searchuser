@@ -36,7 +36,13 @@ export const Repositories = () => {
     <>
       <div className="space-y-2">
         {data.map((repository) => (
-          <Repository key={repository.id} repository={repository} />
+          <Repository
+            key={repository.id}
+            name={repository.name}
+            owner={repository.owner.login}
+            description={repository.description || ''}
+            full_name={repository.full_name}
+          />
         ))}
       </div>
       <div className="text-center">
