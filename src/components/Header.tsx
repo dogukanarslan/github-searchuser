@@ -14,7 +14,11 @@ export const Header = () => {
           {navLinks.map((navLink) => {
             return (
               <li key={navLink.name} className="text-gray-800 hover:underline">
-                <Link to={navLink.path}>{navLink.name}</Link>
+                <Link to={navLink.path}>
+                  <div className="flex items-center gap-2">
+                    {navLink.icon} {navLink.name}
+                  </div>
+                </Link>
               </li>
             );
           })}

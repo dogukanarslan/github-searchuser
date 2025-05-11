@@ -1,4 +1,4 @@
-import { Users, Search, Book } from 'react-feather';
+import { Users, Search, Book, User } from 'react-feather';
 
 export const parseLinkHeader = (header: string) => {
   if (header.length === 0) {
@@ -22,6 +22,7 @@ export const parseLinkHeader = (header: string) => {
 };
 
 export const navLinks = [
+  { name: 'Profile', path: '/profile', icon: <User size={16} /> },
   { name: 'Users', path: '/', icon: <Users size={16} /> },
   { name: 'Repositories', path: '/repositories', icon: <Book size={16} /> },
   { name: 'Search', path: '/search', icon: <Search size={16} /> },

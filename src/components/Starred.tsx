@@ -3,7 +3,6 @@ import { useAppDispatch, useAppSelector } from 'app/store';
 import { Button } from 'components';
 import { fetchStarred } from 'features/singleUser/singleUserSlice';
 import { SkipForward, SkipBack } from 'react-feather';
-import { useRouteMatch } from 'react-router-dom';
 import { Repository } from './Repository';
 
 interface Props {
@@ -14,7 +13,6 @@ export const Starred = (props: Props) => {
   const { status } = props;
 
   const [currentPage, setCurrentPage] = useState(1);
-  const { params } = useRouteMatch<{ login: string }>();
 
   const { user, starred, starredLinks } = useAppSelector(
     (state) => state.singleUser
@@ -22,8 +20,10 @@ export const Starred = (props: Props) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchStarred({ login: params.login }));
-  }, [params, dispatch]);
+    if (user) {
+      dispatch(fetchStarred({ login: user.login }));
+    }
+  }, [user, dispatch]);
 
   const loadMore = (type: string) => {
     const urlParams = new URL(starredLinks[type]).searchParams;

@@ -1,11 +1,15 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Link, RouteComponentProps, useLocation } from 'react-router-dom';
+import { RouteComponentProps, useLocation } from 'react-router-dom';
 import { Followers } from 'components/Followers';
 import { Following } from 'components/Following';
 import { Starred } from 'components/Starred';
 import { Spinner } from 'components';
+import { UserDetailTabs } from 'components/UserDetailTabs';
 import { RootState, useAppDispatch } from 'app/store';
-import { fetchSingleUser } from 'features/singleUser/singleUserSlice';
+import {
+  fetchAuthenticatedUser,
+  fetchSingleUser,
+} from 'features/singleUser/singleUserSlice';
 import { useSelector } from 'react-redux';
 
 import { Briefcase, MapPin, Mail, Link as LinkIcon } from 'react-feather';
@@ -32,7 +36,11 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
   const { user, status } = useSelector((state: RootState) => state.singleUser);
 
   useEffect(() => {
-    dispatch(fetchSingleUser({ login: match.params.login }));
+    if (match.params.login) {
+      dispatch(fetchSingleUser({ login: match.params.login }));
+    } else {
+      dispatch(fetchAuthenticatedUser());
+    }
   }, [match.params.login, dispatch]);
 
   if (status === 'loading') {
@@ -112,36 +120,10 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
             )}
           </div>
         </div>
-
-        <nav className="mb-2 flex gap-6 transition-all" aria-label="Tabs">
-          <Link
-            to="#"
-            className={`${
-              selectedTab === 'followers' ? 'border-b-2 ' : ''
-            }text-sm border-secondary font-medium hover:border-b-2`}
-            onClick={() => setSelectedTab('followers')}
-          >
-            Followers
-          </Link>
-          <Link
-            to="#"
-            className={`${
-              selectedTab === 'following' ? 'border-b-2 ' : ''
-            }text-sm border-secondary font-medium hover:border-b-2`}
-            onClick={() => setSelectedTab('following')}
-          >
-            Following
-          </Link>
-          <Link
-            to="#"
-            className={`${
-              selectedTab === 'starred' ? 'border-b-2 ' : ''
-            }text-sm border-secondary font-medium hover:border-b-2`}
-            onClick={() => setSelectedTab('starred')}
-          >
-            Starred
-          </Link>
-        </nav>
+        <UserDetailTabs
+          selectedTab={selectedTab}
+          setSelectedTab={(tab) => setSelectedTab(tab)}
+        />
       </div>
 
       {selectedTab === 'followers' && <Followers status={status} />}
