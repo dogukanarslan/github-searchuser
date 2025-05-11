@@ -3,7 +3,6 @@ import { fetchFollowing } from 'features/singleUser/singleUserSlice';
 import { useAppDispatch, useAppSelector } from 'app/store';
 import { Button, Users } from 'components';
 import { SkipForward, SkipBack } from 'react-feather';
-import { useRouteMatch } from 'react-router-dom';
 
 interface Props {
   status: string;
@@ -13,7 +12,6 @@ export const Following = (props: Props) => {
   const { status } = props;
 
   const [currentPage, setCurrentPage] = useState(1);
-  const { params } = useRouteMatch<{ login: string }>();
 
   const { user, following, followingLinks } = useAppSelector(
     (state) => state.singleUser
@@ -21,8 +19,10 @@ export const Following = (props: Props) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchFollowing({ login: params.login }));
-  }, [params, dispatch]);
+    if (user) {
+      dispatch(fetchFollowing({ login: user.login }));
+    }
+  }, [user, dispatch]);
 
   const loadMore = () => {
     const urlParams = new URL(followingLinks.next).searchParams;

@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { Endpoints } from '@octokit/types';
+import type { paths } from '@octokit/openapi-types';
+
 import { parseLinkHeader } from '../../constants';
 import { octokit } from 'api/api';
 
@@ -58,7 +59,9 @@ export const fetchFollowing = createAsyncThunk(
 
     return {
       data: following.data,
-      links: parseLinkHeader(following.headers.link || ''),
+      links: following.headers.link
+        ? parseLinkHeader(following.headers.link)
+        : null,
     };
   }
 );
@@ -78,25 +81,44 @@ export const fetchStarred = createAsyncThunk(
 
     return {
       data: response.data as Extract<
-        Endpoints['GET /users/{username}/starred']['response']['data'],
+        paths['/users/{username}/starred']['get']['responses']['200']['content']['application/json'],
         {
           id: number;
         }[]
       >,
-      links: parseLinkHeader(response.headers.link || ''),
+    };
+  }
+);
+
+export const fetchAuthenticatedUser = createAsyncThunk(
+  'singleUser/fetchAuthenticatedUser',
+  async (_, { rejectWithValue }) => {
+    const response = await octokit.rest.users.getAuthenticated();
+
+    if (!response) {
+      return rejectWithValue('rejected');
+    }
+
+    return {
+      data: response.data,
     };
   }
 );
 
 type SliceState = {
-  user: Endpoints['GET /users/{username}']['response']['data'] | null;
+  authenticatedUser:
+    | paths['/user']['get']['responses']['200']['content']['application/json']
+    | null;
+  user:
+    | paths['/users/{username}']['get']['responses']['200']['content']['application/json']
+    | null;
   followersLinks: any | null;
   followingLinks: any | null;
   starredLinks: any | null;
-  followers: Endpoints['GET /users/{username}/followers']['response']['data'];
-  following: Endpoints['GET /users/{username}/following']['response']['data'];
+  followers: paths['/users/{username}/followers']['get']['responses']['200']['content']['application/json'];
+  following: paths['/users/{username}/following']['get']['responses']['200']['content']['application/json'];
   starred: Extract<
-    Endpoints['GET /users/{username}/starred']['response']['data'],
+    paths['/users/{username}/starred']['get']['responses']['200']['content']['application/json'],
     {
       id: number;
     }[]
@@ -105,6 +127,7 @@ type SliceState = {
 };
 
 const initialState: SliceState = {
+  authenticatedUser: null,
   user: null,
   followersLinks: null,
   followingLinks: null,
@@ -112,7 +135,7 @@ const initialState: SliceState = {
   followers: [],
   following: [],
   starred: [],
-  status: 'idle',
+  status: 'loading',
 };
 
 export const singleUserSlice = createSlice({
@@ -129,6 +152,7 @@ export const singleUserSlice = createSlice({
         state.user = action.payload.data;
       })
       .addCase(fetchFollowers.fulfilled, (state, action) => {
+        state.status = 'succeeded';
         state.followersLinks = action.payload.links || {};
         state.followers = action.payload.data;
       })
@@ -137,7 +161,6 @@ export const singleUserSlice = createSlice({
         state.following = action.payload.data;
       })
       .addCase(fetchStarred.fulfilled, (state, action) => {
-        state.starredLinks = action.payload.links || {};
         state.starred = action.payload.data;
       })
       .addCase(fetchFollowers.rejected, (state) => {
@@ -148,6 +171,13 @@ export const singleUserSlice = createSlice({
       })
       .addCase(fetchStarred.rejected, (state) => {
         state.status = 'error';
+      })
+      .addCase(fetchAuthenticatedUser.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchAuthenticatedUser.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.user = action.payload.data;
       });
   },
 });

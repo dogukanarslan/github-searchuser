@@ -6,6 +6,7 @@ export const Main = () => {
     <div className="mt-2">
       <Switch>
         <Route exact path="/" component={Home} />
+        <Route exact path="/profile" component={Details} />
         <Route path="/details/:login" component={Details} />
         <Route path="/search" component={Search} />
         <Route path="/repositories" component={Repositories} />
