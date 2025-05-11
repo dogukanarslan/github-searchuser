@@ -5,12 +5,14 @@ import { navLinks } from '../constants';
 
 export const Header = () => {
   return (
-    <div>
-      <header className="flex justify-center border-b border-neutral-200 py-4 text-center">
-        <GitHub size={36} />
+    <div className="flex justify-between border-b border-neutral-200">
+      <header className="flex justify-center border-b py-4 text-center">
+        <Link to="/">
+          <GitHub size={36} />
+        </Link>
       </header>
       <nav className="flex py-2">
-        <ul className="flex items-center gap-x-3">
+        <ul className="flex items-center gap-2">
           {navLinks.map((navLink) => {
             return (
               <li key={navLink.name} className="text-gray-800 hover:underline">

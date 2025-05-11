@@ -22,15 +22,20 @@ export const fetchSingleUser = createAsyncThunk(
 type argsType = {
   login: string;
   page?: string;
+  per_page?: number;
 };
 
 export const fetchFollowers = createAsyncThunk(
   'singleUser/fetchFollowers',
-  async (args: argsType = { login: '', page: '' }, { rejectWithValue }) => {
-    const { login, page = '1' } = args;
+  async (
+    args: argsType = { login: '', page: '', per_page: undefined },
+    { rejectWithValue }
+  ) => {
+    const { login, page = '1', per_page = 40 } = args;
     const followers = await octokit.rest.users.listFollowersForUser({
       username: login,
       page: parseInt(page),
+      per_page,
     });
 
     if (!followers) {
@@ -39,18 +44,24 @@ export const fetchFollowers = createAsyncThunk(
 
     return {
       data: followers.data,
-      links: parseLinkHeader(followers.headers.link || ''),
+      links: followers.headers.link
+        ? parseLinkHeader(followers.headers.link)
+        : null,
     };
   }
 );
 
 export const fetchFollowing = createAsyncThunk(
   'singleUser/fetchFollowing',
-  async (args: argsType = { login: '', page: '' }, { rejectWithValue }) => {
-    const { login, page = '1' } = args;
+  async (
+    args: argsType = { login: '', page: '', per_page: undefined },
+    { rejectWithValue }
+  ) => {
+    const { login, page = '1', per_page = 40 } = args;
     const following = await octokit.rest.users.listFollowingForUser({
       username: login,
       page: parseInt(page),
+      per_page,
     });
 
     if (!following) {
