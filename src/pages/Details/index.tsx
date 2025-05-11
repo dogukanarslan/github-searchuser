@@ -12,7 +12,8 @@ import {
 } from 'features/singleUser/singleUserSlice';
 import { useSelector } from 'react-redux';
 
-import { Briefcase, MapPin, Mail, Link as LinkIcon } from 'react-feather';
+import { UserDetailInformation } from 'components/UserDetailInformation';
+import { UserDetailHeader } from 'components/UserDetailHeader';
 
 export const Details = (props: RouteComponentProps<{ login: string }>) => {
   const { match } = props;
@@ -70,61 +71,24 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
 
   return (
     <>
-      <div>
-        <div className="flex flex-col items-center gap-10 sm:flex-row">
-          <img className="w-48 rounded-full" src={avatar_url} alt="" />
-          <ul className="flex gap-x-5 text-center">
-            <li>
-              <div>
-                <div className="font-bold">{public_repos}</div>
-                <h3>Repositories</h3>
-              </div>
-            </li>
-            <li>
-              <div>
-                <div className="font-bold">{followers}</div>
-                <h3>Followers</h3>
-              </div>
-            </li>
-            <li>
-              <div>
-                <div className="font-bold">{following}</div>
-                <h3>Following</h3>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div className="py-5">
-          <h1 className="text-lg font-bold">{name}</h1>
-          <h3>{login}</h3>
-          <div className="mt-2">
-            {company && (
-              <div className="flex items-center gap-x-2">
-                <Briefcase size="16" /> {company}
-              </div>
-            )}
-            {location && (
-              <div className="flex items-center gap-x-2">
-                <MapPin size="16" /> {location}
-              </div>
-            )}
-            {email && (
-              <div className="flex items-center gap-x-2">
-                <Mail size="16" /> {email}
-              </div>
-            )}
-            {blog && (
-              <div className="flex items-center gap-x-2">
-                <LinkIcon size="16" /> {blog}
-              </div>
-            )}
-          </div>
-        </div>
-        <UserDetailTabs
-          selectedTab={selectedTab}
-          setSelectedTab={(tab) => setSelectedTab(tab)}
-        />
-      </div>
+      <UserDetailHeader
+        avatar_url={avatar_url}
+        public_repos={public_repos}
+        followers={followers}
+        following={following}
+      />
+      <UserDetailInformation
+        login={login}
+        name={name}
+        company={company}
+        location={location}
+        email={email}
+        blog={blog}
+      />
+      <UserDetailTabs
+        selectedTab={selectedTab}
+        setSelectedTab={(tab) => setSelectedTab(tab)}
+      />
 
       {selectedTab === 'followers' && <Followers status={status} />}
       {selectedTab === 'following' && <Following status={status} />}
