@@ -14,10 +14,7 @@ export const Users = (props: UsersProps) => {
       {count !== undefined && <p className="lead">{count} results</p>}
       <div className="flex flex-wrap">
         {users?.map((user) => (
-          <div
-            key={user.id}
-            className="mt-4 w-full px-2 sm:w-1/2 md:w-1/3 lg:w-1/4"
-          >
+          <div key={user.id} className="mt-4 w-full px-2 sm:w-1/2 md:w-1/3">
             <User user={user} />
           </div>
         ))}
