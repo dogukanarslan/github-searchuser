@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'app/store';
-import { Button, Users } from 'components';
+import { Button, Spinner, Users } from 'components';
 import { fetchFollowers } from 'features/singleUser/singleUserSlice';
 import { SkipForward, SkipBack } from 'react-feather';
 
@@ -16,6 +16,7 @@ export const Followers = (props: Props) => {
   const { user, followers, followersLinks } = useAppSelector(
     (state) => state.singleUser
   );
+  const { loading } = useAppSelector((state) => state.loading);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -33,6 +34,10 @@ export const Followers = (props: Props) => {
       dispatch(fetchFollowers({ login: user.login, page }));
     }
   };
+
+  if (loading['singleUser/fetchFollowers']) {
+    return <Spinner />;
+  }
 
   if (status === 'error') {
     return 'There was an error';
