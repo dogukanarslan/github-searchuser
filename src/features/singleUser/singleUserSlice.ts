@@ -4,6 +4,12 @@ import type { paths } from '@octokit/openapi-types';
 import { parseLinkHeader } from '../../constants';
 import { octokit } from 'api/api';
 
+type argsType = {
+  login: string;
+  page?: string;
+  per_page?: number;
+};
+
 export const fetchSingleUser = createAsyncThunk(
   'singleUser/fetchSingleUser',
   async (args: { login: string }, { rejectWithValue }) => {
@@ -18,12 +24,6 @@ export const fetchSingleUser = createAsyncThunk(
     return { data: user.data };
   }
 );
-
-type argsType = {
-  login: string;
-  page?: string;
-  per_page?: number;
-};
 
 export const fetchFollowers = createAsyncThunk(
   'singleUser/fetchFollowers',
@@ -116,12 +116,30 @@ export const fetchAuthenticatedUser = createAsyncThunk(
   }
 );
 
+export const getIsFollowedByAuthenticatedUser = createAsyncThunk(
+  'singleUser/isFollowedByAuthenticatedUser',
+  async (username: string, { rejectWithValue }) => {
+    const response =
+      await octokit.rest.users.checkPersonIsFollowedByAuthenticated({
+        username,
+      });
+
+    if (!response) {
+      return rejectWithValue('rejected');
+    }
+
+    return { data: response.data };
+  }
+);
+
 type SliceState = {
   authenticatedUser:
     | paths['/user']['get']['responses']['200']['content']['application/json']
     | null;
   user:
-    | paths['/users/{username}']['get']['responses']['200']['content']['application/json']
+    | (paths['/users/{username}']['get']['responses']['200']['content']['application/json'] & {
+        isFollowedByAuthenticatedUser?: boolean;
+      })
     | null;
   followersLinks: any | null;
   followingLinks: any | null;
@@ -189,6 +207,11 @@ export const singleUserSlice = createSlice({
       .addCase(fetchAuthenticatedUser.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.user = action.payload.data;
+      })
+      .addCase(getIsFollowedByAuthenticatedUser.fulfilled, (state) => {
+        if (state.user) {
+          state.user.isFollowedByAuthenticatedUser = true;
+        }
       });
   },
 });

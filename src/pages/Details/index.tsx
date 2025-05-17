@@ -9,6 +9,7 @@ import { RootState, useAppDispatch } from 'app/store';
 import {
   fetchAuthenticatedUser,
   fetchSingleUser,
+  getIsFollowedByAuthenticatedUser,
 } from 'features/singleUser/singleUserSlice';
 import { useSelector } from 'react-redux';
 
@@ -44,6 +45,12 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
     }
   }, [match.params.login, dispatch]);
 
+  useEffect(() => {
+    if (user) {
+      dispatch(getIsFollowedByAuthenticatedUser(user.login));
+    }
+  }, [user, dispatch]);
+
   if (status === 'loading') {
     return (
       <div className="text-center">
@@ -67,6 +74,7 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
     public_repos,
     followers,
     following,
+    isFollowedByAuthenticatedUser,
   } = user;
 
   return (
@@ -76,6 +84,7 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
         public_repos={public_repos}
         followers={followers}
         following={following}
+        isFollowedByAuthenticatedUser={isFollowedByAuthenticatedUser}
       />
       <UserDetailInformation
         login={login}
