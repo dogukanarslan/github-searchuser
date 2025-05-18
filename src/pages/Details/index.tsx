@@ -80,6 +80,7 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
   return (
     <>
       <UserDetailHeader
+        login={login}
         avatar_url={avatar_url}
         public_repos={public_repos}
         followers={followers}
