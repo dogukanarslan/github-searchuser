@@ -1,4 +1,4 @@
-import { useAppDispatch } from 'app/store';
+import { useAppDispatch, useAppSelector } from 'app/store';
 import { Button } from 'components';
 import { followUser, unfollowUser } from 'features/singleUser/singleUserSlice';
 
@@ -20,6 +20,8 @@ export const UserDetailHeader = (props: Props) => {
     following,
     isFollowedByAuthenticatedUser,
   } = props;
+
+  const {authenticatedUser} = useAppSelector(state => state.singleUser)
 
   const dispatch = useAppDispatch();
 
@@ -55,9 +57,11 @@ export const UserDetailHeader = (props: Props) => {
             </div>
           </li>
         </ul>
-        <Button onClick={handleFollow}>
-          {isFollowedByAuthenticatedUser ? 'Unfollow' : 'Follow'}
-        </Button>
+        {authenticatedUser?.login !== login && (
+          <Button onClick={handleFollow}>
+            {isFollowedByAuthenticatedUser ? 'Unfollow' : 'Follow'}
+          </Button>
+        )}
       </div>
     </div>
   );

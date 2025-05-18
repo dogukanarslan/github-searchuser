@@ -158,6 +158,19 @@ export const unfollowUser = createAsyncThunk(
   }
 );
 
+export const getAuthenticated = createAsyncThunk(
+  'singleUser/authenticatedUser',
+  async (_, { rejectWithValue }) => {
+    const response = await octokit.rest.users.getAuthenticated();
+
+    if (!response) {
+      return rejectWithValue('rejected');
+    }
+
+    return { data: response.data };
+  }
+);
+
 type SliceState = {
   authenticatedUser:
     | paths['/user']['get']['responses']['200']['content']['application/json']
@@ -248,6 +261,9 @@ export const singleUserSlice = createSlice({
         if (state.user) {
           state.user.isFollowedByAuthenticatedUser = false;
         }
+      })
+      .addCase(getAuthenticated.fulfilled, (state, action) => {
+        state.authenticatedUser = action.payload.data;
       });
   },
 });
