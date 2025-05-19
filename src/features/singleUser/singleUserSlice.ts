@@ -180,9 +180,9 @@ type SliceState = {
         isFollowedByAuthenticatedUser?: boolean;
       })
     | null;
-  followersLinks: any | null;
-  followingLinks: any | null;
-  starredLinks: any | null;
+  followersLinks: Record<string, string> | null;
+  followingLinks: Record<string, string> | null;
+  starredLinks: Record<string, string> | null;
   followers: paths['/users/{username}/followers']['get']['responses']['200']['content']['application/json'];
   following: paths['/users/{username}/following']['get']['responses']['200']['content']['application/json'];
   starred: Extract<
