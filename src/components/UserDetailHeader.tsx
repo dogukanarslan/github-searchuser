@@ -21,7 +21,7 @@ export const UserDetailHeader = (props: Props) => {
     isFollowedByAuthenticatedUser,
   } = props;
 
-  const {authenticatedUser} = useAppSelector(state => state.singleUser)
+  const { authenticatedUser } = useAppSelector((state) => state.singleUser);
 
   const dispatch = useAppDispatch();
 
@@ -58,7 +58,7 @@ export const UserDetailHeader = (props: Props) => {
           </li>
         </ul>
         {authenticatedUser?.login !== login && (
-          <Button onClick={handleFollow}>
+          <Button onClick={handleFollow} className="w-full">
             {isFollowedByAuthenticatedUser ? 'Unfollow' : 'Follow'}
           </Button>
         )}
