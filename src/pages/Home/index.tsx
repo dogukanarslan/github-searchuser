@@ -34,10 +34,6 @@ export const Home = () => {
     };
   }, [dispatch]);
 
-  if (status === 'loading') {
-    return <Spinner />;
-  }
-
   if (status === 'error') {
     return 'There was an error';
   }
