@@ -37,6 +37,15 @@ export const UserDetailTabs = (props: Props) => {
       >
         Starred
       </Link>
+      <Link
+        to="#"
+        className={`${
+          selectedTab === 'repos' ? 'border-b-2 ' : ''
+        }text-sm border-secondary font-medium hover:border-b-2`}
+        onClick={() => setSelectedTab('repos')}
+      >
+        Repositories
+      </Link>
     </nav>
   );
 };

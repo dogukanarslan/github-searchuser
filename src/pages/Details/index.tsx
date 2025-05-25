@@ -15,6 +15,7 @@ import { useSelector } from 'react-redux';
 
 import { UserDetailInformation } from 'components/UserDetailInformation';
 import { UserDetailHeader } from 'components/UserDetailHeader';
+import { Repositories } from 'pages/Details/Repositories';
 
 export const Details = (props: RouteComponentProps<{ login: string }>) => {
   const { match } = props;
@@ -103,6 +104,7 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
       {selectedTab === 'followers' && <Followers status={status} />}
       {selectedTab === 'following' && <Following status={status} />}
       {selectedTab === 'starred' && <Starred status={status} />}
+      {selectedTab === 'repos' && <Repositories status={status} />}
     </>
   );
 };
