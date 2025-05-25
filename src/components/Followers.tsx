@@ -26,6 +26,10 @@ export const Followers = (props: Props) => {
   }, [user, dispatch]);
 
   const loadMore = (type: string) => {
+    if (!followersLinks) {
+      return;
+    }
+
     const urlParams = new URL(followersLinks[type]).searchParams;
     const page = urlParams.get('page');
 
