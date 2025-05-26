@@ -173,16 +173,22 @@ export const getAuthenticated = createAsyncThunk(
 
 export const fetchRepositores = createAsyncThunk(
   'singleUser/fetchRepositories',
-  async (args: { username: string }, { rejectWithValue }) => {
+  async (args: { username: string; page: number }, { rejectWithValue }) => {
     const response = await octokit.rest.repos.listForUser({
       username: args.username,
+      page: args.page
     });
 
     if (!response) {
       return rejectWithValue('rejected');
     }
 
-    return { data: response.data };
+    return {
+      data: response.data,
+      links: response.headers.link
+        ? parseLinkHeader(response.headers.link)
+        : null,
+    };
   }
 );
 
@@ -198,6 +204,7 @@ type SliceState = {
   followersLinks: Record<string, string> | null;
   followingLinks: Record<string, string> | null;
   starredLinks: Record<string, string> | null;
+  repositoriesLinks: Record<string, string> | null;
   followers: paths['/users/{username}/followers']['get']['responses']['200']['content']['application/json'];
   following: paths['/users/{username}/following']['get']['responses']['200']['content']['application/json'];
   starred: Extract<
@@ -216,6 +223,7 @@ const initialState: SliceState = {
   followersLinks: null,
   followingLinks: null,
   starredLinks: null,
+  repositoriesLinks: null,
   followers: [],
   following: [],
   starred: [],
@@ -284,6 +292,7 @@ export const singleUserSlice = createSlice({
       })
       .addCase(fetchRepositores.fulfilled, (state, action) => {
         state.repositories = action.payload.data;
+        state.repositoriesLinks = action.payload.links || {};
       });
   },
 });
