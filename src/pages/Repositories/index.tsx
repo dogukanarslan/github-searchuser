@@ -42,6 +42,8 @@ export const Repositories = () => {
             owner={repository.owner.login}
             description={repository.description || ''}
             full_name={repository.full_name}
+            stargazers_count={repository.stargazers_count || 0}
+            watchers_count={repository.watchers_count || 0}
           />
         ))}
       </div>
