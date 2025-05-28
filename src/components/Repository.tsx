@@ -11,10 +11,19 @@ interface RepositoryProps {
   owner: string;
   description: string;
   full_name: string;
+  stargazers_count: number;
+  watchers_count: number;
 }
 
 export const Repository = (props: RepositoryProps) => {
-  const { name, owner, description, full_name } = props;
+  const {
+    name,
+    owner,
+    description,
+    full_name,
+    stargazers_count,
+    watchers_count,
+  } = props;
 
   const { branches, labels } = useAppSelector((state) => state.repositories);
   const dispatch = useAppDispatch();
@@ -31,6 +40,8 @@ export const Repository = (props: RepositoryProps) => {
     <div className="block space-y-2 rounded-xl border p-4">
       <h1 className="text-lg font-bold">{full_name}</h1>
       <h2>{description}</h2>
+      <div>Stars {stargazers_count}</div>
+      <div>Watchers {watchers_count}</div>
       <div className="space-x-2">
         <Button color="primary" size="sm" onClick={getBranches}>
           Show Branches
