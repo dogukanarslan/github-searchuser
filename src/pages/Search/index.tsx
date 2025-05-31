@@ -8,6 +8,7 @@ import { Filters } from './Filters';
 import { RepositoryFilters } from './RepositoryFilters';
 import { CommitFilters } from './CommitFilters';
 import { Link } from 'react-router-dom';
+import { Spinner } from 'components';
 
 export const Search = () => {
   const { data } = useSelector((state: RootState) => state.search);
@@ -17,6 +18,7 @@ export const Search = () => {
   const { data: commitsData, status: commitsStatus } = useSelector(
     (state: RootState) => state.commitRepository
   );
+  const { loading } = useSelector((state: RootState) => state.loading);
 
   const [activeTab, setActiveTab] = useState('users');
 
@@ -62,25 +64,37 @@ export const Search = () => {
       {activeTab === 'users' ? (
         <div className="space-y-2">
           <Filters />
-          <Users users={data?.items} count={data?.total_count} />
+          {loading['search/fetchSearch'] ? (
+            <Spinner />
+          ) : (
+            <Users users={data?.items} count={data?.total_count} />
+          )}
         </div>
       ) : activeTab === 'repositories' ? (
         <>
           <RepositoryFilters />
-          <Repositories
-            repositories={repositoriesData?.items}
-            count={repositoriesData?.total_count}
-            status={repositoriesStatus}
-          />
+          {loading['search/fetchSearchRepository'] ? (
+            <Spinner />
+          ) : (
+            <Repositories
+              repositories={repositoriesData?.items}
+              count={repositoriesData?.total_count}
+              status={repositoriesStatus}
+            />
+          )}
         </>
       ) : (
         <>
           <CommitFilters />
-          <Commits
-            commits={commitsData?.items}
-            count={commitsData?.total_count}
-            status={commitsStatus}
-          />
+          {loading['search/fetchSearchCommit'] ? (
+            <Spinner />
+          ) : (
+            <Commits
+              commits={commitsData?.items}
+              count={commitsData?.total_count}
+              status={commitsStatus}
+            />
+          )}
         </>
       )}
     </>
