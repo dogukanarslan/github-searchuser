@@ -1,3 +1,4 @@
+import { Star, Eye } from 'react-feather';
 import { Button } from './Button';
 import { Badge } from './Badge';
 import { useAppDispatch, useAppSelector } from 'app/store';
@@ -38,7 +39,17 @@ export const Repository = (props: RepositoryProps) => {
 
   return (
     <div className="block space-y-2 rounded-xl border p-4">
-      <h1 className="text-lg font-bold">{full_name}</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-lg font-bold">{full_name}</h1>
+        <div className="flex items-start gap-4">
+          <div className="flex items-center gap-2">
+            <Star /> {stargazers_count}
+          </div>
+          <div className="flex items-center gap-2">
+            <Eye /> {watchers_count}
+          </div>
+        </div>
+      </div>
       <h2>{description}</h2>
       <div>Stars {stargazers_count}</div>
       <div>Watchers {watchers_count}</div>
