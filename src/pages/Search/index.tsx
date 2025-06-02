@@ -1,66 +1,36 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../app/store';
+import { useAppSelector } from '../../app/store';
 import { Users } from '../../components/Users';
 import { Repositories } from '../../components/Repositories';
 import { Commits } from '../../components/Commits';
 import { Filters } from './Filters';
 import { RepositoryFilters } from './RepositoryFilters';
 import { CommitFilters } from './CommitFilters';
-import { Link } from 'react-router-dom';
 import { Spinner } from 'components';
 
+import { Nav, Tab } from './Nav';
+
 export const Search = () => {
-  const { data } = useSelector((state: RootState) => state.search);
-  const { data: repositoriesData, status: repositoriesStatus } = useSelector(
-    (state: RootState) => state.searchRepository
+  const { data } = useAppSelector((state) => state.search);
+  const { data: repositoriesData, status: repositoriesStatus } = useAppSelector(
+    (state) => state.searchRepository
   );
-  const { data: commitsData, status: commitsStatus } = useSelector(
-    (state: RootState) => state.commitRepository
+  const { data: commitsData, status: commitsStatus } = useAppSelector(
+    (state) => state.commitRepository
   );
-  const { loading } = useSelector((state: RootState) => state.loading);
+  const { loading } = useAppSelector((state) => state.loading);
 
-  const [activeTab, setActiveTab] = useState('users');
+  const [activeTab, setActiveTab] = useState<Tab>(Tab.Users);
 
-  const toggle = (tab: string) => {
+  const toggle = (tab: Tab) => {
     if (activeTab !== tab) {
       setActiveTab(tab);
     }
   };
 
   return (
-    <>
-      <nav className="flex gap-6" aria-label="Tabs">
-        <Link
-          to="#"
-          className={`${
-            activeTab === 'users' ? 'bg-gray-100 ' : ''
-          }shrink-0 rounded-lg p-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700`}
-          onClick={() => toggle('users')}
-        >
-          Users
-        </Link>
-
-        <Link
-          to="#"
-          className={`${
-            activeTab === 'repositories' ? 'bg-gray-100 ' : ''
-          }shrink-0 rounded-lg p-2 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700`}
-          onClick={() => toggle('repositories')}
-        >
-          Repositories
-        </Link>
-        <Link
-          to="#"
-          className={`${
-            activeTab === 'commits' ? 'bg-gray-100 ' : ''
-          }shrink-0 rounded-lg p-2 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700`}
-          onClick={() => toggle('commits')}
-        >
-          Commits
-        </Link>
-      </nav>
-
+    <div className="space-y-2">
+      <Nav activeTab={activeTab} changeTab={toggle} />
       {activeTab === 'users' ? (
         <div className="space-y-2">
           <Filters />
@@ -97,6 +67,6 @@ export const Search = () => {
           )}
         </>
       )}
-    </>
+    </div>
   );
 };
