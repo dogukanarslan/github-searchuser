@@ -54,7 +54,7 @@ export const Home = () => {
           <Button
             color="primary"
             className="my-5"
-            onClick={() => loadMore()}
+            onClick={loadMore}
             disabled={!links?.next}
           >
             Load More
