@@ -4,8 +4,6 @@ import { Users } from '../../components/Users';
 import { Repositories } from '../../components/Repositories';
 import { Commits } from '../../components/Commits';
 import { Filters } from './Filters';
-import { RepositoryFilters } from './RepositoryFilters';
-import { CommitFilters } from './CommitFilters';
 import { Spinner } from 'components';
 
 import { Nav, Tab } from './Nav';
@@ -22,42 +20,27 @@ export const Search = () => {
 
   const [activeTab, setActiveTab] = useState<Tab>(Tab.Users);
 
-  const toggle = (tab: Tab) => {
-    if (activeTab !== tab) {
-      setActiveTab(tab);
-    }
-  };
+  const isLoading =
+    loading['search/fetchSearch'] ||
+    loading['search/fetchSearchRepository'] ||
+    loading['search/fetchSearchCommit'];
 
   return (
     <div className="space-y-2">
-      <Nav activeTab={activeTab} changeTab={toggle} />
-      {activeTab === 'users' ? (
-        <div className="space-y-2">
-          <Filters />
-          {loading['search/fetchSearch'] ? (
-            <Spinner />
-          ) : (
-            <Users users={data?.items} count={data?.total_count} />
-          )}
-        </div>
-      ) : activeTab === 'repositories' ? (
+      <Nav activeTab={activeTab} changeTab={(tab) => setActiveTab(tab)} />
+      <Filters activeTab={activeTab} />
+      {isLoading ? (
+        <Spinner />
+      ) : (
         <>
-          <RepositoryFilters />
-          {loading['search/fetchSearchRepository'] ? (
-            <Spinner />
-          ) : (
+          {activeTab === Tab.Users ? (
+            <Users users={data?.items} count={data?.total_count} />
+          ) : activeTab === Tab.Repositories ? (
             <Repositories
               repositories={repositoriesData?.items}
               count={repositoriesData?.total_count}
               status={repositoriesStatus}
             />
-          )}
-        </>
-      ) : (
-        <>
-          <CommitFilters />
-          {loading['search/fetchSearchCommit'] ? (
-            <Spinner />
           ) : (
             <Commits
               commits={commitsData?.items}

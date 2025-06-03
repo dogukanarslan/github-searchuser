@@ -20,6 +20,11 @@ interface Props {
 export const Nav = (props: Props) => {
   const { activeTab, changeTab } = props;
 
+  const handleClick = (tab: Tab) => {
+    changeTab(tab);
+    
+  };
+
   return (
     <nav className="flex gap-2" aria-label="Tabs">
       {NAV_ITEMS.map((item) => (
@@ -27,7 +32,7 @@ export const Nav = (props: Props) => {
           key={item.value}
           color="transparent"
           className={`${activeTab === item.value ? 'rounded-none border-b border-black' : ''}`}
-          onClick={() => changeTab(item.value)}
+          onClick={() => handleClick(item.value)}
         >
           {item.label}
         </Button>
