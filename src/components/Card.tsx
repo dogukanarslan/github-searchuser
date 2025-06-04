@@ -1,5 +1,5 @@
 import { Button } from './Button';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 interface CardProps {
   title?: string;
   body?: string;
@@ -9,7 +9,7 @@ interface CardProps {
 
 export const Card = (props: CardProps) => {
   const { title, body, img, link } = props;
-  const history = useHistory();
+  const navigate = useNavigate();
 
   return (
     <div className="overflow-hidden rounded-lg shadow-sm">
@@ -18,7 +18,7 @@ export const Card = (props: CardProps) => {
       <div className="bg-white p-4">
         {title && <h4>{title}</h4>}
         {body && <p>{body}</p>}
-        {link && <Button onClick={() => history.push(link)}>More Info</Button>}
+        {link && <Button onClick={() => navigate(link)}>More Info</Button>}
       </div>
     </div>
   );

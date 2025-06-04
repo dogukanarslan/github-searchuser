@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
-import { RouteComponentProps, useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
+
 import { Followers } from 'components/Followers';
 import { Following } from 'components/Following';
 import { Starred } from 'components/Starred';
@@ -17,8 +18,8 @@ import { UserDetailInformation } from 'components/UserDetailInformation';
 import { UserDetailHeader } from 'components/UserDetailHeader';
 import { Repositories } from 'pages/Details/Repositories';
 
-export const Details = (props: RouteComponentProps<{ login: string }>) => {
-  const { match } = props;
+export const Details = () => {
+  const params = useParams();
   const { search } = useLocation();
 
   const searchParams = useMemo(() => new URLSearchParams(search), [search]);
@@ -39,12 +40,12 @@ export const Details = (props: RouteComponentProps<{ login: string }>) => {
   const { user, status } = useSelector((state: RootState) => state.singleUser);
 
   useEffect(() => {
-    if (match.params.login) {
-      dispatch(fetchSingleUser({ login: match.params.login }));
+    if (params.login) {
+      dispatch(fetchSingleUser({ login: params.login }));
     } else {
       dispatch(fetchAuthenticatedUser());
     }
-  }, [match.params.login, dispatch]);
+  }, [params.login, dispatch]);
 
   useEffect(() => {
     if (user) {
