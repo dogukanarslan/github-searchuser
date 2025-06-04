@@ -9,7 +9,7 @@ const container = document.getElementById('root') as HTMLDivElement;
 const root = createRoot(container);
 
 root.render(
-  <HashRouter basename="/github-searchuser">
+  <HashRouter>
     <Provider store={store}>
       <App />
     </Provider>
