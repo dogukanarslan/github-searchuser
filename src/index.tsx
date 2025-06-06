@@ -1,17 +1,50 @@
-import { App } from './App';
 import './index.css';
-import { HashRouter } from 'react-router-dom';
+import {
+  createHashRouter,
+  Outlet,
+  redirect,
+  RouterProvider,
+} from 'react-router';
 import { createRoot } from 'react-dom/client';
+import { Details, Home, Repositories, Search } from 'pages';
+import { store } from 'app/store';
 import { Provider } from 'react-redux';
-import { store } from './app/store';
+import { App } from 'App';
 
 const container = document.getElementById('root') as HTMLDivElement;
-const root = createRoot(container);
 
-root.render(
-  <HashRouter>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </HashRouter>
+const Foo = () => <Outlet />;
+
+const router = createHashRouter([
+  {
+    path: '/',
+    Component: App,
+    children: [
+      {
+        path: '/',
+        loader: () => {
+          return redirect('/users');
+        },
+      },
+      { path: '/profile', Component: Details },
+      {
+        path: '/users',
+        children: [
+          { index: true, Component: Home },
+          {
+            path: ':login',
+            Component: Details,
+          },
+        ],
+      },
+      { path: '/search', Component: Search },
+      { path: '/repositories', Component: Repositories },
+    ],
+  },
+]);
+
+createRoot(container).render(
+  <Provider store={store}>
+    <RouterProvider router={router} />
+  </Provider>
 );

@@ -6,6 +6,8 @@ import { Spinner } from 'components/Spinner';
 import { Filters } from './Filters';
 import { fetchUsers, resetUsers } from '../../features/users/usersSlice';
 import { RootState, useAppDispatch } from '../../app/store';
+import { Outlet } from 'react-router';
+
 
 export const Home = () => {
   const [resultsPerPage, setResultsPerPage] = useState('30');
@@ -61,6 +63,7 @@ export const Home = () => {
           </Button>
         )}
       </div>
+      <Outlet/>
     </>
   );
 };
