@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { Endpoints } from '@octokit/types';
 
@@ -14,7 +14,7 @@ export const User = (props: UserProps) => {
   return (
     <div className="block rounded-xl border p-4">
       <div className="flex items-center gap-4">
-        <Link to={`/details/${login}`}>
+        <Link to={`/users/${login}`}>
           <img
             src={avatar_url}
             className="h-16 w-16 rounded-full object-cover"

@@ -1,19 +1,13 @@
-import { useAppDispatch } from 'app/store';
-import { Main, Header } from 'components';
-import { getAuthenticated } from 'features/singleUser/singleUserSlice';
-import { useEffect } from 'react';
+import { Header } from 'components';
+import { Outlet } from 'react-router';
 
 export const App = () => {
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(getAuthenticated());
-  }, [dispatch]);
-
   return (
     <div className="container mx-auto px-4">
       <Header />
-      <Main />
+      <div className="mt-2">
+        <Outlet />
+      </div>
     </div>
   );
 };

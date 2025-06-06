@@ -1,4 +1,3 @@
-import { Main } from './Main';
 import { Users } from './Users';
 import { User } from './User';
 import { CustomLink } from './CustomLink';
@@ -12,7 +11,6 @@ import { Header } from './Header';
 import { Spinner } from './Spinner';
 
 export {
-  Main,
   Users,
   User,
   CustomLink,
