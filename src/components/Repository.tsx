@@ -17,14 +17,7 @@ interface RepositoryProps {
 }
 
 export const Repository = (props: RepositoryProps) => {
-  const {
-    name,
-    owner,
-    description,
-    full_name,
-    stargazers_count,
-    watchers_count,
-  } = props;
+  const { name, owner, description, stargazers_count, watchers_count } = props;
 
   const { branches, labels } = useAppSelector((state) => state.repositories);
   const dispatch = useAppDispatch();
@@ -40,7 +33,10 @@ export const Repository = (props: RepositoryProps) => {
   return (
     <div className="block space-y-2 rounded-xl border p-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-lg font-bold">{full_name}</h1>
+        <div>
+          <h5 className="text-lg font-bold">{name}</h5>
+          <h6 className="text-sm font-bold">{owner}</h6>
+        </div>
         <div className="flex items-start gap-4">
           <div className="flex items-center gap-2">
             <Star /> {stargazers_count}
@@ -50,7 +46,7 @@ export const Repository = (props: RepositoryProps) => {
           </div>
         </div>
       </div>
-      <h2>{description}</h2>
+      <div>{description}</div>
       <div>Stars {stargazers_count}</div>
       <div>Watchers {watchers_count}</div>
       <div className="space-x-2">
