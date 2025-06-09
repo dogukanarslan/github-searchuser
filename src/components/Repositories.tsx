@@ -13,7 +13,7 @@ export const Repositories = (props: RepositoriesProps) => {
   return (
     <>
       {count !== undefined && <p className="lead">{count} results</p>}
-      <div className="grid grid-cols-5 gap-4">
+      <div className="grid lg:grid-cols-3 gap-4">
         {repositories?.map((repository) => (
           <Repository
             key={repository.id}
