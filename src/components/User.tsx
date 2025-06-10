@@ -14,15 +14,17 @@ export const User = (props: UserProps) => {
   return (
     <div className="block rounded-xl border p-4">
       <div className="flex items-center gap-4">
-        <Link to={`/users/${login}`}>
-          <img
-            src={avatar_url}
-            className="h-16 w-16 rounded-full object-cover"
-            alt="User image"
-          />
-        </Link>
+        <img
+          src={avatar_url}
+          className="h-16 w-16 rounded-full object-cover"
+          alt="User image"
+        />
+
         <div>
-          <h3 className="text-lg font-bold">{login}</h3>
+          <Link to={`/users/${login}`}>
+            <h3 className="text-lg font-bold">{login}</h3>
+          </Link>
+
           <div className="flow-root">
             <ul className="-m-1 flex flex-wrap">
               <li className="p-1 leading-none">
