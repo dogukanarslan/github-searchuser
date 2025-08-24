@@ -1,7 +1,7 @@
 import { Star, Eye } from 'react-feather';
 import { Button } from './Button';
 import { Badge } from './Badge';
-import { useAppDispatch, useAppSelector } from 'app/store';
+import { useAppDispatch, useAppSelector } from 'store/store';
 import {
   fetchBranches,
   fetchLabels,

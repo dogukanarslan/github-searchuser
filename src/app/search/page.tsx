@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useAppSelector } from '../../app/store';
+import { useAppSelector } from '../../store/store';
 import { Users } from '../../components/Users';
 import { Repositories } from '../../components/Repositories';
 import { Commits } from '../../components/Commits';
@@ -8,7 +8,7 @@ import { Spinner } from 'components';
 
 import { Nav, Tab } from './Nav';
 
-export const Search = () => {
+const Search = () => {
   const { data } = useAppSelector((state) => state.search);
   const { data: repositoriesData, status: repositoriesStatus } = useAppSelector(
     (state) => state.searchRepository
@@ -53,3 +53,5 @@ export const Search = () => {
     </div>
   );
 };
+
+export default Search;

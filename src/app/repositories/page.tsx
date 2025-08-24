@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 
-import { RootState, useAppDispatch } from 'app/store';
+import { RootState, useAppDispatch } from 'store/store';
 
 import { useEffect } from 'react';
 import {
@@ -10,7 +10,7 @@ import {
 import { Repository } from 'components/Repository';
 import { Button, Spinner } from 'components';
 
-export const Repositories = () => {
+const Repositories = () => {
   const dispatch = useAppDispatch();
   const { data, status, links } = useSelector(
     (state: RootState) => state.repositories
@@ -66,3 +66,5 @@ export const Repositories = () => {
     </>
   );
 };
+
+export default Repositories;

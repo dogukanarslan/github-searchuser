@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { Endpoints } from '@octokit/types';
 import { parseLinkHeader } from '../../constants';
-import { octokit } from 'api/api';
+import { octokit } from 'lib/api';
 
 export const fetchRepositories = createAsyncThunk(
   'repositories/fetchRepositories',

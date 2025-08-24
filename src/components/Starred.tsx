@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from 'app/store';
+import { useAppDispatch, useAppSelector } from 'store/store';
 import { Button } from 'components';
 import { fetchStarred } from 'features/singleUser/singleUserSlice';
 import { SkipForward, SkipBack } from 'react-feather';

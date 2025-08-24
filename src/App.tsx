@@ -3,9 +3,9 @@ import { Outlet } from 'react-router';
 
 export const App = () => {
   return (
-    <div className="container mx-auto px-4">
+    <div className="mx-auto">
       <Header />
-      <div className="mt-2">
+      <div className="mt-2 p-8">
         <Outlet />
       </div>
     </div>

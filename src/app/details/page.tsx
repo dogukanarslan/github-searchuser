@@ -6,7 +6,7 @@ import { Following } from 'components/Following';
 import { Starred } from 'components/Starred';
 import { Spinner } from 'components';
 import { UserDetailTabs } from 'components/UserDetailTabs';
-import { RootState, useAppDispatch } from 'app/store';
+import { RootState, useAppDispatch } from 'store/store';
 import {
   fetchAuthenticatedUser,
   fetchSingleUser,
@@ -16,9 +16,9 @@ import { useSelector } from 'react-redux';
 
 import { UserDetailInformation } from 'components/UserDetailInformation';
 import { UserDetailHeader } from 'components/UserDetailHeader';
-import { Repositories } from 'pages/Details/Repositories';
+import { Repositories } from 'app/details/Repositories';
 
-export const Details = () => {
+const Details = () => {
   const params = useParams();
   const { search } = useLocation();
 
@@ -109,3 +109,5 @@ export const Details = () => {
     </>
   );
 };
+
+export default Details;
