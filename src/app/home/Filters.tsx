@@ -19,7 +19,12 @@ export const Filters = (props: Props) => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(resetUsers());
-    dispatch(fetchUsers({ startingId, resultsPerPage }));
+    dispatch(
+      fetchUsers({
+        startingId: startingId ? parseInt(startingId) : undefined,
+        resultsPerPage,
+      })
+    );
   };
 
   return (

@@ -18,9 +18,15 @@ const Home = () => {
   const loadMore = () => {
     const urlParams = new URL(links.next).searchParams;
     const since = urlParams.get('since');
+    console.log('since', since);
 
     if (since) {
-      dispatch(fetchUsers({ startingId: since, resultsPerPage }));
+      dispatch(
+        fetchUsers({
+          startingId: since ? parseInt(since) : undefined,
+          resultsPerPage,
+        })
+      );
     }
   };
 
