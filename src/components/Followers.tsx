@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store/store';
 import { Button, Spinner, Users } from 'components';
-import { fetchFollowers } from 'features/singleUser/singleUserSlice';
+import { fetchFollowers } from 'store/slices/singleUserSlice';
 import { SkipForward, SkipBack } from 'react-feather';
 
 interface Props {

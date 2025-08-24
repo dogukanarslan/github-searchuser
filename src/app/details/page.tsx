@@ -11,7 +11,7 @@ import {
   fetchAuthenticatedUser,
   fetchSingleUser,
   getIsFollowedByAuthenticatedUser,
-} from 'features/singleUser/singleUserSlice';
+} from 'store/slices/singleUserSlice';
 import { useSelector } from 'react-redux';
 
 import { UserDetailInformation } from 'components/UserDetailInformation';

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store/store';
 import { Button, Spinner } from 'components';
-import { fetchRepositores } from 'features/singleUser/singleUserSlice';
+import { fetchRepositores } from 'store/slices/singleUserSlice';
 import { Repository } from 'components/Repository';
 import { SkipBack, SkipForward } from 'react-feather';
 

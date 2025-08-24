@@ -1,10 +1,10 @@
 import { FormEvent, useState } from 'react';
 import { Button, Input } from 'components';
 import { useAppDispatch } from '../../store/store';
-import { fetchSearch } from '../../features/search/searchSlice';
+import { fetchSearch } from '../../store/slices/searchSlice';
 import { Tab } from './Nav';
-import { fetchSearchRepository } from 'features/search/searchRepositorySlice';
-import { fetchSearchCommit } from 'features/search/searchCommitSlice';
+import { fetchSearchRepository } from 'store/slices/searchRepositorySlice';
+import { fetchSearchCommit } from 'store/slices/searchCommitSlice';
 
 interface Props {
   activeTab: Tab;

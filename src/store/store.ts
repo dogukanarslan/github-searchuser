@@ -1,12 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useSelector, useDispatch, TypedUseSelectorHook } from 'react-redux';
-import usersReducer from '../features/users/usersSlice';
-import searchReducer from '../features/search/searchSlice';
-import searchRepositoryReducer from '../features/search/searchRepositorySlice';
-import commitRepositoryReducer from '../features/search/searchCommitSlice';
-import singleUserReducer from '../features/singleUser/singleUserSlice';
-import repositoriesReducer from '../features/repositories/repositoriesSlice';
-import loadingReducer from '../features/loadingSlice';
+import usersReducer from './slices/usersSlice';
+import searchReducer from './slices/searchSlice';
+import searchRepositoryReducer from './slices/searchRepositorySlice';
+import commitRepositoryReducer from './slices/searchCommitSlice';
+import singleUserReducer from './slices/singleUserSlice';
+import repositoriesReducer from './slices/repositoriesSlice';
+import loadingReducer from './slices/loadingSlice';
 
 export const store = configureStore({
   reducer: {

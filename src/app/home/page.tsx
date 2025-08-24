@@ -4,7 +4,7 @@ import { Button } from 'components/Button';
 import { Users } from '../../components';
 import { Spinner } from 'components/Spinner';
 import { Filters } from './Filters';
-import { fetchUsers, resetUsers } from '../../features/users/usersSlice';
+import { fetchUsers, resetUsers } from '../../store/slices/usersSlice';
 import { RootState, useAppDispatch } from '../../store/store';
 import { Outlet } from 'react-router';
 
