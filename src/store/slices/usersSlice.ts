@@ -4,7 +4,7 @@ import { Endpoints } from '@octokit/types';
 import { parseLinkHeader } from '../../constants';
 
 type argsType = {
-  startingId?: string;
+  startingId?: number;
   resultsPerPage?: string;
 };
 
@@ -19,7 +19,7 @@ export const fetchUsers = createAsyncThunk(
   async (args: argsType, { rejectWithValue }) => {
     const { startingId, resultsPerPage } = args;
     const users = await octokit.rest.users.list({
-      request: { startingId },
+      since: startingId || undefined,
       ...(resultsPerPage && { per_page: parseInt(resultsPerPage) }),
     });
 

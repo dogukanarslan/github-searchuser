@@ -20,7 +20,12 @@ const Home = () => {
     const since = urlParams.get('since');
 
     if (since) {
-      dispatch(fetchUsers({ startingId: since, resultsPerPage }));
+      dispatch(
+        fetchUsers({
+          startingId: since ? parseInt(since) : undefined,
+          resultsPerPage,
+        })
+      );
     }
   };
 

@@ -5,7 +5,7 @@ export const App = () => {
   return (
     <div className="mx-auto">
       <Header />
-      <div className="mt-2 p-8">
+      <div className="mt-2 p-4">
         <Outlet />
       </div>
     </div>
