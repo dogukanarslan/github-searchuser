@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from 'app/store';
+import { useAppDispatch, useAppSelector } from 'store/store';
 import { Button } from 'components';
 import { followUser, unfollowUser } from 'features/singleUser/singleUserSlice';
 

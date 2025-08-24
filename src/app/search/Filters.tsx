@@ -1,6 +1,6 @@
 import { FormEvent, useState } from 'react';
 import { Button, Input } from 'components';
-import { useAppDispatch } from '../../app/store';
+import { useAppDispatch } from '../../store/store';
 import { fetchSearch } from '../../features/search/searchSlice';
 import { Tab } from './Nav';
 import { fetchSearchRepository } from 'features/search/searchRepositorySlice';

@@ -1,10 +1,16 @@
-import './index.css';
 import { createHashRouter, redirect, RouterProvider } from 'react-router';
 import { createRoot } from 'react-dom/client';
-import { Details, Home, Repositories, Search } from 'pages';
-import { store } from 'app/store';
 import { Provider } from 'react-redux';
+
+import { store } from 'store/store';
 import { App } from 'App';
+
+import Details from 'app/details/page';
+import Home from 'app/home/page';
+import Repositories from 'app/repositories/page';
+import Search from 'app/search/page';
+
+import './index.css';
 
 const container = document.getElementById('root') as HTMLDivElement;
 

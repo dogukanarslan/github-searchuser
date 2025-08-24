@@ -5,11 +5,10 @@ import { Users } from '../../components';
 import { Spinner } from 'components/Spinner';
 import { Filters } from './Filters';
 import { fetchUsers, resetUsers } from '../../features/users/usersSlice';
-import { RootState, useAppDispatch } from '../../app/store';
+import { RootState, useAppDispatch } from '../../store/store';
 import { Outlet } from 'react-router';
 
-
-export const Home = () => {
+const Home = () => {
   const [resultsPerPage, setResultsPerPage] = useState('30');
 
   const { data, status } = useSelector((state: RootState) => state.users);
@@ -63,7 +62,8 @@ export const Home = () => {
           </Button>
         )}
       </div>
-      <Outlet/>
+      <Outlet />
     </>
   );
 };
+export default Home;

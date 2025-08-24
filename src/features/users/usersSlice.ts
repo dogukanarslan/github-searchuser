@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { octokit } from 'api/api';
+import { octokit } from 'lib/api';
 import { Endpoints } from '@octokit/types';
 import { parseLinkHeader } from '../../constants';
 

@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { paths } from '@octokit/openapi-types';
 
 import { parseLinkHeader } from '../../constants';
-import { octokit } from 'api/api';
+import { octokit } from 'lib/api';
 
 type argsType = {
   login: string;

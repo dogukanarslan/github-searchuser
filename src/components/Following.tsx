@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { fetchFollowing } from 'features/singleUser/singleUserSlice';
-import { useAppDispatch, useAppSelector } from 'app/store';
+import { useAppDispatch, useAppSelector } from 'store/store';
 import { Button, Users } from 'components';
 import { SkipForward, SkipBack } from 'react-feather';
 

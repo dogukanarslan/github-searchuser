@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { octokit } from 'api/api';
+import { octokit } from 'lib/api';
 
 type ArgsType = {
   q: string;

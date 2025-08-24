@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from 'app/store';
+import { useAppDispatch, useAppSelector } from 'store/store';
 import { Button, Spinner } from 'components';
 import { fetchRepositores } from 'features/singleUser/singleUserSlice';
 import { Repository } from 'components/Repository';

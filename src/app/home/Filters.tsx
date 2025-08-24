@@ -1,5 +1,5 @@
 import { FormEvent, useState } from 'react';
-import { useAppDispatch } from '../../app/store';
+import { useAppDispatch } from '../../store/store';
 import { fetchUsers, resetUsers } from '../../features/users/usersSlice';
 
 import { Button, FormLabel, Input, Select } from 'components';
