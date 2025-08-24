@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from 'store/store';
 import {
   fetchBranches,
   fetchLabels,
-} from 'features/repositories/repositoriesSlice';
+} from 'store/slices/repositoriesSlice';
 
 interface RepositoryProps {
   name: string;

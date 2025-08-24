@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import {
   fetchRepositories,
   resetRepositories,
-} from 'features/repositories/repositoriesSlice';
+} from 'store/slices/repositoriesSlice';
 import { Repository } from 'components/Repository';
 import { Button, Spinner } from 'components';
 
