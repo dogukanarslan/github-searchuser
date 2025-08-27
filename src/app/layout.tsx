@@ -1,3 +1,5 @@
+import StoreProvider from './StoreProvider';
+
 export const metadata = {
   title: 'GitHub Search',
 };
@@ -9,7 +11,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <StoreProvider>{children}</StoreProvider>
+      </body>
     </html>
   );
 }
