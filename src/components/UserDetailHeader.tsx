@@ -2,16 +2,17 @@ import { useAppDispatch, useAppSelector } from 'store/store';
 import { Button } from 'components';
 import { followUser, unfollowUser } from 'store/slices/singleUserSlice';
 
-interface Props {
-  login: string;
-  avatar_url: string;
-  public_repos: number;
-  followers: number;
-  following: number;
-  isFollowedByAuthenticatedUser?: boolean;
-}
+export const UserDetailHeader = () => {
+  const { authenticatedUser, user } = useAppSelector(
+    (state) => state.singleUser
+  );
 
-export const UserDetailHeader = (props: Props) => {
+  const dispatch = useAppDispatch();
+
+  if (!user) {
+    return;
+  }
+
   const {
     login,
     avatar_url,
@@ -19,11 +20,7 @@ export const UserDetailHeader = (props: Props) => {
     followers,
     following,
     isFollowedByAuthenticatedUser,
-  } = props;
-
-  const { authenticatedUser } = useAppSelector((state) => state.singleUser);
-
-  const dispatch = useAppDispatch();
+  } = user;
 
   const handleFollow = () => {
     if (isFollowedByAuthenticatedUser) {

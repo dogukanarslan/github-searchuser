@@ -25,6 +25,9 @@ export const Following = (props: Props) => {
   }, [user, dispatch]);
 
   const loadMore = () => {
+    if (!followingLinks) {
+      return;
+    }
     const urlParams = new URL(followingLinks.next).searchParams;
     const page = urlParams.get('page');
 

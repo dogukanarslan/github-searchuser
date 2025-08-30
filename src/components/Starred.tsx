@@ -26,6 +26,10 @@ export const Starred = (props: Props) => {
   }, [user, dispatch]);
 
   const loadMore = (type: string) => {
+    if (!starredLinks) {
+      return;
+    }
+
     const urlParams = new URL(starredLinks[type]).searchParams;
     const page = urlParams.get('page');
 
