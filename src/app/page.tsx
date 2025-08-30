@@ -1,14 +1,15 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Button } from 'components/Button';
-import { Users } from '../../components';
+import { Users } from '../components';
 import { Spinner } from 'components/Spinner';
 import { Filters } from './Filters';
-import { fetchUsers, resetUsers } from '../../store/slices/usersSlice';
-import { RootState, useAppDispatch } from '../../store/store';
-import { Outlet } from 'react-router';
+import { fetchUsers, resetUsers } from '../store/slices/usersSlice';
+import { RootState, useAppDispatch } from '../store/store';
 
-const Home = () => {
+const HomePage = () => {
   const [resultsPerPage, setResultsPerPage] = useState('30');
 
   const { data, status } = useSelector((state: RootState) => state.users);
@@ -67,8 +68,7 @@ const Home = () => {
           </Button>
         )}
       </div>
-      <Outlet />
     </>
   );
 };
-export default Home;
+export default HomePage;

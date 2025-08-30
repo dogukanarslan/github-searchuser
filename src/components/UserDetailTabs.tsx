@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import Link from 'next/link';
 
 interface Props {
   selectedTab: string;
@@ -11,7 +11,7 @@ export const UserDetailTabs = (props: Props) => {
   return (
     <nav className="mb-2 flex gap-6 transition-all" aria-label="Tabs">
       <Link
-        to="#"
+        href="#"
         className={`${
           selectedTab === 'followers' ? 'border-b-2 ' : ''
         }text-sm border-secondary font-medium hover:border-b-2`}
@@ -20,7 +20,7 @@ export const UserDetailTabs = (props: Props) => {
         Followers
       </Link>
       <Link
-        to="#"
+        href="#"
         className={`${
           selectedTab === 'following' ? 'border-b-2 ' : ''
         }text-sm border-secondary font-medium hover:border-b-2`}
@@ -29,7 +29,7 @@ export const UserDetailTabs = (props: Props) => {
         Following
       </Link>
       <Link
-        to="#"
+        href="#"
         className={`${
           selectedTab === 'starred' ? 'border-b-2 ' : ''
         }text-sm border-secondary font-medium hover:border-b-2`}
@@ -38,7 +38,7 @@ export const UserDetailTabs = (props: Props) => {
         Starred
       </Link>
       <Link
-        to="#"
+        href="#"
         className={`${
           selectedTab === 'repos' ? 'border-b-2 ' : ''
         }text-sm border-secondary font-medium hover:border-b-2`}

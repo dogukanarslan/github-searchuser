@@ -1,10 +1,12 @@
+'use client';
+
 import { useState } from 'react';
 import { useAppSelector } from '../../store/store';
 import { Users } from '../../components/Users';
 import { Repositories } from '../../components/Repositories';
 import { Commits } from '../../components/Commits';
 import { Filters } from './Filters';
-import { Spinner } from 'components';
+import { Spinner } from 'components/Spinner';
 
 import { Nav, Tab } from './Nav';
 

@@ -1,5 +1,9 @@
 import StoreProvider from './StoreProvider';
 
+import { Header } from 'components/Header';
+
+import '../index.css';
+
 export const metadata = {
   title: 'GitHub Search',
 };
@@ -12,7 +16,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <StoreProvider>{children}</StoreProvider>
+        <StoreProvider>
+          <Header />
+          <div className="mt-2 p-4">{children}</div>
+        </StoreProvider>
       </body>
     </html>
   );

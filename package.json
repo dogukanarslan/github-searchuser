@@ -13,15 +13,12 @@
     "react-dom": "^18.2.0",
     "react-feather": "^2.0.10",
     "react-redux": "^8.0.2",
-    "react-router": "^7.6.2",
     "typescript": "^5.8.3"
   },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "format": "prettier --write .",
     "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
     "type-check": "tsc"
@@ -53,11 +50,9 @@
     "eslint": "^8.56.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "gh-pages": "^2.1.1",
     "postcss": "^8.4.33",
     "prettier": "^3.0.3",
     "prettier-plugin-tailwindcss": "^0.5.3",
-    "tailwindcss": "^3.3.3",
-    "vite-tsconfig-paths": "^5.1.4"
+    "tailwindcss": "^3.3.3"
   }
 }
