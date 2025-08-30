@@ -1,16 +1,15 @@
 import { Briefcase, MapPin, Mail, Link as LinkIcon } from 'react-feather';
+import { useAppSelector } from 'store/store';
 
-interface Props {
-  login: string;
-  name: string | null;
-  company: string | null;
-  location: string | null;
-  email: string | null;
-  blog: string | null;
-}
+export const UserDetailInformation = () => {
+  const { user } = useAppSelector((state) => state.singleUser);
 
-export const UserDetailInformation = (props: Props) => {
-  const { name, login, company, location, email, blog } = props;
+  if (!user) {
+    return;
+  }
+
+  const { login, name, company, blog, location, email } = user;
+
   return (
     <div className="py-5">
       <h1 className="text-lg font-bold">{name}</h1>

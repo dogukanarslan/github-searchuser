@@ -33,7 +33,7 @@ const Details = () => {
 
   const dispatch = useAppDispatch();
 
-  const { user, status } = useSelector((state: RootState) => state.singleUser);
+  const { status } = useSelector((state: RootState) => state.singleUser);
 
   useEffect(() => {
     dispatch(fetchAuthenticatedUser());
@@ -47,42 +47,10 @@ const Details = () => {
     );
   }
 
-  if (!user) {
-    return <h1 className="text-center text-2xl font-bold">USER NOT FOUND</h1>;
-  }
-
-  const {
-    avatar_url,
-    login,
-    name,
-    company,
-    blog,
-    location,
-    email,
-    public_repos,
-    followers,
-    following,
-    isFollowedByAuthenticatedUser,
-  } = user;
-
   return (
     <>
-      <UserDetailHeader
-        login={login}
-        avatar_url={avatar_url}
-        public_repos={public_repos}
-        followers={followers}
-        following={following}
-        isFollowedByAuthenticatedUser={isFollowedByAuthenticatedUser}
-      />
-      <UserDetailInformation
-        login={login}
-        name={name}
-        company={company}
-        location={location}
-        email={email}
-        blog={blog}
-      />
+      <UserDetailHeader />
+      <UserDetailInformation />
       <UserDetailTabs
         selectedTab={selectedTab}
         setSelectedTab={(tab) => setSelectedTab(tab)}
