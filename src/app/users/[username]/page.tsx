@@ -1,5 +1,7 @@
-import { useEffect, useMemo, useState } from 'react';
-import { useLocation, useParams } from 'react-router';
+'use client';
+
+import { useEffect, useState } from 'react';
+import { useParams, useSearchParams } from 'next/navigation';
 
 import { Followers } from 'components/Followers';
 import { Following } from 'components/Following';
@@ -8,7 +10,6 @@ import { Spinner } from 'components';
 import { UserDetailTabs } from 'components/UserDetailTabs';
 import { RootState, useAppDispatch } from 'store/store';
 import {
-  fetchAuthenticatedUser,
   fetchSingleUser,
   getIsFollowedByAuthenticatedUser,
 } from 'store/slices/singleUserSlice';
@@ -16,13 +17,12 @@ import { useSelector } from 'react-redux';
 
 import { UserDetailInformation } from 'components/UserDetailInformation';
 import { UserDetailHeader } from 'components/UserDetailHeader';
-import { Repositories } from 'app/details/Repositories';
+import { Repositories } from 'app/users/Repositories';
 
 const Details = () => {
-  const params = useParams();
-  const { search } = useLocation();
+  const { username } = useParams();
 
-  const searchParams = useMemo(() => new URLSearchParams(search), [search]);
+  const searchParams = useSearchParams();
 
   const [selectedTab, setSelectedTab] = useState(
     searchParams.get('tab') || 'followers'
@@ -40,12 +40,10 @@ const Details = () => {
   const { user, status } = useSelector((state: RootState) => state.singleUser);
 
   useEffect(() => {
-    if (params.login) {
-      dispatch(fetchSingleUser({ login: params.login }));
-    } else {
-      dispatch(fetchAuthenticatedUser());
+    if (username) {
+      dispatch(fetchSingleUser({ login: username.toString() }));
     }
-  }, [params.login, dispatch]);
+  }, [username, dispatch]);
 
   useEffect(() => {
     if (user) {
@@ -76,7 +74,7 @@ const Details = () => {
     public_repos,
     followers,
     following,
-    isFollowedByAuthenticatedUser,
+    isFollowedByAuthenticatedUser
   } = user;
 
   return (

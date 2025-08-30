@@ -1,5 +1,5 @@
 import { Button } from './Button';
-import { useNavigate } from 'react-router';
+import { redirect } from 'next/navigation';
 interface CardProps {
   title?: string;
   body?: string;
@@ -9,7 +9,6 @@ interface CardProps {
 
 export const Card = (props: CardProps) => {
   const { title, body, img, link } = props;
-  const navigate = useNavigate();
 
   return (
     <div className="overflow-hidden rounded-lg shadow-sm">
@@ -18,7 +17,7 @@ export const Card = (props: CardProps) => {
       <div className="bg-white p-4">
         {title && <h4>{title}</h4>}
         {body && <p>{body}</p>}
-        {link && <Button onClick={() => navigate(link)}>More Info</Button>}
+        {link && <Button onClick={() => redirect(link)}>More Info</Button>}
       </div>
     </div>
   );

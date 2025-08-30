@@ -1,4 +1,4 @@
-import { Button } from 'components';
+import { Button } from 'components/Button';
 
 export enum Tab {
   Users = 'users',
@@ -22,7 +22,6 @@ export const Nav = (props: Props) => {
 
   const handleClick = (tab: Tab) => {
     changeTab(tab);
-    
   };
 
   return (

@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import Link from 'next/link';
 
 import { Endpoints } from '@octokit/types';
 
@@ -21,7 +21,7 @@ export const User = (props: UserProps) => {
         />
 
         <div>
-          <Link to={`/users/${login}`}>
+          <Link href={`/users/${login}`}>
             <h3 className="text-lg font-bold">{login}</h3>
           </Link>
 
@@ -29,7 +29,7 @@ export const User = (props: UserProps) => {
             <ul className="-m-1 flex flex-wrap">
               <li className="p-1 leading-none">
                 <Link
-                  to={{
+                  href={{
                     pathname: `/details/${login}`,
                     search: '?tab=followers',
                   }}
@@ -41,7 +41,7 @@ export const User = (props: UserProps) => {
 
               <li className="p-1 leading-none">
                 <Link
-                  to={{
+                  href={{
                     pathname: `/details/${login}`,
                     search: '?tab=following',
                   }}
