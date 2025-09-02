@@ -5,13 +5,7 @@ import { fetchRepositores } from 'store/slices/singleUserSlice';
 import { Repository } from 'components/Repository';
 import { SkipBack, SkipForward } from 'react-feather';
 
-interface Props {
-  status: string;
-}
-
-export const Repositories = (props: Props) => {
-  const { status } = props;
-
+export const Repositories = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const { user, repositories, repositoriesLinks } = useAppSelector(
@@ -44,10 +38,6 @@ export const Repositories = (props: Props) => {
 
   if (loading['singleUser/fetchRepositories']) {
     return <Spinner />;
-  }
-
-  if (status === 'error') {
-    return 'There was an error';
   }
 
   return (

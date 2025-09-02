@@ -4,13 +4,7 @@ import { Button, Spinner, Users } from 'components';
 import { fetchFollowers } from 'store/slices/singleUserSlice';
 import { SkipForward, SkipBack } from 'react-feather';
 
-interface Props {
-  status: string;
-}
-
-export const Followers = (props: Props) => {
-  const { status } = props;
-
+export const Followers = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const { user, followers, followersLinks } = useAppSelector(
@@ -41,10 +35,6 @@ export const Followers = (props: Props) => {
 
   if (loading['singleUser/fetchFollowers']) {
     return <Spinner />;
-  }
-
-  if (status === 'error') {
-    return 'There was an error';
   }
 
   return (

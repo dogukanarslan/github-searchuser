@@ -5,13 +5,7 @@ import { fetchStarred } from 'store/slices/singleUserSlice';
 import { SkipForward, SkipBack } from 'react-feather';
 import { Repository } from './Repository';
 
-interface Props {
-  status: string;
-}
-
-export const Starred = (props: Props) => {
-  const { status } = props;
-
+export const Starred = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const { user, starred, starredLinks } = useAppSelector(
@@ -38,10 +32,6 @@ export const Starred = (props: Props) => {
       dispatch(fetchStarred({ login: user.login, page }));
     }
   };
-
-  if (status === 'error') {
-    return 'There was an error';
-  }
 
   return (
     <div className="space-y-2">
