@@ -1,5 +1,6 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { paths } from '@octokit/openapi-types';
+import { Endpoints } from '@octokit/types';
 
 import { parseLinkHeader } from '../../constants';
 import { octokit } from 'lib/api';
@@ -176,7 +177,7 @@ export const fetchRepositores = createAsyncThunk(
   async (args: { username: string; page: number }, { rejectWithValue }) => {
     const response = await octokit.rest.repos.listForUser({
       username: args.username,
-      page: args.page
+      page: args.page,
     });
 
     if (!response) {
@@ -234,7 +235,14 @@ const initialState: SliceState = {
 export const singleUserSlice = createSlice({
   name: 'singleUser',
   initialState,
-  reducers: {},
+  reducers: {
+    setUser: (
+      state,
+      action: PayloadAction<Endpoints['GET /user']['response']['data']>
+    ) => {
+      state.user = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchSingleUser.pending, (state) => {
@@ -296,5 +304,7 @@ export const singleUserSlice = createSlice({
       });
   },
 });
+
+export const { setUser } = singleUserSlice.actions;
 
 export default singleUserSlice.reducer;

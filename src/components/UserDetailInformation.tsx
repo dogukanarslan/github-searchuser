@@ -1,13 +1,12 @@
+import { Endpoints } from '@octokit/types';
 import { Briefcase, MapPin, Mail, Link as LinkIcon } from 'react-feather';
-import { useAppSelector } from 'store/store';
 
-export const UserDetailInformation = () => {
-  const { user } = useAppSelector((state) => state.singleUser);
+interface Props {
+  user: Endpoints['GET /user']['response']['data'];
+}
 
-  if (!user) {
-    return;
-  }
-
+export const UserDetailInformation = (props: Props) => {
+  const { user } = props;
   const { login, name, company, blog, location, email } = user;
 
   return (

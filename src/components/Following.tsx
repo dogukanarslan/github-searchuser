@@ -4,13 +4,7 @@ import { useAppDispatch, useAppSelector } from 'store/store';
 import { Button, Users } from 'components';
 import { SkipForward, SkipBack } from 'react-feather';
 
-interface Props {
-  status: string;
-}
-
-export const Following = (props: Props) => {
-  const { status } = props;
-
+export const Following = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const { user, following, followingLinks } = useAppSelector(
@@ -38,9 +32,6 @@ export const Following = (props: Props) => {
     }
   };
 
-  if (status === 'error') {
-    return 'There was an error';
-  }
   return (
     <div className="space-y-2">
       <h1 className="font-bold">Page {currentPage}</h1>

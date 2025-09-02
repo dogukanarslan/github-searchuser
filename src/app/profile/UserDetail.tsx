@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 
@@ -7,8 +9,23 @@ import { Followers } from 'components/Followers';
 import { Following } from 'components/Following';
 import { Starred } from 'components/Starred';
 import { UserDetailTabs } from 'components/UserDetailTabs';
+import { Endpoints } from '@octokit/types';
+import { useAppDispatch } from 'store/store';
+import { setUser } from 'store/slices/singleUserSlice';
 
-export const UserDetail = () => {
+interface Props {
+  user: Endpoints['GET /user']['response']['data'];
+}
+
+export const UserDetail = (props: Props) => {
+  const { user } = props;
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setUser(user));
+  }, [user, dispatch]);
+
   const searchParams = useSearchParams();
 
   const [selectedTab, setSelectedTab] = useState(
@@ -29,10 +46,10 @@ export const UserDetail = () => {
         setSelectedTab={(tab) => setSelectedTab(tab)}
       />
 
-      {selectedTab === 'followers' && <Followers status={status} />}
-      {selectedTab === 'following' && <Following status={status} />}
-      {selectedTab === 'starred' && <Starred status={status} />}
-      {selectedTab === 'repos' && <Repositories status={status} />}
+      {selectedTab === 'followers' && <Followers />}
+      {selectedTab === 'following' && <Following  />}
+      {selectedTab === 'starred' && <Starred  />}
+      {selectedTab === 'repos' && <Repositories  />}
     </>
   );
 };

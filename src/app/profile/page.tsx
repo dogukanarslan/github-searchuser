@@ -1,39 +1,25 @@
-'use client';
-
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-
-import { RootState, useAppDispatch } from 'store/store';
-import { fetchAuthenticatedUser } from 'store/slices/singleUserSlice';
-
-import { Spinner } from 'components';
-
 import { UserDetailInformation } from 'components/UserDetailInformation';
 import { UserDetailHeader } from 'components/UserDetailHeader';
 import { UserDetail } from 'app/profile/UserDetail';
+import { octokit } from 'lib/api';
+import { Suspense } from 'react';
 
-const Details = () => {
-  const dispatch = useAppDispatch();
+const getAuthenticatedUser = async () => {
+  const response = await octokit.rest.users.getAuthenticated();
 
-  const { status } = useSelector((state: RootState) => state.singleUser);
+  return response.data;
+};
 
-  useEffect(() => {
-    dispatch(fetchAuthenticatedUser());
-  }, [dispatch]);
-
-  if (status === 'loading') {
-    return (
-      <div className="text-center">
-        <Spinner />
-      </div>
-    );
-  }
+const Details = async () => {
+  const data = await getAuthenticatedUser();
 
   return (
     <>
       <UserDetailHeader />
-      <UserDetailInformation />
-      <UserDetail />
+      <UserDetailInformation user={data} />
+      <Suspense>
+        <UserDetail user={data} />
+      </Suspense>
     </>
   );
 };

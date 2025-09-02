@@ -1,3 +1,5 @@
+'use client';
+
 import { useAppDispatch, useAppSelector } from 'store/store';
 import { Button } from 'components';
 import { followUser, unfollowUser } from 'store/slices/singleUserSlice';
