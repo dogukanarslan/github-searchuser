@@ -11,7 +11,7 @@ import { Spinner } from 'components/Spinner';
 import { Nav, Tab } from './Nav';
 
 const Search = () => {
-  const { data } = useAppSelector((state) => state.search);
+  const { data, link } = useAppSelector((state) => state.search);
   const { data: repositoriesData, status: repositoriesStatus } = useAppSelector(
     (state) => state.searchRepository
   );
@@ -36,7 +36,7 @@ const Search = () => {
       ) : (
         <>
           {activeTab === Tab.Users ? (
-            <Users users={data?.items} count={data?.total_count} />
+            <Users users={data?.items || []} link={link} />
           ) : activeTab === Tab.Repositories ? (
             <Repositories
               repositories={repositoriesData?.items}

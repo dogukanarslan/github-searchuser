@@ -1,13 +1,15 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { Endpoints } from '@octokit/types';
 import { octokit } from 'lib/api';
+import { parseLinkHeader } from '../../constants';
 
 type ArgsType = {
   q: string;
 };
 
 type SliceState = {
-  data: Endpoints['GET /search/users']['response']['data'] | null | undefined;
+  data: Endpoints['GET /search/users']['response']['data'] | null;
+  link?: any;
   status: string;
 };
 
@@ -22,7 +24,10 @@ export const fetchSearch = createAsyncThunk(
       return rejectWithValue('rejected');
     }
 
-    return response;
+    return {
+      data: response.data,
+      link: parseLinkHeader(response.headers.link || ''),
+    };
   }
 );
 
@@ -43,6 +48,9 @@ export const searchSlice = createSlice({
       .addCase(fetchSearch.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.data = action.payload.data;
+        if (action.payload.link) {
+          state.link = action.payload.link;
+        }
       });
   },
 });

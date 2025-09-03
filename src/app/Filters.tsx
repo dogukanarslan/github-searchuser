@@ -1,23 +1,20 @@
+'use client';
+
 import { FormEvent, useState } from 'react';
 import { useAppDispatch } from '../store/store';
 import { fetchUsers, resetUsers } from '../store/slices/usersSlice';
 
 import { Button, FormLabel, Input, Select } from 'components';
 
-interface Props {
-  resultsPerPage: string;
-  changeResultsPerPage: (count: string) => void;
-}
-
-export const Filters = (props: Props) => {
-  const { resultsPerPage, changeResultsPerPage } = props;
-
+export const Filters = () => {
   const [startingId, setStartingId] = useState('');
+  const [resultsPerPage, setResultsPerPage] = useState('30');
 
   const dispatch = useAppDispatch();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     dispatch(resetUsers());
     dispatch(
       fetchUsers({
@@ -25,6 +22,10 @@ export const Filters = (props: Props) => {
         resultsPerPage,
       })
     );
+  };
+
+  const changeResultsPerPage = (count: string) => {
+    setResultsPerPage(count);
   };
 
   return (

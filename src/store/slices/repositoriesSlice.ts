@@ -8,7 +8,9 @@ export const fetchRepositories = createAsyncThunk(
   async (since: string | undefined, { rejectWithValue }) => {
     let response;
     if (since) {
-      response = await octokit.rest.repos.listPublic({ since: 2 });
+      response = await octokit.rest.repos.listPublic({
+        since: parseInt(since),
+      });
     } else {
       response = await octokit.rest.repos.listPublic();
     }
