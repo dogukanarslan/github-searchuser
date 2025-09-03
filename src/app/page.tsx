@@ -1,74 +1,33 @@
-'use client';
+import { Users } from 'components';
 
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Button } from 'components/Button';
-import { Users } from '../components';
-import { Spinner } from 'components/Spinner';
-import { Filters } from './Filters';
-import { fetchUsers, resetUsers } from '../store/slices/usersSlice';
-import { RootState, useAppDispatch } from '../store/store';
+import { octokit } from 'lib/api';
 
-const HomePage = () => {
-  const [resultsPerPage, setResultsPerPage] = useState('30');
+import { Filters } from 'app/Filters';
+import PaginationButtons from 'app/PaginationButtons';
 
-  const { data, status } = useSelector((state: RootState) => state.users);
-  const { links } = useSelector((state: RootState) => state.users);
-  const dispatch = useAppDispatch();
+const getUsers = async (perPage?: string) => {
+  const response = await octokit.rest.users.list({
+    ...(perPage && { per_page: parseInt(perPage) }),
+  });
 
-  const loadMore = () => {
-    const urlParams = new URL(links.next).searchParams;
-    const since = urlParams.get('since');
+  return { data: response.data, link: response.headers.link };
+};
 
-    if (since) {
-      dispatch(
-        fetchUsers({
-          startingId: since ? parseInt(since) : undefined,
-          resultsPerPage,
-        })
-      );
-    }
-  };
-
-  const changeResultsPerPage = (count: string) => {
-    setResultsPerPage(count);
-  };
-
-  useEffect(() => {
-    dispatch(fetchUsers({}));
-    return () => {
-      dispatch(resetUsers());
-    };
-  }, [dispatch]);
-
-  if (status === 'error') {
-    return 'There was an error';
-  }
+const HomePage = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | undefined }>;
+}) => {
+  const perPage = (await searchParams).per_page;
+  const { data, link } = await getUsers(perPage);
 
   return (
     <>
-      <Filters
-        resultsPerPage={resultsPerPage}
-        changeResultsPerPage={changeResultsPerPage}
-      />
-      <Users users={data} count={data?.length} />
-      <div className="text-center">
-        {status === 'loading' ? (
-          <div className="my-5">
-            <Spinner />
-          </div>
-        ) : (
-          <Button
-            color="primary"
-            className="my-5"
-            onClick={loadMore}
-            disabled={!links?.next}
-          >
-            Load More
-          </Button>
-        )}
-      </div>
+      <Filters />
+      <Users users={data} link={link} />
+      <PaginationButtons />
     </>
   );
 };
+
 export default HomePage;

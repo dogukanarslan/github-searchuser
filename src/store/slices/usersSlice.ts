@@ -46,6 +46,12 @@ export const usersSlice = createSlice({
     resetUsers: (state) => {
       state.data = [];
     },
+    setUsers: (state, action) => {
+      state.data = action.payload.users;
+      if (action.payload.link) {
+        state.links = parseLinkHeader(action.payload.link);
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -63,6 +69,6 @@ export const usersSlice = createSlice({
   },
 });
 
-export const { resetUsers } = usersSlice.actions;
+export const { resetUsers, setUsers } = usersSlice.actions;
 
 export default usersSlice.reducer;
