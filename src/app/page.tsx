@@ -5,6 +5,8 @@ import { octokit } from 'lib/api';
 import { Filters } from 'app/Filters';
 import PaginationButtons from 'app/PaginationButtons';
 
+import { HydrateUsers } from 'components/HydrateUsers';
+
 const getUsers = async (perPage?: string) => {
   const response = await octokit.rest.users.list({
     ...(perPage && { per_page: parseInt(perPage) }),
@@ -24,7 +26,8 @@ const HomePage = async ({
   return (
     <>
       <Filters />
-      <Users users={data} link={link} />
+      <HydrateUsers users={data} link={link} />
+      <Users users={data} />
       <PaginationButtons />
     </>
   );
