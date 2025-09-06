@@ -19,7 +19,7 @@ export const Followers = () => {
     }
   }, [user, dispatch]);
 
-  const loadMore = (type: string) => {
+  const loadMore = (type: 'prev' | 'next') => {
     if (!followersLinks) {
       return;
     }
@@ -40,7 +40,7 @@ export const Followers = () => {
   return (
     <div className="space-y-2">
       <h1 className="font-bold">Page {currentPage}</h1>
-      <Users users={followers} count={followers.length} />
+      <Users users={followers} />
       <div className="text-center">
         <div className="space-x-2">
           <Button

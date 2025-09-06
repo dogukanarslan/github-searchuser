@@ -35,7 +35,7 @@ export const Following = () => {
   return (
     <div className="space-y-2">
       <h1 className="font-bold">Page {currentPage}</h1>
-      <Users users={following} count={following.length} />
+      <Users users={following} />
       <div className="space-x-2 text-center">
         <Button
           color="primary"

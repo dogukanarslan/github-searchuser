@@ -5,6 +5,7 @@ import { parseLinkHeader } from '../../constants';
 
 type ArgsType = {
   q: string;
+  page?: number;
 };
 
 type SliceState = {
@@ -15,10 +16,10 @@ type SliceState = {
 
 export const fetchSearch = createAsyncThunk(
   'search/fetchSearch',
-  async (args: ArgsType = { q: '' }, { rejectWithValue }) => {
-    const { q } = args;
+  async (args: ArgsType = { q: '', page: 1 }, { rejectWithValue }) => {
+    const { q, page } = args;
 
-    const response = await octokit.rest.search.users({ q });
+    const response = await octokit.rest.search.users({ q, page });
 
     if (!response) {
       return rejectWithValue('rejected');

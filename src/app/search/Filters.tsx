@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent } from 'react';
 import { Button, Input } from 'components';
 import { useAppDispatch } from '../../store/store';
 import { fetchSearch } from '../../store/slices/searchSlice';
@@ -8,41 +8,40 @@ import { fetchSearchCommit } from 'store/slices/searchCommitSlice';
 
 interface Props {
   activeTab: Tab;
+  searchKeyword: string;
+  setSearchKeyword: (val: string) => void;
 }
 
 export const Filters = (props: Props) => {
-  const { activeTab } = props;
-
-  const [val, setVal] = useState('');
+  const { activeTab, searchKeyword, setSearchKeyword } = props;
 
   const dispatch = useAppDispatch();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!val) {
+    if (!searchKeyword) {
       return;
     }
 
     if (activeTab === Tab.Users) {
-      dispatch(fetchSearch({ q: val }));
+      dispatch(fetchSearch({ q: searchKeyword }));
     } else if (activeTab === Tab.Repositories) {
-      dispatch(fetchSearchRepository({ q: val }));
+      dispatch(fetchSearchRepository({ q: searchKeyword }));
     } else {
-      dispatch(fetchSearchCommit({ q: val }));
+      dispatch(fetchSearchCommit({ q: searchKeyword }));
     }
-    setVal('');
   };
 
   return (
     <form onSubmit={handleSubmit} className="flex items-center gap-2">
       <Input
         type="text"
-        value={val}
-        onChange={(e) => setVal(e.target.value)}
+        value={searchKeyword}
+        onChange={(e) => setSearchKeyword(e.target.value)}
         placeholder="Search a keyword"
       />
-      <Button disabled={!val}>Search</Button>
+      <Button disabled={!searchKeyword}>Search</Button>
     </form>
   );
 };

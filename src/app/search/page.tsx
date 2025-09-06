@@ -8,9 +8,11 @@ import { Commits } from '../../components/Commits';
 import { Filters } from './Filters';
 import { Spinner } from 'components/Spinner';
 
-import { Nav, Tab } from './Nav';
+import { Nav, Tab } from 'app/search/Nav';
+import PaginationButtons from 'app/search/PaginationButtons';
 
 const Search = () => {
+  const [searchKeyword, setSearchKeyword] = useState('');
   const { data } = useAppSelector((state) => state.search);
   const { data: repositoriesData, status: repositoriesStatus } = useAppSelector(
     (state) => state.searchRepository
@@ -30,13 +32,22 @@ const Search = () => {
   return (
     <div className="space-y-2">
       <Nav activeTab={activeTab} changeTab={(tab) => setActiveTab(tab)} />
-      <Filters activeTab={activeTab} />
+      <Filters
+        activeTab={activeTab}
+        searchKeyword={searchKeyword}
+        setSearchKeyword={setSearchKeyword}
+      />
       {isLoading ? (
         <Spinner />
       ) : (
         <>
           {activeTab === Tab.Users ? (
-            <Users users={data?.items || []} />
+            <>
+              <Users users={data?.items || []} />
+              {data?.items && (
+                <PaginationButtons searchKeyword={searchKeyword} />
+              )}
+            </>
           ) : activeTab === Tab.Repositories ? (
             <Repositories
               repositories={repositoriesData?.items}
