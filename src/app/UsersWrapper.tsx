@@ -1,16 +1,18 @@
 'use client';
 
-import { Endpoints } from '@octokit/types';
+import { Users } from 'components';
+import { useAppSelector } from 'store/store';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setUsers } from 'store/slices/usersSlice';
+import { Endpoints } from '@octokit/types';
 
 interface Props {
   users: Endpoints['GET /users']['response']['data'];
   link: Endpoints['GET /users']['response']['headers']['link'];
 }
 
-export function HydrateUsers(props: Props) {
+const UsersWrapper = (props: Props) => {
   const { users, link } = props;
 
   const dispatch = useDispatch();
@@ -19,5 +21,13 @@ export function HydrateUsers(props: Props) {
     dispatch(setUsers({ users, link }));
   }, [users, link, dispatch]);
 
-  return null;
-}
+  const { data } = useAppSelector((state) => state.users);
+
+  return (
+    <div>
+      <Users users={data} />
+    </div>
+  );
+};
+
+export default UsersWrapper;

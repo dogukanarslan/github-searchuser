@@ -1,11 +1,9 @@
-import { Users } from 'components';
-
 import { octokit } from 'lib/api';
 
 import { Filters } from 'app/Filters';
 import PaginationButtons from 'app/PaginationButtons';
 
-import { HydrateUsers } from 'components/HydrateUsers';
+import UsersWrapper from 'app/UsersWrapper';
 
 const getUsers = async (perPage?: string) => {
   const response = await octokit.rest.users.list({
@@ -26,8 +24,7 @@ const HomePage = async ({
   return (
     <>
       <Filters />
-      <HydrateUsers users={data} link={link} />
-      <Users users={data} />
+      <UsersWrapper users={data} link={link} />
       <PaginationButtons />
     </>
   );
