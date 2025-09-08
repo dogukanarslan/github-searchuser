@@ -24,10 +24,9 @@ const Search = () => {
 
   const [activeTab, setActiveTab] = useState<Tab>(Tab.Users);
 
-  const isLoading =
-    loading['search/fetchSearch'] ||
-    loading['search/fetchSearchRepository'] ||
-    loading['search/fetchSearchCommit'];
+  const isUsersLoading = loading['search/fetchSearch'];
+  const isRepositoriesLoading = loading['search/fetchSearchRepository'];
+  const isCommitsLoading = loading['search/fetchSearchCommit'];
 
   return (
     <div className="space-y-2">
@@ -37,29 +36,41 @@ const Search = () => {
         searchKeyword={searchKeyword}
         setSearchKeyword={setSearchKeyword}
       />
-      {isLoading ? (
-        <Spinner />
-      ) : (
+      {activeTab === Tab.Users ? (
         <>
-          {activeTab === Tab.Users ? (
+          {isUsersLoading ? (
+            <Spinner />
+          ) : (
             <>
               <Users users={data?.items || []} />
               {data?.items && (
                 <PaginationButtons searchKeyword={searchKeyword} />
               )}
             </>
-          ) : activeTab === Tab.Repositories ? (
+          )}
+        </>
+      ) : activeTab === Tab.Repositories ? (
+        <>
+          {isRepositoriesLoading ? (
+            <Spinner />
+          ) : (
             <Repositories
               repositories={repositoriesData?.items}
               count={repositoriesData?.total_count}
               status={repositoriesStatus}
             />
-          ) : (
+          )}
+        </>
+      ) : (
+        <>
+          {isCommitsLoading ? (
             <Commits
               commits={commitsData?.items}
               count={commitsData?.total_count}
               status={commitsStatus}
             />
+          ) : (
+            <Spinner />
           )}
         </>
       )}
