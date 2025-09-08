@@ -28,9 +28,14 @@ const Search = () => {
   const isRepositoriesLoading = loading['search/fetchSearchRepository'];
   const isCommitsLoading = loading['search/fetchSearchCommit'];
 
+  const handleTabChange = (tab: Tab) => {
+    setSearchKeyword('');
+    setActiveTab(tab);
+  };
+
   return (
     <div className="space-y-2">
-      <Nav activeTab={activeTab} changeTab={(tab) => setActiveTab(tab)} />
+      <Nav activeTab={activeTab} changeTab={handleTabChange} />
       <Filters
         activeTab={activeTab}
         searchKeyword={searchKeyword}
@@ -64,13 +69,13 @@ const Search = () => {
       ) : (
         <>
           {isCommitsLoading ? (
+            <Spinner />
+          ) : (
             <Commits
               commits={commitsData?.items}
               count={commitsData?.total_count}
               status={commitsStatus}
             />
-          ) : (
-            <Spinner />
           )}
         </>
       )}
