@@ -4,11 +4,15 @@ import { Endpoints } from '@octokit/types';
 import { User } from './User';
 
 interface Props {
-  users: Endpoints['GET /users']['response']['data'];
+  users?: Endpoints['GET /users']['response']['data'];
 }
 
 export const Users = (props: Props) => {
   const { users } = props;
+
+  if (!users) {
+    return;
+  }
 
   return (
     <>

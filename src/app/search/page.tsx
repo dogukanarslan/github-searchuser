@@ -47,7 +47,7 @@ const Search = () => {
             <Spinner />
           ) : (
             <>
-              <Users users={data?.items || []} />
+              <Users users={data?.items} />
               {data?.items && (
                 <PaginationButtons searchKeyword={searchKeyword} />
               )}
