@@ -3,7 +3,7 @@
 import { useAppDispatch, useAppSelector } from 'store/store';
 
 import { Button } from 'components/Button';
-import { fetchSearch } from 'store/slices/searchSlice';
+import { fetchSearchUser } from 'store/slices/searchUserSlice';
 import { SkipBack, SkipForward } from 'react-feather';
 import { useState } from 'react';
 
@@ -26,7 +26,7 @@ const PaginationButtons = (props: Props) => {
     if (page) {
       setCurrentPage(parseInt(page));
       dispatch(
-        fetchSearch({
+        fetchSearchUser({
           q: searchKeyword,
           ...(page && { page: parseInt(page) }),
         })
@@ -35,7 +35,7 @@ const PaginationButtons = (props: Props) => {
   };
 
   return (
-    <div className="flex items-center gap-2 justify-center">
+    <div className="flex items-center justify-center gap-2">
       <Button
         color="primary"
         className="my-5"

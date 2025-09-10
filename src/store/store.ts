@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useSelector, useDispatch, TypedUseSelectorHook } from 'react-redux';
 import usersReducer from './slices/usersSlice';
-import searchReducer from './slices/searchSlice';
+import searchUserReducer from './slices/searchUserSlice';
 import searchRepositoryReducer from './slices/searchRepositorySlice';
 import commitRepositoryReducer from './slices/searchCommitSlice';
 import singleUserReducer from './slices/singleUserSlice';
@@ -13,7 +13,7 @@ export const makeStore = () =>
     reducer: {
       loading: loadingReducer,
       users: usersReducer,
-      search: searchReducer,
+      search: searchUserReducer,
       searchRepository: searchRepositoryReducer,
       commitRepository: commitRepositoryReducer,
       singleUser: singleUserReducer,
