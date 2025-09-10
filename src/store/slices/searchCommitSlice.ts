@@ -1,4 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { Endpoints } from '@octokit/types';
+
 import { octokit } from 'lib/api';
 
 type ArgsType = {
@@ -6,7 +8,7 @@ type ArgsType = {
 };
 
 type SliceState = {
-  data: any;
+  data: Endpoints['GET /search/commits']['response']['data'] | null;
   status: string;
 };
 
