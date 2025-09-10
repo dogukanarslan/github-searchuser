@@ -4,7 +4,6 @@ import { Repository } from './Repository';
 interface RepositoriesProps {
   repositories: Endpoints['GET /repositories']['response']['data'] | null;
   count: number | undefined;
-  status: string;
 }
 
 export const Repositories = (props: RepositoriesProps) => {

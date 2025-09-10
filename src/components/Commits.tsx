@@ -3,16 +3,14 @@ import { Endpoints } from '@octokit/types';
 
 interface CommitsProps {
   commits: Endpoints['GET /search/commits']['response']['data']['items'] | null;
-  count: number | undefined;
-  status: string;
 }
 
 export const Commits = (props: CommitsProps) => {
-  const { commits, count } = props;
+  const { commits } = props;
 
   return (
     <>
-      {count !== undefined && <p className="lead">{count} results</p>}
+      {commits !== null && <p className="lead">{commits.length} results</p>}
       <div className="grid grid-cols-5 gap-4">
         {commits?.map((commit) => (
           <Commit key={commit.node_id} commit={commit} />
