@@ -14,7 +14,7 @@ type SliceState = {
   status: string;
 };
 
-export const fetchSearch = createAsyncThunk(
+export const fetchSearchUser = createAsyncThunk(
   'search/fetchSearch',
   async (args: ArgsType = { q: '', page: 1 }, { rejectWithValue }) => {
     const { q, page } = args;
@@ -37,16 +37,16 @@ const initialState: SliceState = {
   status: 'idle',
 };
 
-export const searchSlice = createSlice({
-  name: 'search',
+export const searchUserSlice = createSlice({
+  name: 'searchUserSlice',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchSearch.pending, (state) => {
+      .addCase(fetchSearchUser.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(fetchSearch.fulfilled, (state, action) => {
+      .addCase(fetchSearchUser.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.data = action.payload.data;
         if (action.payload.link) {
@@ -56,4 +56,4 @@ export const searchSlice = createSlice({
   },
 });
 
-export default searchSlice.reducer;
+export default searchUserSlice.reducer;

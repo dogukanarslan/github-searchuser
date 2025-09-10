@@ -1,7 +1,7 @@
 import { FormEvent } from 'react';
 import { Button, Input } from 'components';
 import { useAppDispatch } from '../../store/store';
-import { fetchSearch } from '../../store/slices/searchSlice';
+import { fetchSearchUser } from '../../store/slices/searchUserSlice';
 import { Tab } from './Nav';
 import { fetchSearchRepository } from 'store/slices/searchRepositorySlice';
 import { fetchSearchCommit } from 'store/slices/searchCommitSlice';
@@ -25,7 +25,7 @@ export const Filters = (props: Props) => {
     }
 
     if (activeTab === Tab.Users) {
-      dispatch(fetchSearch({ q: searchKeyword }));
+      dispatch(fetchSearchUser({ q: searchKeyword }));
     } else if (activeTab === Tab.Repositories) {
       dispatch(fetchSearchRepository({ q: searchKeyword }));
     } else {
