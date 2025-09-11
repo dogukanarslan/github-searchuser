@@ -49,7 +49,7 @@ const SearchUser = (props: Props) => {
         <Spinner />
       ) : (
         <>
-          <Users users={data?.items} />
+          <Users users={data?.items} count={data?.total_count} />
           {data?.items && <PaginationButtons searchKeyword={searchKeyword} />}
         </>
       )}

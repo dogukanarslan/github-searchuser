@@ -5,10 +5,11 @@ import { User } from './User';
 
 interface Props {
   users?: Endpoints['GET /users']['response']['data'];
+  count?: number;
 }
 
 export const Users = (props: Props) => {
-  const { users } = props;
+  const { users, count } = props;
 
   if (!users) {
     return;
@@ -16,7 +17,7 @@ export const Users = (props: Props) => {
 
   return (
     <>
-      <p className="lead">{users.length} results</p>
+      <p className="lead">{count} results</p>
       <div className="space-y-2">
         {users.map((user) => (
           <div key={user.id} className="w-full px-2">
