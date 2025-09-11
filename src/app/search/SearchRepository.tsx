@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { useAppDispatch, useAppSelector } from 'store/store';
 
 import { Button } from 'components/Button';
@@ -46,9 +44,7 @@ const SearchRepository = (props: Props) => {
       {isRepositoriesLoading ? (
         <Spinner />
       ) : (
-        <>
-          <Repositories repositories={data?.items} count={data?.total_count} />
-        </>
+        <Repositories repositories={data?.items} count={data?.total_count} />
       )}
     </>
   );
