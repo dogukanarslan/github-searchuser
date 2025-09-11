@@ -12,7 +12,7 @@ export const Commits = (props: CommitsProps) => {
   return (
     <>
       {commits !== null && <p className="lead">{count} results</p>}
-      <div className="grid grid-cols-5 gap-4">
+      <div className="space-y-2">
         {commits?.map((commit) => (
           <Commit key={commit.node_id} commit={commit} />
         ))}
