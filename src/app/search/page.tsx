@@ -9,6 +9,9 @@ import SearchCommit from 'app/search/SearchCommit';
 
 const Search = () => {
   const [activeTab, setActiveTab] = useState<Tab>(Tab.Users);
+  const [searchUserKeyword, setSearchUserKeyword] = useState('');
+  const [searchRepositoryKeyword, setSearchRepositoryKeyword] = useState('');
+  const [searchCommitKeyword, setSearchCommitKeyword] = useState('');
 
   const handleTabChange = (tab: Tab) => {
     setActiveTab(tab);
@@ -18,11 +21,20 @@ const Search = () => {
     <div className="space-y-2">
       <Nav activeTab={activeTab} changeTab={handleTabChange} />
       {activeTab === Tab.Users ? (
-        <SearchUser />
+        <SearchUser
+          searchKeyword={searchUserKeyword}
+          setSearchKeyword={setSearchUserKeyword}
+        />
       ) : activeTab === Tab.Repositories ? (
-        <SearchRepository />
+        <SearchRepository
+          searchKeyword={searchRepositoryKeyword}
+          setSearchKeyword={setSearchRepositoryKeyword}
+        />
       ) : (
-        <SearchCommit />
+        <SearchCommit
+          searchKeyword={searchCommitKeyword}
+          setSearchKeyword={setSearchCommitKeyword}
+        />
       )}
     </div>
   );
