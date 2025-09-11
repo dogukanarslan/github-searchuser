@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import PaginationButtons from 'app/search/PaginationButtons';
 
@@ -10,8 +10,13 @@ import { Spinner } from 'components/Spinner';
 import { Input } from 'components/Input';
 import { Users } from 'components/Users';
 
-const SearchUser = () => {
-  const [searchKeyword, setSearchKeyword] = useState('');
+interface Props {
+  searchKeyword: string;
+  setSearchKeyword: (val: string) => void;
+}
+
+const SearchUser = (props: Props) => {
+  const { searchKeyword, setSearchKeyword } = props;
 
   const { data } = useAppSelector((state) => state.search);
   const { loading } = useAppSelector((state) => state.loading);

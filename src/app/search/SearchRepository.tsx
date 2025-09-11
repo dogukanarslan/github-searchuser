@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { useAppDispatch, useAppSelector } from 'store/store';
 
@@ -8,8 +8,13 @@ import { Input } from 'components/Input';
 import { Repositories } from 'components/Repositories';
 import { fetchSearchRepository } from 'store/slices/searchRepositorySlice';
 
-const SearchRepository = () => {
-  const [searchKeyword, setSearchKeyword] = useState('');
+interface Props {
+  searchKeyword: string;
+  setSearchKeyword: (val: string) => void;
+}
+
+const SearchRepository = (props: Props) => {
+  const { searchKeyword, setSearchKeyword } = props;
 
   const { data } = useAppSelector((state) => state.searchRepository);
   const { loading } = useAppSelector((state) => state.loading);
