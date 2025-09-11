@@ -1,9 +1,7 @@
 import React from 'react';
 
-import PaginationButtons from 'app/search/PaginationButtons';
-
 import { useAppDispatch, useAppSelector } from 'store/store';
-import { fetchSearchUser } from 'store/slices/searchUserSlice';
+import { fetchSearchCommit } from 'store/slices/searchCommitSlice';
 
 import { Button } from 'components/Button';
 import { Spinner } from 'components/Spinner';
@@ -31,7 +29,7 @@ const SearchCommit = (props: Props) => {
       return;
     }
 
-    dispatch(fetchSearchUser({ q: searchKeyword }));
+    dispatch(fetchSearchCommit({ q: searchKeyword }));
   };
 
   return (
@@ -48,10 +46,7 @@ const SearchCommit = (props: Props) => {
       {isCommitsLoading ? (
         <Spinner />
       ) : (
-        <>
-          <Commits commits={data?.items || null} />
-          {data?.items && <PaginationButtons searchKeyword={searchKeyword} />}
-        </>
+        <Commits commits={data?.items || null} count={data?.total_count} />
       )}
     </>
   );
