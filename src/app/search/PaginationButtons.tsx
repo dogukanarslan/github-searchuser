@@ -2,24 +2,21 @@
 
 import { Button } from 'components/Button';
 import { SkipBack, SkipForward } from 'react-feather';
-import { useState } from 'react';
 
 interface Props {
   searchKeyword: string;
   link: any;
+  currentPage: number;
   getData: (searchKeyword: string, page?: number) => void;
 }
 
 const PaginationButtons = (props: Props) => {
-  const { searchKeyword, link, getData } = props;
-
-  const [currentPage, setCurrentPage] = useState(1);
+  const { searchKeyword, link, currentPage, getData } = props;
 
   const loadMore = (type: 'prev' | 'next') => {
     const urlParams = new URL(link[type]).searchParams;
     const page = urlParams.get('page');
     if (page) {
-      setCurrentPage(parseInt(page));
       getData(searchKeyword, parseInt(page));
     }
   };

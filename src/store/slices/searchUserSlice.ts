@@ -8,12 +8,6 @@ type ArgsType = {
   page?: number;
 };
 
-type SliceState = {
-  data: Endpoints['GET /search/users']['response']['data'] | null;
-  link?: any;
-  status: string;
-};
-
 export const fetchSearchUser = createAsyncThunk(
   'search/fetchSearch',
   async (args: ArgsType = { q: '', page: 1 }, { rejectWithValue }) => {
@@ -32,9 +26,17 @@ export const fetchSearchUser = createAsyncThunk(
   }
 );
 
+type SliceState = {
+  data: Endpoints['GET /search/users']['response']['data'] | null;
+  link?: any;
+  status: string;
+  currentPage: number | null;
+};
+
 const initialState: SliceState = {
   data: null,
   status: 'idle',
+  currentPage: null,
 };
 
 export const searchUserSlice = createSlice({
@@ -49,6 +51,7 @@ export const searchUserSlice = createSlice({
       .addCase(fetchSearchUser.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.data = action.payload.data;
+        state.currentPage = action.meta.arg.page || 1;
         if (action.payload.link) {
           state.link = action.payload.link;
         }

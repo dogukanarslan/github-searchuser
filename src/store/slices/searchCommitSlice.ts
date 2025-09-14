@@ -9,12 +9,6 @@ type ArgsType = {
   page?: number;
 };
 
-type SliceState = {
-  data: Endpoints['GET /search/commits']['response']['data'] | null;
-  status: string;
-  link?: any;
-};
-
 export const fetchSearchCommit = createAsyncThunk(
   'search/fetchSearchCommit',
   async (args: ArgsType = { q: '', page: 1 }, { rejectWithValue }) => {
@@ -32,9 +26,17 @@ export const fetchSearchCommit = createAsyncThunk(
   }
 );
 
+type SliceState = {
+  data: Endpoints['GET /search/commits']['response']['data'] | null;
+  status: string;
+  currentPage: number | null;
+  link?: any;
+};
+
 const initialState: SliceState = {
   data: null,
   status: 'idle',
+  currentPage: null,
 };
 
 export const searchCommitSlice = createSlice({
@@ -49,6 +51,7 @@ export const searchCommitSlice = createSlice({
       .addCase(fetchSearchCommit.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.data = action.payload.data;
+        state.currentPage = action.meta.arg.page || 1;
         if (action.payload.link) {
           state.link = action.payload.link;
         }

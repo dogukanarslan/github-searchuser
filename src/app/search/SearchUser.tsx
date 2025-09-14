@@ -18,7 +18,7 @@ interface Props {
 const SearchUser = (props: Props) => {
   const { searchKeyword, setSearchKeyword } = props;
 
-  const { data, link } = useAppSelector((state) => state.search);
+  const { data, link, currentPage } = useAppSelector((state) => state.search);
   const { loading } = useAppSelector((state) => state.loading);
   const dispatch = useAppDispatch();
 
@@ -32,6 +32,15 @@ const SearchUser = (props: Props) => {
     }
 
     dispatch(fetchSearchUser({ q: searchKeyword }));
+  };
+
+  const getData = (searchKeyword: string, page?: number) => {
+    dispatch(
+      fetchSearchUser({
+        q: searchKeyword,
+        ...(page && { page }),
+      })
+    );
   };
 
   return (
@@ -50,18 +59,12 @@ const SearchUser = (props: Props) => {
       ) : (
         <>
           <Users users={data?.items} count={data?.total_count} />
-          {data?.items && (
+          {currentPage && (
             <PaginationButtons
               searchKeyword={searchKeyword}
               link={link}
-              getData={(searchKeyword, page) => {
-                dispatch(
-                  fetchSearchUser({
-                    q: searchKeyword,
-                    ...(page && { page }),
-                  })
-                );
-              }}
+              currentPage={currentPage}
+              getData={getData}
             />
           )}
         </>
