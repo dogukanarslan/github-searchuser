@@ -7,12 +7,6 @@ type ArgsType = {
   page?: number;
 };
 
-type SliceState = {
-  data: any;
-  link?: any;
-  status: string;
-};
-
 export const fetchSearchRepository = createAsyncThunk(
   'search/fetchSearchRepository',
   async (args: ArgsType = { q: '', page: 1 }, { rejectWithValue }) => {
@@ -31,9 +25,17 @@ export const fetchSearchRepository = createAsyncThunk(
   }
 );
 
+type SliceState = {
+  data: any;
+  link?: any;
+  currentPage: number | null;
+  status: string;
+};
+
 const initialState: SliceState = {
   data: null,
   status: 'idle',
+  currentPage: null,
 };
 
 export const searchRepositorySlice = createSlice({
@@ -48,6 +50,7 @@ export const searchRepositorySlice = createSlice({
       .addCase(fetchSearchRepository.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.data = action.payload.data;
+        state.currentPage = action.meta.arg.page || 1;
         if (action.payload.link) {
           state.link = action.payload.link;
         }

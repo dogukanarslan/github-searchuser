@@ -15,7 +15,9 @@ interface Props {
 const SearchRepository = (props: Props) => {
   const { searchKeyword, setSearchKeyword } = props;
 
-  const { data, link } = useAppSelector((state) => state.searchRepository);
+  const { data, link, currentPage } = useAppSelector(
+    (state) => state.searchRepository
+  );
   const { loading } = useAppSelector((state) => state.loading);
   const dispatch = useAppDispatch();
 
@@ -29,6 +31,15 @@ const SearchRepository = (props: Props) => {
     }
 
     dispatch(fetchSearchRepository({ q: searchKeyword }));
+  };
+
+  const getData = (searchKeyword: string, page?: number) => {
+    dispatch(
+      fetchSearchRepository({
+        q: searchKeyword,
+        ...(page && { page }),
+      })
+    );
   };
 
   return (
@@ -47,13 +58,12 @@ const SearchRepository = (props: Props) => {
       ) : (
         <>
           <Repositories repositories={data?.items} count={data?.total_count} />
-          {data?.items && (
+          {currentPage && (
             <PaginationButtons
               searchKeyword={searchKeyword}
               link={link}
-              getData={(searchKeyword, page) => {
-                dispatch(fetchSearchRepository({ q: searchKeyword, page }));
-              }}
+              currentPage={currentPage}
+              getData={getData}
             />
           )}
         </>

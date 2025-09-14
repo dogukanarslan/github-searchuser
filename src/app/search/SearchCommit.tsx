@@ -17,7 +17,9 @@ interface Props {
 const SearchCommit = (props: Props) => {
   const { searchKeyword, setSearchKeyword } = props;
 
-  const { data, link } = useAppSelector((state) => state.commitRepository);
+  const { data, link, currentPage } = useAppSelector(
+    (state) => state.commitRepository
+  );
   const { loading } = useAppSelector((state) => state.loading);
   const dispatch = useAppDispatch();
 
@@ -31,6 +33,15 @@ const SearchCommit = (props: Props) => {
     }
 
     dispatch(fetchSearchCommit({ q: searchKeyword }));
+  };
+
+  const getData = (searchKeyword: string, page?: number) => {
+    dispatch(
+      fetchSearchCommit({
+        q: searchKeyword,
+        ...(page && { page }),
+      })
+    );
   };
 
   return (
@@ -49,13 +60,12 @@ const SearchCommit = (props: Props) => {
       ) : (
         <>
           <Commits commits={data?.items || null} count={data?.total_count} />
-          {data?.items && (
+          {currentPage && (
             <PaginationButtons
               searchKeyword={searchKeyword}
               link={link}
-              getData={(searchKeyword, page) => {
-                dispatch(fetchSearchCommit({ q: searchKeyword, page }));
-              }}
+              currentPage={currentPage}
+              getData={getData}
             />
           )}
         </>
