@@ -22,7 +22,7 @@ const SearchUser = (props: Props) => {
   const { loading } = useAppSelector((state) => state.loading);
   const dispatch = useAppDispatch();
 
-  const isUsersLoading = loading['search/FetchUsers'];
+  const isUsersLoading = loading['search/fetchSearchUser'];
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

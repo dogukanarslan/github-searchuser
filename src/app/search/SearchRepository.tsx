@@ -21,7 +21,7 @@ const SearchRepository = (props: Props) => {
   const { loading } = useAppSelector((state) => state.loading);
   const dispatch = useAppDispatch();
 
-  const isRepositoriesLoading = loading['search/fetchSearchRepositories'];
+  const isRepositoriesLoading = loading['search/fetchSearchRepository'];
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

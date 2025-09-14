@@ -9,7 +9,7 @@ type ArgsType = {
 };
 
 export const fetchSearchUser = createAsyncThunk(
-  'search/fetchSearch',
+  'search/fetchSearchUser',
   async (args: ArgsType = { q: '', page: 1 }, { rejectWithValue }) => {
     const { q, page } = args;
 
