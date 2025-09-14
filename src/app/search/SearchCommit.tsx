@@ -7,6 +7,7 @@ import { Button } from 'components/Button';
 import { Spinner } from 'components/Spinner';
 import { Input } from 'components/Input';
 import { Commits } from 'components/Commits';
+import PaginationButtons from 'app/search/PaginationButtons';
 
 interface Props {
   searchKeyword: string;
@@ -16,7 +17,7 @@ interface Props {
 const SearchCommit = (props: Props) => {
   const { searchKeyword, setSearchKeyword } = props;
 
-  const { data } = useAppSelector((state) => state.commitRepository);
+  const { data, link } = useAppSelector((state) => state.commitRepository);
   const { loading } = useAppSelector((state) => state.loading);
   const dispatch = useAppDispatch();
 
@@ -46,7 +47,18 @@ const SearchCommit = (props: Props) => {
       {isCommitsLoading ? (
         <Spinner />
       ) : (
-        <Commits commits={data?.items || null} count={data?.total_count} />
+        <>
+          <Commits commits={data?.items || null} count={data?.total_count} />
+          {data?.items && (
+            <PaginationButtons
+              searchKeyword={searchKeyword}
+              link={link}
+              getData={(searchKeyword, page) => {
+                dispatch(fetchSearchCommit({ q: searchKeyword, page }));
+              }}
+            />
+          )}
+        </>
       )}
     </>
   );

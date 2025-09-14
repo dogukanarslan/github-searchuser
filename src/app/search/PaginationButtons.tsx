@@ -1,36 +1,26 @@
 'use client';
 
-import { useAppDispatch, useAppSelector } from 'store/store';
-
 import { Button } from 'components/Button';
-import { fetchSearchUser } from 'store/slices/searchUserSlice';
 import { SkipBack, SkipForward } from 'react-feather';
 import { useState } from 'react';
 
 interface Props {
   searchKeyword: string;
+  link: any;
+  getData: (searchKeyword: string, page?: number) => void;
 }
 
 const PaginationButtons = (props: Props) => {
-  const { searchKeyword } = props;
+  const { searchKeyword, link, getData } = props;
 
   const [currentPage, setCurrentPage] = useState(1);
-
-  const { link } = useAppSelector((state) => state.search);
-  const dispatch = useAppDispatch();
 
   const loadMore = (type: 'prev' | 'next') => {
     const urlParams = new URL(link[type]).searchParams;
     const page = urlParams.get('page');
-
     if (page) {
       setCurrentPage(parseInt(page));
-      dispatch(
-        fetchSearchUser({
-          q: searchKeyword,
-          ...(page && { page: parseInt(page) }),
-        })
-      );
+      getData(searchKeyword, parseInt(page));
     }
   };
 
