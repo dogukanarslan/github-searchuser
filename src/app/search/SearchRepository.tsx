@@ -5,6 +5,7 @@ import { Spinner } from 'components/Spinner';
 import { Input } from 'components/Input';
 import { Repositories } from 'components/Repositories';
 import { fetchSearchRepository } from 'store/slices/searchRepositorySlice';
+import PaginationButtons from 'app/search/PaginationButtons';
 
 interface Props {
   searchKeyword: string;
@@ -14,7 +15,7 @@ interface Props {
 const SearchRepository = (props: Props) => {
   const { searchKeyword, setSearchKeyword } = props;
 
-  const { data } = useAppSelector((state) => state.searchRepository);
+  const { data, link } = useAppSelector((state) => state.searchRepository);
   const { loading } = useAppSelector((state) => state.loading);
   const dispatch = useAppDispatch();
 
@@ -44,7 +45,18 @@ const SearchRepository = (props: Props) => {
       {isRepositoriesLoading ? (
         <Spinner />
       ) : (
-        <Repositories repositories={data?.items} count={data?.total_count} />
+        <>
+          <Repositories repositories={data?.items} count={data?.total_count} />
+          {data?.items && (
+            <PaginationButtons
+              searchKeyword={searchKeyword}
+              link={link}
+              getData={(searchKeyword, page) => {
+                dispatch(fetchSearchRepository({ q: searchKeyword, page }));
+              }}
+            />
+          )}
+        </>
       )}
     </>
   );

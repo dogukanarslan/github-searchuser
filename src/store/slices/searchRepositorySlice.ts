@@ -1,29 +1,33 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { parseLinkHeader } from '../../constants';
 import { octokit } from 'lib/api';
 
 type ArgsType = {
   q: string;
+  page?: number;
 };
 
 type SliceState = {
   data: any;
+  link?: any;
   status: string;
 };
 
 export const fetchSearchRepository = createAsyncThunk(
   'search/fetchSearchRepository',
-  async (args: ArgsType = { q: '' }, thunkApi) => {
-    const { q } = args;
-    try {
-      const response = await octokit.rest.search.repos({ q });
-      return response;
-    } catch (err) {
-      if (err instanceof Error) {
-        return thunkApi.rejectWithValue(err.message);
-      } else {
-        console.log('Unexpected error', err);
-      }
+  async (args: ArgsType = { q: '', page: 1 }, { rejectWithValue }) => {
+    const { q, page } = args;
+
+    const response = await octokit.rest.search.repos({ q, page });
+
+    if (!response) {
+      return rejectWithValue('rejected');
     }
+
+    return {
+      data: response.data,
+      link: parseLinkHeader(response.headers.link || ''),
+    };
   }
 );
 
@@ -42,9 +46,10 @@ export const searchRepositorySlice = createSlice({
         state.status = 'loading';
       })
       .addCase(fetchSearchRepository.fulfilled, (state, action) => {
-        if (action.payload) {
-          state.status = 'succeeded';
-          state.data = action.payload.data;
+        state.status = 'succeeded';
+        state.data = action.payload.data;
+        if (action.payload.link) {
+          state.link = action.payload.link;
         }
       });
   },

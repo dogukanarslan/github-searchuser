@@ -18,7 +18,7 @@ interface Props {
 const SearchUser = (props: Props) => {
   const { searchKeyword, setSearchKeyword } = props;
 
-  const { data } = useAppSelector((state) => state.search);
+  const { data, link } = useAppSelector((state) => state.search);
   const { loading } = useAppSelector((state) => state.loading);
   const dispatch = useAppDispatch();
 
@@ -50,7 +50,20 @@ const SearchUser = (props: Props) => {
       ) : (
         <>
           <Users users={data?.items} count={data?.total_count} />
-          {data?.items && <PaginationButtons searchKeyword={searchKeyword} />}
+          {data?.items && (
+            <PaginationButtons
+              searchKeyword={searchKeyword}
+              link={link}
+              getData={(searchKeyword, page) => {
+                dispatch(
+                  fetchSearchUser({
+                    q: searchKeyword,
+                    ...(page && { page }),
+                  })
+                );
+              }}
+            />
+          )}
         </>
       )}
     </>
