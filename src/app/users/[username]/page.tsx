@@ -1,22 +1,23 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useParams, useSearchParams } from 'next/navigation';
 
 import { Spinner } from 'components';
 import { RootState, useAppDispatch } from 'store/store';
 import {
+  fetchFollowers,
   fetchSingleUser,
   getIsFollowedByAuthenticatedUser,
 } from 'store/slices/singleUserSlice';
-import { useSelector } from 'react-redux';
 
 import { UserDetailInformation } from 'components/UserDetailInformation';
 import { UserDetailHeader } from 'components/UserDetailHeader';
 import { UserDetail } from 'app/profile/UserDetail';
 
 const Details = () => {
-  const { username } = useParams();
+  const { username } = useParams<{ username: string }>();
 
   const searchParams = useSearchParams();
 
@@ -36,16 +37,10 @@ const Details = () => {
   const { user, status } = useSelector((state: RootState) => state.singleUser);
 
   useEffect(() => {
-    if (username) {
-      dispatch(fetchSingleUser({ login: username.toString() }));
-    }
+    dispatch(fetchSingleUser({ login: username }));
+    dispatch(getIsFollowedByAuthenticatedUser(username));
+    dispatch(fetchFollowers({ login: username }));
   }, [username, dispatch]);
-
-  useEffect(() => {
-    if (user) {
-      dispatch(getIsFollowedByAuthenticatedUser(user.login));
-    }
-  }, [user, dispatch]);
 
   if (status === 'loading') {
     return (

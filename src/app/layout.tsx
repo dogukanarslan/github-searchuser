@@ -18,7 +18,7 @@ export default function RootLayout({
       <body>
         <StoreProvider>
           <Header />
-          <div className="mt-2 p-4">{children}</div>
+          <div className="mx-auto mt-2 max-w-6xl p-4">{children}</div>
         </StoreProvider>
       </body>
     </html>

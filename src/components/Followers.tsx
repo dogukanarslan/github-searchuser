@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store/store';
 import { Button, Spinner, Users } from 'components';
 import { fetchFollowers } from 'store/slices/singleUserSlice';
@@ -12,12 +12,6 @@ export const Followers = () => {
   );
   const { loading } = useAppSelector((state) => state.loading);
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    if (user) {
-      dispatch(fetchFollowers({ login: user.login }));
-    }
-  }, [user, dispatch]);
 
   const loadMore = (type: 'prev' | 'next') => {
     if (!followersLinks) {
