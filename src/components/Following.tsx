@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchFollowing } from 'store/slices/singleUserSlice';
 import { useAppDispatch, useAppSelector } from 'store/store';
-import { Button, Users } from 'components';
+import { Button, Spinner, Users } from 'components';
 import { SkipForward, SkipBack } from 'react-feather';
 
 export const Following = () => {
@@ -10,6 +10,7 @@ export const Following = () => {
   const { user, following, followingLinks } = useAppSelector(
     (state) => state.singleUser
   );
+  const { loading } = useAppSelector((state) => state.loading);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -31,6 +32,10 @@ export const Following = () => {
       dispatch(fetchFollowing({ login: user.login, page }));
     }
   };
+
+  if (loading['singleUser/fetchFollowing']) {
+    return <Spinner />;
+  }
 
   return (
     <div className="space-y-2">
