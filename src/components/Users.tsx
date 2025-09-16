@@ -20,7 +20,7 @@ export const Users = (props: Props) => {
       {count && <p className="lead">{count} results</p>}
       <div className="space-y-2">
         {users.map((user) => (
-          <div key={user.id} className="w-full px-2">
+          <div key={user.id} className="w-full">
             <User user={user} />
           </div>
         ))}
