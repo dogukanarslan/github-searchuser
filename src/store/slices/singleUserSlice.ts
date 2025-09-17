@@ -242,6 +242,14 @@ export const singleUserSlice = createSlice({
     ) => {
       state.user = action.payload;
     },
+    setFollowers: (
+      state,
+      action: PayloadAction<
+        Endpoints['GET /user/followers']['response']['data']
+      >
+    ) => {
+      state.followers = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -305,6 +313,6 @@ export const singleUserSlice = createSlice({
   },
 });
 
-export const { setUser } = singleUserSlice.actions;
+export const { setUser, setFollowers } = singleUserSlice.actions;
 
 export default singleUserSlice.reducer;

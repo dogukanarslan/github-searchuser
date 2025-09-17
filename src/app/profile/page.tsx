@@ -10,15 +10,22 @@ const getAuthenticatedUser = async () => {
   return response.data;
 };
 
+const getFollowers = async () => {
+  const response = await octokit.rest.users.listFollowersForAuthenticatedUser();
+
+  return response.data;
+};
+
 const Details = async () => {
   const data = await getAuthenticatedUser();
+  const followers = await getFollowers();
 
   return (
     <>
       <UserDetailHeader />
       <UserDetailInformation user={data} />
       <Suspense>
-        <UserDetail user={data} />
+        <UserDetail user={data} followers={followers} />
       </Suspense>
     </>
   );
