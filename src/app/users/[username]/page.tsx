@@ -1,54 +1,29 @@
-'use client';
-
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useParams, useSearchParams } from 'next/navigation';
-
-import { Spinner } from 'components';
-import { RootState, useAppDispatch } from 'store/store';
-import {
-  fetchFollowers,
-  fetchSingleUser,
-  getIsFollowedByAuthenticatedUser,
-} from 'store/slices/singleUserSlice';
-
 import { UserDetailInformation } from 'components/UserDetailInformation';
 import { UserDetailHeader } from 'components/UserDetailHeader';
 import { UserDetail } from 'app/profile/UserDetail';
+import { octokit } from 'lib/api';
 
-const Details = () => {
-  const { username } = useParams<{ username: string }>();
+const getUserDetail = (username: string) => {
+  return octokit.rest.users.getByUsername({
+    username,
+  });
+};
 
-  const searchParams = useSearchParams();
+const getFollowers = (username: string) => {
+  return octokit.rest.users.listFollowersForUser({
+    username,
+  });
+};
 
-  const [selectedTab, setSelectedTab] = useState(
-    searchParams.get('tab') || 'followers'
-  );
+const Details = async ({
+  params,
+}: {
+  params: Promise<{ username: string }>;
+}) => {
+  const { username } = await params;
 
-  useEffect(() => {
-    const tab = searchParams.get('tab');
-    if (tab && tab !== selectedTab) {
-      setSelectedTab(tab);
-    }
-  }, [searchParams, selectedTab]);
-
-  const dispatch = useAppDispatch();
-
-  const { user, status } = useSelector((state: RootState) => state.singleUser);
-
-  useEffect(() => {
-    dispatch(fetchSingleUser({ login: username }));
-    dispatch(getIsFollowedByAuthenticatedUser(username));
-    dispatch(fetchFollowers({ login: username }));
-  }, [username, dispatch]);
-
-  if (status === 'loading') {
-    return (
-      <div className="text-center">
-        <Spinner />
-      </div>
-    );
-  }
+  const { data: user } = await getUserDetail(username);
+  const { data: followers } = await getFollowers(username);
 
   if (!user) {
     return;
@@ -58,7 +33,7 @@ const Details = () => {
     <>
       <UserDetailHeader />
       <UserDetailInformation user={user} />
-      <UserDetail user={user} />
+      <UserDetail user={user} followers={followers} />
     </>
   );
 };
