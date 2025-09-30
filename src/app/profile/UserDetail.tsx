@@ -11,22 +11,28 @@ import { Starred } from 'components/Starred';
 import { UserDetailTabs } from 'components/UserDetailTabs';
 import { Endpoints } from '@octokit/types';
 import { useAppDispatch } from 'store/store';
-import { setFollowers, setUser } from 'store/slices/singleUserSlice';
+import {
+  setFollowers,
+  setFollowersLink,
+  setUser,
+} from 'store/slices/singleUserSlice';
 
 interface Props {
   user: Endpoints['GET /user']['response']['data'];
   followers: Endpoints['GET /user/followers']['response']['data'];
+  link: Endpoints['GET /user/followers']['response']['headers']['link'];
 }
 
 export const UserDetail = (props: Props) => {
-  const { user, followers } = props;
+  const { user, followers, link } = props;
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(setUser(user));
     dispatch(setFollowers(followers));
-  }, [user, followers, dispatch]);
+    dispatch(setFollowersLink(link));
+  }, [user, followers, link, dispatch]);
 
   const searchParams = useSearchParams();
 

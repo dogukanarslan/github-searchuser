@@ -250,6 +250,9 @@ export const singleUserSlice = createSlice({
     ) => {
       state.followers = action.payload;
     },
+    setFollowersLink: (state, action) => {
+      state.followersLinks = parseLinkHeader(action.payload);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -313,6 +316,7 @@ export const singleUserSlice = createSlice({
   },
 });
 
-export const { setUser, setFollowers } = singleUserSlice.actions;
+export const { setUser, setFollowers, setFollowersLink } =
+  singleUserSlice.actions;
 
 export default singleUserSlice.reducer;
