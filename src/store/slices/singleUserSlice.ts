@@ -250,8 +250,56 @@ export const singleUserSlice = createSlice({
     ) => {
       state.followers = action.payload;
     },
-    setFollowersLink: (state, action) => {
-      state.followersLinks = parseLinkHeader(action.payload);
+    setFollowersLink: (
+      state,
+      action: PayloadAction<
+        Endpoints['GET /user/followers']['response']['headers']['link']
+      >
+    ) => {
+      if (action.payload) {
+        state.followersLinks = parseLinkHeader(action.payload);
+      }
+    },
+    setFollowing: (
+      state,
+      action: PayloadAction<
+        Endpoints['GET /user/following']['response']['data']
+      >
+    ) => {
+      state.following = action.payload;
+    },
+    setFollowingLinks: (
+      state,
+      action: PayloadAction<
+        Endpoints['GET /user/following']['response']['headers']['link']
+      >
+    ) => {
+      if (action.payload) {
+        state.followingLinks = parseLinkHeader(action.payload);
+      }
+    },
+    setStarred: (
+      state,
+      action: PayloadAction<
+        Extract<
+          paths['/users/{username}/starred']['get']['responses']['200']['content']['application/json'],
+          {
+            id: number;
+          }[]
+        >
+      >
+    ) => {
+      state.starred = action.payload;
+    },
+    setStarredLinks: (
+      state,
+      action: PayloadAction<
+        Endpoints['GET /user/starred']['response']['headers']['link']
+      >
+    ) => {
+      if (action.payload) {
+        state.starredLinks = parseLinkHeader(action.payload);
+      }
     },
   },
   extraReducers: (builder) => {
@@ -316,7 +364,14 @@ export const singleUserSlice = createSlice({
   },
 });
 
-export const { setUser, setFollowers, setFollowersLink } =
-  singleUserSlice.actions;
+export const {
+  setUser,
+  setFollowers,
+  setFollowersLink,
+  setFollowing,
+  setFollowingLinks,
+  setStarred,
+  setStarredLinks,
+} = singleUserSlice.actions;
 
 export default singleUserSlice.reducer;

@@ -14,25 +14,57 @@ import { useAppDispatch } from 'store/store';
 import {
   setFollowers,
   setFollowersLink,
+  setFollowing,
+  setFollowingLinks,
+  setStarred,
+  setStarredLinks,
   setUser,
 } from 'store/slices/singleUserSlice';
 
 interface Props {
   user: Endpoints['GET /user']['response']['data'];
   followers: Endpoints['GET /user/followers']['response']['data'];
-  link: Endpoints['GET /user/followers']['response']['headers']['link'];
+  followersLink: Endpoints['GET /user/followers']['response']['headers']['link'];
+  following: Endpoints['GET /user/following']['response']['data'];
+  followingLink: Endpoints['GET /user/following']['response']['headers']['link'];
+  starred: Extract<
+    Endpoints['GET /users/{username}/starred']['response']['data'],
+    { id: number }[]
+  >;
+  starredLink: Endpoints['GET /users/{username}/starred']['response']['headers']['link'];
 }
 
 export const UserDetail = (props: Props) => {
-  const { user, followers, link } = props;
+  const {
+    user,
+    followers,
+    followersLink,
+    following,
+    followingLink,
+    starred,
+    starredLink,
+  } = props;
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(setUser(user));
     dispatch(setFollowers(followers));
-    dispatch(setFollowersLink(link));
-  }, [user, followers, link, dispatch]);
+    dispatch(setFollowersLink(followersLink));
+    dispatch(setFollowing(following));
+    dispatch(setFollowingLinks(followingLink));
+    dispatch(setStarred(starred));
+    dispatch(setStarredLinks(starredLink));
+  }, [
+    user,
+    followers,
+    followersLink,
+    following,
+    followingLink,
+    starred,
+    starredLink,
+    dispatch,
+  ]);
 
   const searchParams = useSearchParams();
 

@@ -15,6 +15,18 @@ const getFollowers = (username: string) => {
   });
 };
 
+const getFollowing = (username: string) => {
+  return octokit.rest.users.listFollowingForUser({
+    username,
+  });
+};
+
+const getStarred = (username: string) => {
+  return octokit.rest.activity.listReposStarredByUser({
+    username,
+  });
+};
+
 const Details = async ({
   params,
 }: {
@@ -25,8 +37,16 @@ const Details = async ({
   const { data: user } = await getUserDetail(username);
   const {
     data: followers,
-    headers: { link },
+    headers: { link: followersLink },
   } = await getFollowers(username);
+  const {
+    data: following,
+    headers: { link: followingLink },
+  } = await getFollowing(username);
+  const {
+    data: starred,
+    headers: { link: starredLink },
+  } = await getStarred(username);
 
   if (!user) {
     return;
@@ -36,7 +56,17 @@ const Details = async ({
     <>
       <UserDetailHeader />
       <UserDetailInformation user={user} />
-      <UserDetail user={user} followers={followers} link={link} />
+      <UserDetail
+        user={user}
+        followers={followers}
+        followersLink={followersLink}
+        following={following}
+        followingLink={followingLink}
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        /* @ts-ignore */
+        starred={starred}
+        starredLink={starredLink}
+      />
     </>
   );
 };
