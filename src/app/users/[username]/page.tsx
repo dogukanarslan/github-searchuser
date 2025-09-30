@@ -23,7 +23,10 @@ const Details = async ({
   const { username } = await params;
 
   const { data: user } = await getUserDetail(username);
-  const { data: followers } = await getFollowers(username);
+  const {
+    data: followers,
+    headers: { link },
+  } = await getFollowers(username);
 
   if (!user) {
     return;
@@ -33,7 +36,7 @@ const Details = async ({
     <>
       <UserDetailHeader />
       <UserDetailInformation user={user} />
-      <UserDetail user={user} followers={followers} />
+      <UserDetail user={user} followers={followers} link={link} />
     </>
   );
 };
