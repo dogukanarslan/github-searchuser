@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store/store';
 import { Button } from 'components';
 import { fetchStarred } from 'store/slices/singleUserSlice';
@@ -12,12 +12,6 @@ export const Starred = () => {
     (state) => state.singleUser
   );
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    if (user) {
-      dispatch(fetchStarred({ login: user.login }));
-    }
-  }, [user, dispatch]);
 
   const loadMore = (type: string) => {
     if (!starredLinks) {
