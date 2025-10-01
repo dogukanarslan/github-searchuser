@@ -98,6 +98,9 @@ export const fetchStarred = createAsyncThunk(
           id: number;
         }[]
       >,
+      links: response.headers.link
+        ? parseLinkHeader(response.headers.link)
+        : null,
     };
   }
 );
@@ -321,6 +324,7 @@ export const singleUserSlice = createSlice({
         state.following = action.payload.data;
       })
       .addCase(fetchStarred.fulfilled, (state, action) => {
+        state.starredLinks = action.payload.links || {};
         state.starred = action.payload.data;
       })
       .addCase(fetchFollowers.rejected, (state) => {

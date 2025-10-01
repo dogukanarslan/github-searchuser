@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store/store';
-import { Button } from 'components';
+import { Button, Spinner } from 'components';
 import { fetchStarred } from 'store/slices/singleUserSlice';
 import { SkipForward, SkipBack } from 'react-feather';
 import { Repository } from './Repository';
@@ -11,6 +11,7 @@ export const Starred = () => {
   const { user, starred, starredLinks } = useAppSelector(
     (state) => state.singleUser
   );
+  const { loading } = useAppSelector((state) => state.loading);
   const dispatch = useAppDispatch();
 
   const loadMore = (type: string) => {
@@ -26,6 +27,10 @@ export const Starred = () => {
       dispatch(fetchStarred({ login: user.login, page }));
     }
   };
+
+  if (loading['singleUser/fetchStarred']) {
+    return <Spinner />;
+  }
 
   return (
     <div className="space-y-2">
