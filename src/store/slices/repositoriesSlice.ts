@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Endpoints } from '@octokit/types';
 import { parseLinkHeader } from '../../constants';
 import { octokit } from 'lib/api';
@@ -87,6 +87,12 @@ export const repositoriesSlice = createSlice({
   name: 'repositories',
   initialState,
   reducers: {
+    setRepositories: (
+      state,
+      action: PayloadAction<Endpoints['GET /repositories']['response']['data']>
+    ) => {
+      state.data = action.payload;
+    },
     resetRepositories: (state) => {
       state.data = [];
     },
@@ -112,6 +118,6 @@ export const repositoriesSlice = createSlice({
   },
 });
 
-export const { resetRepositories } = repositoriesSlice.actions;
+export const { setRepositories, resetRepositories } = repositoriesSlice.actions;
 
 export default repositoriesSlice.reducer;
