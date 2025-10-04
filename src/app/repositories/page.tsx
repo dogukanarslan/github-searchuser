@@ -4,7 +4,7 @@ import Repositories from 'app/repositories/Repositories';
 
 const getRepositories = async () => {
   const data = await octokit.rest.repos.listPublic();
-  return { data: data.data };
+  return { data: data.data, link: data.headers.link };
 };
 
 const RepositoriesPage = async () => {
@@ -12,7 +12,10 @@ const RepositoriesPage = async () => {
 
   return (
     <>
-      <Repositories repositories={repositories.data} />
+      <Repositories
+        repositories={repositories.data}
+        repositoryLink={repositories.link}
+      />
       <PaginationButtons />
     </>
   );

@@ -89,9 +89,15 @@ export const repositoriesSlice = createSlice({
   reducers: {
     setRepositories: (
       state,
-      action: PayloadAction<Endpoints['GET /repositories']['response']['data']>
+      action: PayloadAction<{
+        repositories: Endpoints['GET /repositories']['response']['data'];
+        link?: Endpoints['GET /repositories']['response']['headers']['link'];
+      }>
     ) => {
-      state.data = action.payload;
+      state.data = action.payload.repositories;
+      if (action.payload.link) {
+        state.links = parseLinkHeader(action.payload.link);
+      }
     },
     resetRepositories: (state) => {
       state.data = [];

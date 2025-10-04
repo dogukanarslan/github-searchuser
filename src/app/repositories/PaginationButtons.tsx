@@ -7,7 +7,7 @@ import { Spinner } from 'components/Spinner';
 import { fetchRepositories } from 'store/slices/repositoriesSlice';
 
 const PaginationButtons = () => {
-  const { links, status } = useAppSelector((state) => state.users);
+  const { links, status } = useAppSelector((state) => state.repositories);
   const dispatch = useAppDispatch();
 
   const loadMore = () => {

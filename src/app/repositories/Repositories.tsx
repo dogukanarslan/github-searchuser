@@ -8,19 +8,20 @@ import { useAppDispatch, useAppSelector } from 'store/store';
 
 interface Props {
   repositories: Endpoints['GET /repositories']['response']['data'];
+  repositoryLink: Endpoints['GET /repositories']['response']['headers']['link'];
 }
 
 const Repositories = (props: Props) => {
-  const { repositories } = props;
+  const { repositories, repositoryLink } = props;
 
   const { data } = useAppSelector((state) => state.repositories);
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(setRepositories(repositories));
-    dispatch(setRepositories(repositories));
-  }, [repositories, dispatch]);
+    console.log(repositoryLink);
+    dispatch(setRepositories({ repositories, link: repositoryLink }));
+  }, [repositories, repositoryLink, dispatch]);
 
   return (
     <div className="space-y-2">
