@@ -30,7 +30,7 @@ type SliceState = {
   data: Endpoints['GET /search/commits']['response']['data'] | null;
   status: string;
   currentPage: number | null;
-  link?: any;
+  link?: Record<string, string>;
 };
 
 const initialState: SliceState = {

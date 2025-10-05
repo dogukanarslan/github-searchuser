@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { parseLinkHeader } from '../../constants';
 import { octokit } from 'lib/api';
+import { Endpoints } from '@octokit/types';
 
 type ArgsType = {
   q: string;
@@ -26,8 +27,8 @@ export const fetchSearchRepository = createAsyncThunk(
 );
 
 type SliceState = {
-  data: any;
-  link?: any;
+  data: Endpoints['GET /search/repositories']['response']['data'] | null;
+  link?: Record<string, string>;
   currentPage: number | null;
   status: string;
 };

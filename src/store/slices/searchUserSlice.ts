@@ -28,7 +28,7 @@ export const fetchSearchUser = createAsyncThunk(
 
 type SliceState = {
   data: Endpoints['GET /search/users']['response']['data'] | null;
-  link?: any;
+  link?: Record<string, string>;
   status: string;
   currentPage: number | null;
 };

@@ -10,7 +10,7 @@ type argsType = {
 
 type SliceState = {
   data: Endpoints['GET /users']['response']['data'];
-  links?: any;
+  link?: Record<string, string>;
   status: string;
 };
 
@@ -29,7 +29,7 @@ export const fetchUsers = createAsyncThunk(
 
     return {
       data: users.data,
-      links: parseLinkHeader(users.headers.link || ''),
+      link: parseLinkHeader(users.headers.link || ''),
     };
   }
 );
@@ -49,7 +49,7 @@ export const usersSlice = createSlice({
     setUsers: (state, action) => {
       state.data = action.payload.users;
       if (action.payload.link) {
-        state.links = parseLinkHeader(action.payload.link);
+        state.link = parseLinkHeader(action.payload.link);
       }
     },
   },
@@ -60,7 +60,7 @@ export const usersSlice = createSlice({
       })
       .addCase(fetchUsers.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.links = action.payload.links;
+        state.link = action.payload.link;
         state.data = [...state.data, ...action.payload.data];
       })
       .addCase(fetchUsers.rejected, (state) => {
