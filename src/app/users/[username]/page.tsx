@@ -27,6 +27,15 @@ const getStarred = (username: string) => {
   });
 };
 
+const checkIsFollowedByAuthenticated = async (username: string) => {
+  try {
+    await octokit.rest.users.checkPersonIsFollowedByAuthenticated({ username });
+    return true
+  } catch {
+    return false;
+  }
+};
+
 const Details = async ({
   params,
 }: {
@@ -47,6 +56,8 @@ const Details = async ({
     data: starred,
     headers: { link: starredLink },
   } = await getStarred(username);
+  const isFollowedByAuthenticated =
+    await checkIsFollowedByAuthenticated(username);
 
   if (!user) {
     return;
@@ -54,7 +65,7 @@ const Details = async ({
 
   return (
     <>
-      <UserDetailHeader />
+      <UserDetailHeader isFollowedByAuthenticated={isFollowedByAuthenticated} />
       <UserDetailInformation user={user} />
       <UserDetail
         user={user}
