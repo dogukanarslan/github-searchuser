@@ -5,7 +5,7 @@ import { SkipBack, SkipForward } from 'react-feather';
 
 interface Props {
   searchKeyword: string;
-  link: any;
+  link?: Record<string, string>;
   currentPage: number;
   getData: (searchKeyword: string, page?: number) => void;
 }
@@ -14,10 +14,12 @@ const PaginationButtons = (props: Props) => {
   const { searchKeyword, link, currentPage, getData } = props;
 
   const loadMore = (type: 'prev' | 'next') => {
-    const urlParams = new URL(link[type]).searchParams;
-    const page = urlParams.get('page');
-    if (page) {
-      getData(searchKeyword, parseInt(page));
+    if (link) {
+      const urlParams = new URL(link[type]).searchParams;
+      const page = urlParams.get('page');
+      if (page) {
+        getData(searchKeyword, parseInt(page));
+      }
     }
   };
 

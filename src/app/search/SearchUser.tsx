@@ -54,21 +54,21 @@ const SearchUser = (props: Props) => {
         />
         <Button disabled={!searchKeyword}>Search</Button>
       </form>
-      {isUsersLoading ? (
-        <Spinner />
-      ) : (
-        <>
-          <Users users={data?.items} count={data?.total_count} />
-          {currentPage && (
-            <PaginationButtons
-              searchKeyword={searchKeyword}
-              link={link}
-              currentPage={currentPage}
-              getData={getData}
-            />
-          )}
-        </>
-      )}
+        {isUsersLoading ? (
+          <Spinner />
+        ) : (
+          <>
+            <Users users={data?.items} count={data?.total_count} />
+            {currentPage && (
+              <PaginationButtons
+                searchKeyword={searchKeyword}
+                link={link}
+                currentPage={currentPage}
+                getData={getData}
+              />
+            )}
+          </>
+        )}
     </>
   );
 };

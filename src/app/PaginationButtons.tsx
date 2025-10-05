@@ -10,21 +10,23 @@ import { useSearchParams } from 'next/navigation';
 const PaginationButtons = () => {
   const searchParams = useSearchParams();
 
-  const { links, status } = useAppSelector((state) => state.users);
+  const { link, status } = useAppSelector((state) => state.users);
   const dispatch = useAppDispatch();
 
   const loadMore = () => {
-    const urlParams = new URL(links.next).searchParams;
-    const since = urlParams.get('since');
-    const perPage = searchParams.get('per_page');
+    if (link) {
+      const urlParams = new URL(link.next).searchParams;
+      const since = urlParams.get('since');
+      const perPage = searchParams.get('per_page');
 
-    if (since) {
-      dispatch(
-        fetchUsers({
-          startingId: since ? parseInt(since) : undefined,
-          ...(perPage && { resultsPerPage: perPage }),
-        })
-      );
+      if (since) {
+        dispatch(
+          fetchUsers({
+            startingId: since ? parseInt(since) : undefined,
+            ...(perPage && { resultsPerPage: perPage }),
+          })
+        );
+      }
     }
   };
 
@@ -39,7 +41,7 @@ const PaginationButtons = () => {
           color="primary"
           className="my-5"
           onClick={loadMore}
-          disabled={!links?.next}
+          disabled={!link?.next}
         >
           Load More
         </Button>

@@ -45,7 +45,7 @@ export const fetchFollowers = createAsyncThunk(
 
     return {
       data: followers.data,
-      links: followers.headers.link
+      link: followers.headers.link
         ? parseLinkHeader(followers.headers.link)
         : null,
     };
@@ -316,7 +316,7 @@ export const singleUserSlice = createSlice({
       })
       .addCase(fetchFollowers.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.followersLinks = action.payload.links || {};
+        state.followersLinks = action.payload.link || {};
         state.followers = action.payload.data;
       })
       .addCase(fetchFollowing.fulfilled, (state, action) => {

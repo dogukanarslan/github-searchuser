@@ -21,7 +21,7 @@ export const fetchRepositories = createAsyncThunk(
 
     return {
       data: response.data,
-      links: parseLinkHeader(response.headers.link || ''),
+      link: parseLinkHeader(response.headers.link || ''),
     };
   }
 );
@@ -72,7 +72,7 @@ type SliceState = {
     string,
     Endpoints['GET /repos/{owner}/{repo}/labels']['response']['data']
   >;
-  links?: any;
+  link?: Record<string, string>;
   status: string;
 };
 
@@ -96,7 +96,7 @@ export const repositoriesSlice = createSlice({
     ) => {
       state.data = action.payload.repositories;
       if (action.payload.link) {
-        state.links = parseLinkHeader(action.payload.link);
+        state.link = parseLinkHeader(action.payload.link);
       }
     },
     resetRepositories: (state) => {
@@ -110,7 +110,7 @@ export const repositoriesSlice = createSlice({
       })
       .addCase(fetchRepositories.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.links = action.payload.links;
+        state.link = action.payload.link;
         state.data = [...state.data, ...action.payload.data];
       })
       .addCase(fetchBranches.fulfilled, (state, action) => {
