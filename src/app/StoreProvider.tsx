@@ -13,7 +13,6 @@ export default function StoreProvider({
   authenticatedUser: Endpoints['GET /user']['response']['data'];
   children: React.ReactNode;
 }) {
-  console.log(authenticatedUser)
   const storeRef = useRef<AppStore | null>(null);
   if (!storeRef.current) {
     storeRef.current = makeStore();

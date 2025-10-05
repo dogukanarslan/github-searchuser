@@ -19,7 +19,6 @@ const Repositories = (props: Props) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    console.log(repositoryLink);
     dispatch(setRepositories({ repositories, link: repositoryLink }));
   }, [repositories, repositoryLink, dispatch]);
 

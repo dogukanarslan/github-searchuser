@@ -21,7 +21,9 @@ export const fetchSearchUser = createAsyncThunk(
 
     return {
       data: response.data,
-      link: parseLinkHeader(response.headers.link || ''),
+      ...(response.headers.link && {
+        link: parseLinkHeader(response.headers.link),
+      }),
     };
   }
 );
@@ -42,7 +44,12 @@ const initialState: SliceState = {
 export const searchUserSlice = createSlice({
   name: 'searchUserSlice',
   initialState,
-  reducers: {},
+  reducers: {
+    resetUsers: (state) => {
+      state.data = null;
+      state.currentPage = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchSearchUser.pending, (state) => {
@@ -58,5 +65,7 @@ export const searchUserSlice = createSlice({
       });
   },
 });
+
+export const { resetUsers } = searchUserSlice.actions;
 
 export default searchUserSlice.reducer;
