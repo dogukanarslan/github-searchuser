@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import PaginationButtons from 'app/search/PaginationButtons';
 
 import { useAppDispatch, useAppSelector } from 'store/store';
-import { fetchSearchUser } from 'store/slices/searchUserSlice';
+import { fetchSearchUser, resetUsers } from 'store/slices/searchUserSlice';
 
 import { Button } from 'components/Button';
 import { Spinner } from 'components/Spinner';
 import { Input } from 'components/Input';
 import { Users } from 'components/Users';
+import { redirect, useSearchParams } from 'next/navigation';
 
 interface Props {
   searchKeyword: string;
@@ -22,6 +23,8 @@ const SearchUser = (props: Props) => {
   const { loading } = useAppSelector((state) => state.loading);
   const dispatch = useAppDispatch();
 
+  const searchParams = useSearchParams();
+
   const isUsersLoading = loading['search/fetchSearchUser'];
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -31,8 +34,22 @@ const SearchUser = (props: Props) => {
       return;
     }
 
-    dispatch(fetchSearchUser({ q: searchKeyword }));
+    redirect('/search?q=' + searchKeyword);
   };
+
+  useEffect(() => {
+    const q = searchParams.get('q');
+    if (q) {
+      setSearchKeyword(q);
+      dispatch(fetchSearchUser({ q }));
+    }
+  }, [searchParams, setSearchKeyword, dispatch]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetUsers());
+    };
+  }, [dispatch]);
 
   const getData = (searchKeyword: string, page?: number) => {
     dispatch(
@@ -54,21 +71,21 @@ const SearchUser = (props: Props) => {
         />
         <Button disabled={!searchKeyword}>Search</Button>
       </form>
-        {isUsersLoading ? (
-          <Spinner />
-        ) : (
-          <>
-            <Users users={data?.items} count={data?.total_count} />
-            {currentPage && (
-              <PaginationButtons
-                searchKeyword={searchKeyword}
-                link={link}
-                currentPage={currentPage}
-                getData={getData}
-              />
-            )}
-          </>
-        )}
+      {isUsersLoading ? (
+        <Spinner />
+      ) : (
+        <>
+          <Users users={data?.items} count={data?.total_count} />
+          {currentPage && (
+            <PaginationButtons
+              searchKeyword={searchKeyword}
+              link={link}
+              currentPage={currentPage}
+              getData={getData}
+            />
+          )}
+        </>
+      )}
     </>
   );
 };

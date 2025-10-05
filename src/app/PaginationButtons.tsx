@@ -1,6 +1,6 @@
 'use client';
 
-import { fetchUsers } from 'store/slices/usersSlice';
+import { fetchUsers, searchUsers } from 'store/slices/usersSlice';
 import { useAppDispatch, useAppSelector } from 'store/store';
 
 import { Button } from 'components/Button';
@@ -15,17 +15,26 @@ const PaginationButtons = () => {
 
   const loadMore = () => {
     if (link) {
-      const urlParams = new URL(link.next).searchParams;
-      const since = urlParams.get('since');
-      const perPage = searchParams.get('per_page');
+      const username = searchParams.get('username');
 
-      if (since) {
-        dispatch(
-          fetchUsers({
-            startingId: since ? parseInt(since) : undefined,
-            ...(perPage && { resultsPerPage: perPage }),
-          })
-        );
+      if (username) {
+        const urlParams = new URL(link.next).searchParams;
+        const page = urlParams.get('page');
+
+        if (page) {
+          dispatch(searchUsers({ username, page: parseInt(page) }));
+        }
+      } else {
+        const urlParams = new URL(link.next).searchParams;
+        const since = urlParams.get('since');
+
+        if (since) {
+          dispatch(
+            fetchUsers({
+              ...(since && { startingId: parseInt(since) }),
+            })
+          );
+        }
       }
     }
   };

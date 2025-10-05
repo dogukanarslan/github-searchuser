@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { octokit } from 'lib/api';
-import { Endpoints } from '@octokit/types';
+import { components } from '@octokit/openapi-types';
 import { parseLinkHeader } from '../../constants';
 
 type argsType = {
@@ -9,7 +9,7 @@ type argsType = {
 };
 
 type SliceState = {
-  data: Endpoints['GET /users']['response']['data'];
+  data: components['schemas']['simple-user'][];
   link?: Record<string, string>;
   status: string;
 };
@@ -30,6 +30,27 @@ export const fetchUsers = createAsyncThunk(
     return {
       data: users.data,
       link: parseLinkHeader(users.headers.link || ''),
+    };
+  }
+);
+
+export const searchUsers = createAsyncThunk(
+  'users/searchUsers',
+  async (args: { username: string; page?: number }, { rejectWithValue }) => {
+    const { username, page } = args;
+
+    const users = await octokit.rest.search.users({
+      q: username,
+      ...(page && { page }),
+    });
+
+    if (!users) {
+      return rejectWithValue('rejected');
+    }
+
+    return {
+      data: users.data,
+      ...(users.headers.link && { link: parseLinkHeader(users.headers.link) }),
     };
   }
 );
@@ -65,6 +86,16 @@ export const usersSlice = createSlice({
       })
       .addCase(fetchUsers.rejected, (state) => {
         state.status = 'error';
+      })
+      .addCase(searchUsers.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(searchUsers.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.data = [...state.data, ...action.payload.data.items];
+        if (action.payload.link) {
+          state.link = action.payload.link;
+        }
       });
   },
 });
