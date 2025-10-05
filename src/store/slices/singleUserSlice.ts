@@ -201,10 +201,9 @@ type SliceState = {
     | paths['/user']['get']['responses']['200']['content']['application/json']
     | null;
   user:
-    | (paths['/users/{username}']['get']['responses']['200']['content']['application/json'] & {
-        isFollowedByAuthenticatedUser?: boolean;
-      })
+    | paths['/users/{username}']['get']['responses']['200']['content']['application/json']
     | null;
+  isFollowedByAuthenticatedUser?: boolean;
   followersLinks: Record<string, string> | null;
   followingLinks: Record<string, string> | null;
   starredLinks: Record<string, string> | null;
@@ -244,6 +243,18 @@ export const singleUserSlice = createSlice({
       action: PayloadAction<Endpoints['GET /user']['response']['data']>
     ) => {
       state.user = action.payload;
+    },
+    setAuthenticatedUser: (
+      state,
+      action: PayloadAction<Endpoints['GET /user']['response']['data']>
+    ) => {
+      state.authenticatedUser = action.payload;
+    },
+    setIsFollowedByAuthenticatedUser: (
+      state,
+      action: PayloadAction<boolean>
+    ) => {
+      state.isFollowedByAuthenticatedUser = action.payload;
     },
     setFollowers: (
       state,
@@ -345,17 +356,17 @@ export const singleUserSlice = createSlice({
       })
       .addCase(getIsFollowedByAuthenticatedUser.fulfilled, (state) => {
         if (state.user) {
-          state.user.isFollowedByAuthenticatedUser = true;
+          state.isFollowedByAuthenticatedUser = true;
         }
       })
       .addCase(followUser.fulfilled, (state) => {
         if (state.user) {
-          state.user.isFollowedByAuthenticatedUser = true;
+          state.isFollowedByAuthenticatedUser = true;
         }
       })
       .addCase(unfollowUser.fulfilled, (state) => {
         if (state.user) {
-          state.user.isFollowedByAuthenticatedUser = false;
+          state.isFollowedByAuthenticatedUser = false;
         }
       })
       .addCase(getAuthenticated.fulfilled, (state, action) => {
@@ -370,6 +381,8 @@ export const singleUserSlice = createSlice({
 
 export const {
   setUser,
+  setAuthenticatedUser,
+  setIsFollowedByAuthenticatedUser,
   setFollowers,
   setFollowersLink,
   setFollowing,

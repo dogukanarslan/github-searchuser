@@ -2,27 +2,36 @@
 
 import { useAppDispatch, useAppSelector } from 'store/store';
 import { Button } from 'components';
-import { followUser, unfollowUser } from 'store/slices/singleUserSlice';
+import {
+  followUser,
+  setIsFollowedByAuthenticatedUser,
+  unfollowUser,
+} from 'store/slices/singleUserSlice';
+import { useEffect } from 'react';
 
-export const UserDetailHeader = () => {
-  const { authenticatedUser, user } = useAppSelector(
+interface Props {
+  isFollowedByAuthenticated?: boolean;
+}
+
+export const UserDetailHeader = (props: Props) => {
+  const { isFollowedByAuthenticated } = props;
+  const { authenticatedUser, user,isFollowedByAuthenticatedUser } = useAppSelector(
     (state) => state.singleUser
   );
 
   const dispatch = useAppDispatch();
 
+  useEffect(() => {
+    if (isFollowedByAuthenticated !== undefined) {
+      dispatch(setIsFollowedByAuthenticatedUser(isFollowedByAuthenticated));
+    }
+  }, [isFollowedByAuthenticated, dispatch]);
+
   if (!user) {
     return;
   }
 
-  const {
-    login,
-    avatar_url,
-    public_repos,
-    followers,
-    following,
-    isFollowedByAuthenticatedUser,
-  } = user;
+  const { login, avatar_url, public_repos, followers, following } = user;
 
   const handleFollow = () => {
     if (isFollowedByAuthenticatedUser) {
