@@ -14,7 +14,7 @@ export const Filters = () => {
     e.preventDefault();
 
     if (username) {
-      redirect(`/?username=${username}`);
+      redirect(`/?q=${username}`);
     } else {
       redirect('/');
     }
