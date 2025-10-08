@@ -9,7 +9,11 @@ const getUsers = async (username?: string) => {
   if (username) {
     const response = await octokit.rest.search.users({ q: username });
 
-    return { data: response.data.items, link: response.headers.link };
+    return {
+      data: response.data.items,
+      totalCount: response.data.total_count,
+      link: response.headers.link,
+    };
   } else {
     const response = await octokit.rest.users.list({});
 
@@ -23,12 +27,12 @@ const HomePage = async ({
   searchParams: Promise<{ [key: string]: string | undefined }>;
 }) => {
   const username = (await searchParams).q;
-  const { data, link } = await getUsers(username);
+  const { data, link, totalCount } = await getUsers(username);
 
   return (
     <>
       <Filters />
-      <UsersWrapper users={data} link={link} />
+      <UsersWrapper users={data} link={link} totalCount={totalCount} />
       <PaginationButtons />
     </>
   );

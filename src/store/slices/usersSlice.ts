@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { octokit } from 'lib/api';
 import { components } from '@octokit/openapi-types';
 import { parseLinkHeader } from '../../constants';
@@ -10,6 +10,7 @@ type argsType = {
 
 type SliceState = {
   data: components['schemas']['simple-user'][];
+  totalCount: number | null;
   link?: Record<string, string>;
   status: string;
 };
@@ -39,24 +40,27 @@ export const searchUsers = createAsyncThunk(
   async (args: { username: string; page?: number }, { rejectWithValue }) => {
     const { username, page } = args;
 
-    const users = await octokit.rest.search.users({
+    const response = await octokit.rest.search.users({
       q: username,
       ...(page && { page }),
     });
 
-    if (!users) {
+    if (!response) {
       return rejectWithValue('rejected');
     }
 
     return {
-      data: users.data,
-      ...(users.headers.link && { link: parseLinkHeader(users.headers.link) }),
+      data: response.data,
+      ...(response.headers.link && {
+        link: parseLinkHeader(response.headers.link),
+      }),
     };
   }
 );
 
 const initialState: SliceState = {
   data: [],
+  totalCount: null,
   status: 'idle',
 };
 
@@ -72,6 +76,9 @@ export const usersSlice = createSlice({
       if (action.payload.link) {
         state.link = parseLinkHeader(action.payload.link);
       }
+    },
+    setTotalCount: (state, action: PayloadAction<number | null>) => {
+      state.totalCount = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -93,6 +100,7 @@ export const usersSlice = createSlice({
       .addCase(searchUsers.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.data = [...state.data, ...action.payload.data.items];
+        state.totalCount = action.payload.data.total_count;
         if (action.payload.link) {
           state.link = action.payload.link;
         }
@@ -100,6 +108,6 @@ export const usersSlice = createSlice({
   },
 });
 
-export const { resetUsers, setUsers } = usersSlice.actions;
+export const { resetUsers, setUsers,setTotalCount } = usersSlice.actions;
 
 export default usersSlice.reducer;
