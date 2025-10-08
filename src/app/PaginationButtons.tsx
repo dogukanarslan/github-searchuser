@@ -15,7 +15,7 @@ const PaginationButtons = () => {
 
   const loadMore = () => {
     if (link) {
-      const username = searchParams.get('username');
+      const username = searchParams.get('q');
 
       if (username) {
         const urlParams = new URL(link.next).searchParams;
