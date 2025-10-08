@@ -22,7 +22,7 @@ const HomePage = async ({
 }: {
   searchParams: Promise<{ [key: string]: string | undefined }>;
 }) => {
-  const username = (await searchParams).username;
+  const username = (await searchParams).q;
   const { data, link } = await getUsers(username);
 
   return (
