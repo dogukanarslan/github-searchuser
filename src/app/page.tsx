@@ -5,20 +5,20 @@ import PaginationButtons from 'app/PaginationButtons';
 
 import UsersWrapper from 'app/UsersWrapper';
 
-const getUsers = async (username?: string) => {
-  if (username) {
-    const response = await octokit.rest.search.users({ q: username });
+const getUsers = async () => {
+  const response = await octokit.rest.users.list();
 
-    return {
-      data: response.data.items,
-      totalCount: response.data.total_count,
-      link: response.headers.link,
-    };
-  } else {
-    const response = await octokit.rest.users.list({});
+  return { data: response.data, link: response.headers.link };
+};
 
-    return { data: response.data, link: response.headers.link };
-  }
+const getSearchResults = async (username: string) => {
+  const response = await octokit.rest.search.users({ q: username });
+
+  return {
+    data: response.data.items,
+    totalCount: response.data.total_count,
+    link: response.headers.link,
+  };
 };
 
 const HomePage = async ({
@@ -27,12 +27,29 @@ const HomePage = async ({
   searchParams: Promise<{ [key: string]: string | undefined }>;
 }) => {
   const username = (await searchParams).q;
-  const { data, link, totalCount } = await getUsers(username);
+  let searchResults, data, link, totalCount;
+  if (username) {
+    const response = await getSearchResults(username);
+    searchResults = response.data;
+    totalCount = response.totalCount;
+    link = response.link;
+  } else {
+    const response = await getUsers();
+    data = response.data;
+    link = response.link;
+  }
+  
 
   return (
     <>
       <Filters />
-      <UsersWrapper users={data} link={link} totalCount={totalCount} />
+      <UsersWrapper
+        users={data}
+        searchResults={searchResults}
+        link={link}
+        searchResultsLink={link}
+        totalCount={totalCount}
+      />
       <PaginationButtons />
     </>
   );
