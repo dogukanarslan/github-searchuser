@@ -8,13 +8,6 @@ type argsType = {
   resultsPerPage?: string;
 };
 
-type SliceState = {
-  data: components['schemas']['simple-user'][];
-  totalCount: number | null;
-  link?: Record<string, string>;
-  status: string;
-};
-
 export const fetchUsers = createAsyncThunk(
   'users/fetchUsers',
   async (args: argsType, { rejectWithValue }) => {
@@ -58,8 +51,18 @@ export const searchUsers = createAsyncThunk(
   }
 );
 
+type SliceState = {
+  data: components['schemas']['simple-user'][];
+  searchResults: components['schemas']['user-search-result-item'][];
+  totalCount: number | null;
+  link?: Record<string, string>;
+  searchResultsLink?: Record<string, string>;
+  status: string;
+};
+
 const initialState: SliceState = {
   data: [],
+  searchResults: [],
   totalCount: null,
   status: 'idle',
 };
@@ -73,9 +76,18 @@ export const usersSlice = createSlice({
     },
     setUsers: (state, action) => {
       state.data = action.payload.users;
-      if (action.payload.link) {
-        state.link = parseLinkHeader(action.payload.link);
-      }
+    },
+    setSearchResults: (
+      state,
+      action: PayloadAction<{
+        data: components['schemas']['user-search-result-item'][];
+        link?: string;
+      }>
+    ) => {
+      state.searchResults = action.payload.data;
+    },
+    setLink: (state, action: PayloadAction<string>) => {
+      state.link = parseLinkHeader(action.payload);
     },
     setTotalCount: (state, action: PayloadAction<number | null>) => {
       state.totalCount = action.payload;
@@ -99,7 +111,10 @@ export const usersSlice = createSlice({
       })
       .addCase(searchUsers.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.data = [...state.data, ...action.payload.data.items];
+        state.searchResults = [
+          ...state.searchResults,
+          ...action.payload.data.items,
+        ];
         state.totalCount = action.payload.data.total_count;
         if (action.payload.link) {
           state.link = action.payload.link;
@@ -108,6 +123,12 @@ export const usersSlice = createSlice({
   },
 });
 
-export const { resetUsers, setUsers,setTotalCount } = usersSlice.actions;
+export const {
+  resetUsers,
+  setUsers,
+  setSearchResults,
+  setLink,
+  setTotalCount,
+} = usersSlice.actions;
 
 export default usersSlice.reducer;

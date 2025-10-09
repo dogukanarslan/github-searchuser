@@ -3,10 +3,7 @@ import { Users } from 'components';
 import React from 'react';
 
 interface Props {
-  users: Omit<
-    Endpoints['GET /search/users']['response']['data']['items'][0],
-    'score'
-  >[];
+  users?: Endpoints['GET /search/users']['response']['data']['items'];
   totalCount?: Endpoints['GET /search/users']['response']['data']['total_count'];
 }
 
