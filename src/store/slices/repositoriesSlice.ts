@@ -26,6 +26,30 @@ export const fetchRepositories = createAsyncThunk(
   }
 );
 
+export const searchRepositories = createAsyncThunk(
+  'repositories/searchRepositories',
+  async (
+    { repositoryName, page }: { repositoryName: string; page?: number },
+    { rejectWithValue }
+  ) => {
+    const response = await octokit.rest.search.repos({
+      q: repositoryName,
+      ...(page && { page }),
+    });
+
+    if (!response) {
+      return rejectWithValue('rejected');
+    }
+
+    return {
+      data: response.data,
+      ...(response.headers.link && {
+        link: parseLinkHeader(response.headers.link),
+      }),
+    };
+  }
+);
+
 export const fetchBranches = createAsyncThunk(
   'repositories/fetchBranches',
   async (args: { login: string; repo: string }, { rejectWithValue }) => {
@@ -64,6 +88,7 @@ export const fetchLabels = createAsyncThunk(
 
 type SliceState = {
   data: Endpoints['GET /repositories']['response']['data'];
+  searchResults: Endpoints['GET /search/repositories']['response']['data']['items'];
   branches: Record<
     string,
     Endpoints['GET /repos/{owner}/{repo}/branches']['response']['data']
@@ -73,13 +98,16 @@ type SliceState = {
     Endpoints['GET /repos/{owner}/{repo}/labels']['response']['data']
   >;
   link?: Record<string, string>;
+  totalCount: number | null;
   status: string;
 };
 
 const initialState: SliceState = {
   data: [],
+  searchResults: [],
   branches: {},
   labels: {},
+  totalCount: null,
   status: 'idle',
 };
 
@@ -98,6 +126,20 @@ export const repositoriesSlice = createSlice({
       if (action.payload.link) {
         state.link = parseLinkHeader(action.payload.link);
       }
+    },
+    setSearchResults: (
+      state,
+      action: PayloadAction<
+        Endpoints['GET /search/repositories']['response']['data']['items']
+      >
+    ) => {
+      state.searchResults = action.payload;
+    },
+    setLink: (state, action: PayloadAction<string>) => {
+      state.link = parseLinkHeader(action.payload);
+    },
+    setTotalCount: (state, action: PayloadAction<number>) => {
+      state.totalCount = action.payload;
     },
     resetRepositories: (state) => {
       state.data = [];
@@ -120,10 +162,31 @@ export const repositoriesSlice = createSlice({
       .addCase(fetchLabels.fulfilled, (state, action) => {
         const { repo } = action.meta.arg;
         state.labels[repo] = action.payload.data;
+      })
+      .addCase(searchRepositories.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(searchRepositories.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.searchResults = [
+          ...state.searchResults,
+          ...action.payload.data.items,
+        ];
+        state.totalCount = action.payload.data.total_count;
+
+        if (action.payload.link) {
+          state.link = action.payload.link;
+        }
       });
   },
 });
 
-export const { setRepositories, resetRepositories } = repositoriesSlice.actions;
+export const {
+  setRepositories,
+  resetRepositories,
+  setTotalCount,
+  setSearchResults,
+  setLink,
+} = repositoriesSlice.actions;
 
 export default repositoriesSlice.reducer;
