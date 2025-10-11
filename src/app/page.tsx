@@ -38,7 +38,6 @@ const HomePage = async ({
     data = response.data;
     link = response.link;
   }
-  
 
   return (
     <>
