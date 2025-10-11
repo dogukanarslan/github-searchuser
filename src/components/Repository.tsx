@@ -7,7 +7,7 @@ import {
   fetchLabels,
 } from 'store/slices/repositoriesSlice';
 
-interface RepositoryProps {
+export interface RepositoryProps {
   name: string;
   owner: string;
   description: string;
