@@ -2,7 +2,9 @@ import { Endpoints } from '@octokit/types';
 import { Repository } from './Repository';
 
 interface RepositoriesProps {
-  repositories?: Endpoints['GET /search/repositories']['response']['data']['items'];
+  repositories?:
+    | Endpoints['GET /search/repositories']['response']['data']['items']
+    | Endpoints['GET /repositories']['response']['data'];
 }
 
 export const Repositories = (props: RepositoriesProps) => {

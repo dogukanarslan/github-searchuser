@@ -10,7 +10,7 @@ export const metadata = {
   title: 'GitHub Search',
 };
 
-const isFollowedByAuthenticated = async () => {
+const getAuthenticatedUser = async () => {
   const response = await octokit.rest.users.getAuthenticated();
   return response.data;
 };
@@ -20,13 +20,13 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const authenticatedUser = await isFollowedByAuthenticated();
+  const authenticatedUser = await getAuthenticatedUser();
 
   return (
     <html lang="en">
       <body>
         <StoreProvider authenticatedUser={authenticatedUser}>
-          <Header />
+          <Header authUsername={authenticatedUser.login} />
           <div className="mx-auto mt-2 max-w-6xl p-4">{children}</div>
         </StoreProvider>
       </body>

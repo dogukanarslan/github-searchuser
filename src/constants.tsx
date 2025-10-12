@@ -21,8 +21,8 @@ export const parseLinkHeader = (header: string) => {
   return links;
 };
 
-export const navLinks = [
-  { name: 'Profile', path: '/profile', icon: <User size={16} /> },
+export const navLinks = (authUsername: string) => [
+  { name: 'Profile', path: `/users/${authUsername}`, icon: <User size={16} /> },
   { name: 'Users', path: '/', icon: <Users size={16} /> },
   { name: 'Repositories', path: '/repositories', icon: <Book size={16} /> },
 ];

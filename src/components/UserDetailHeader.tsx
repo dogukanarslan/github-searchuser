@@ -15,9 +15,8 @@ interface Props {
 
 export const UserDetailHeader = (props: Props) => {
   const { isFollowedByAuthenticated } = props;
-  const { authenticatedUser, user,isFollowedByAuthenticatedUser } = useAppSelector(
-    (state) => state.singleUser
-  );
+  const { authenticatedUser, user, isFollowedByAuthenticatedUser } =
+    useAppSelector((state) => state.singleUser);
 
   const dispatch = useAppDispatch();
 
