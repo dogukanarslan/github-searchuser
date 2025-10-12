@@ -3,7 +3,13 @@ import Link from 'next/link';
 
 import { navLinks } from '../constants';
 
-export const Header = () => {
+interface HeaderProps {
+  authUsername: string;
+}
+
+export const Header = (props: HeaderProps) => {
+  const { authUsername } = props;
+
   return (
     <div className="border-b">
       <div className="mx-auto flex max-w-6xl justify-between gap-7 p-4 text-[#3e3e3e]">
@@ -14,7 +20,7 @@ export const Header = () => {
         </header>
         <nav className="flex">
           <ul className="flex items-center gap-1">
-            {navLinks.map((navLink) => {
+            {navLinks(authUsername).map((navLink) => {
               return (
                 <li key={navLink.name}>
                   <Link href={navLink.path}>
