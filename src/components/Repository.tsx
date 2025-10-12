@@ -1,11 +1,10 @@
 import { Star, Eye } from 'react-feather';
+import Link from 'next/link';
+
 import { Button } from './Button';
 import { Badge } from './Badge';
 import { useAppDispatch, useAppSelector } from 'store/store';
-import {
-  fetchBranches,
-  fetchLabels,
-} from 'store/slices/repositoriesSlice';
+import { fetchBranches, fetchLabels } from 'store/slices/repositoriesSlice';
 
 export interface RepositoryProps {
   name: string;
@@ -34,7 +33,9 @@ export const Repository = (props: RepositoryProps) => {
     <div className="block space-y-2 rounded-xl border p-4">
       <div className="flex items-center justify-between">
         <div>
-          <h5 className="text-lg font-bold">{name}</h5>
+          <Link href={`/repositories/${owner}/${name}`}>
+            <h5 className="text-lg font-bold">{name}</h5>
+          </Link>
           <h6 className="text-sm font-bold">{owner}</h6>
         </div>
         <div className="flex items-start gap-4">

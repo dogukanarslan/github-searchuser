@@ -4,6 +4,7 @@ import usersReducer from './slices/usersSlice';
 import singleUserReducer from './slices/singleUserSlice';
 import repositoriesReducer from './slices/repositoriesSlice';
 import loadingReducer from './slices/loadingSlice';
+import repositoryDetailReducer from './slices/repositoryDetailSlice';
 
 export const makeStore = () =>
   configureStore({
@@ -12,6 +13,7 @@ export const makeStore = () =>
       users: usersReducer,
       singleUser: singleUserReducer,
       repositories: repositoriesReducer,
+      repositoryDetail: repositoryDetailReducer,
     },
   });
 
