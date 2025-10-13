@@ -7,7 +7,7 @@ export const Badge = (props: BadgeProps) => {
 
   return (
     <span
-      className="whitespace-nowrap rounded-full bg-secondary px-2 py-1 text-sm text-white"
+      className="whitespace-nowrap rounded-full bg-primary px-2 py-1 text-sm text-white"
       {...rest}
     >
       {children}
