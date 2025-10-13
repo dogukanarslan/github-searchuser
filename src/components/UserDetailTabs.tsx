@@ -14,7 +14,7 @@ export const UserDetailTabs = (props: Props) => {
         href="#"
         className={`${
           selectedTab === 'followers' ? 'border-b-2 ' : ''
-        }text-sm border-secondary font-medium hover:border-b-2`}
+        }text-sm border-primary font-medium hover:border-b-2`}
         onClick={() => setSelectedTab('followers')}
       >
         Followers
@@ -23,7 +23,7 @@ export const UserDetailTabs = (props: Props) => {
         href="#"
         className={`${
           selectedTab === 'following' ? 'border-b-2 ' : ''
-        }text-sm border-secondary font-medium hover:border-b-2`}
+        }text-sm border-primary font-medium hover:border-b-2`}
         onClick={() => setSelectedTab('following')}
       >
         Following
@@ -32,7 +32,7 @@ export const UserDetailTabs = (props: Props) => {
         href="#"
         className={`${
           selectedTab === 'starred' ? 'border-b-2 ' : ''
-        }text-sm border-secondary font-medium hover:border-b-2`}
+        }text-sm border-primary font-medium hover:border-b-2`}
         onClick={() => setSelectedTab('starred')}
       >
         Starred
@@ -41,7 +41,7 @@ export const UserDetailTabs = (props: Props) => {
         href="#"
         className={`${
           selectedTab === 'repos' ? 'border-b-2 ' : ''
-        }text-sm border-secondary font-medium hover:border-b-2`}
+        }text-sm border-primary font-medium hover:border-b-2`}
         onClick={() => setSelectedTab('repos')}
       >
         Repositories

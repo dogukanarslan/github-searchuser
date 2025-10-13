@@ -32,7 +32,7 @@ export const Filters = () => {
             placeholder="Search repository"
           />
         </div>
-        <Button type="submit">
+        <Button type="submit" className="bg-transparent text-black">
           <Search />
         </Button>
       </div>

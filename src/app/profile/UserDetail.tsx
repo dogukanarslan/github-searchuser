@@ -3,10 +3,10 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 
-import { Repositories } from 'app/users/Repositories';
+import { Repositories } from 'app/users/[username]/Repositories';
 
-import { Followers } from 'components/Followers';
-import { Following } from 'components/Following';
+import { Followers } from 'app/users/[username]/Followers';
+import { Following } from 'app/users/[username]/Following';
 import { Starred } from 'components/Starred';
 import { UserDetailTabs } from 'components/UserDetailTabs';
 import { Endpoints } from '@octokit/types';

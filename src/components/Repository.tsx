@@ -51,10 +51,10 @@ export const Repository = (props: RepositoryProps) => {
       <div>Stars {stargazers_count}</div>
       <div>Watchers {watchers_count}</div>
       <div className="space-x-2">
-        <Button color="primary" size="sm" onClick={getBranches}>
+        <Button onClick={getBranches}>
           Show Branches
         </Button>
-        <Button color="secondary" size="sm" onClick={getLabels}>
+        <Button onClick={getLabels}>
           Show Labels
         </Button>
       </div>
