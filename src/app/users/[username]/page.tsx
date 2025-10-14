@@ -1,6 +1,6 @@
 import { UserDetailInformation } from 'components/UserDetailInformation';
 import { UserDetailHeader } from 'components/UserDetailHeader';
-import { UserDetail } from 'app/profile/UserDetail';
+import { UserDetail } from 'app/users/[username]/UserDetail';
 import { octokit } from 'lib/api';
 
 const getUserDetail = (username: string) => {
