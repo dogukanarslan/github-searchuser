@@ -21,7 +21,7 @@ export const Users = (props: Props) => {
       <div className="space-y-2">
         {users.map((user) => (
           <div key={user.id} className="w-full">
-            <User user={user} />
+            <User login={user.login} avatar_url={user.avatar_url} />
           </div>
         ))}
       </div>
