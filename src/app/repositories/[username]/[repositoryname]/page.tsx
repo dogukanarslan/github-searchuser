@@ -3,9 +3,13 @@ import { format } from 'date-fns';
 
 import { octokit } from 'lib/api';
 
+import StarButton from 'app/repositories/[username]/[repositoryname]/StarButton';
+import { Branches } from 'app/repositories/[username]/[repositoryname]/Branches';
+import { Languages } from 'app/repositories/[username]/[repositoryname]/Languages';
+import { Contributors } from 'app/repositories/[username]/[repositoryname]/Contributors';
+
 import { Badge } from 'components/Badge';
 import { Card } from 'components/Card';
-import StarButton from 'app/repositories/[username]/[repositoryname]/StarButton';
 
 const getRepository = async (username: string, repositoryName: string) => {
   const response = await octokit.rest.repos.get({
@@ -18,6 +22,24 @@ const getRepository = async (username: string, repositoryName: string) => {
 
 const getLanguages = async (username: string, repositoryName: string) => {
   const response = await octokit.rest.repos.listLanguages({
+    owner: username,
+    repo: repositoryName,
+  });
+
+  return { data: response.data };
+};
+
+const getBranches = async (username: string, repositoryName: string) => {
+  const response = await octokit.rest.repos.listBranches({
+    owner: username,
+    repo: repositoryName,
+  });
+
+  return { data: response.data };
+};
+
+const getContributors = async (username: string, repositoryName: string) => {
+  const response = await octokit.rest.repos.listContributors({
     owner: username,
     repo: repositoryName,
   });
@@ -51,6 +73,8 @@ const RepositoryDetailPage = async ({
   const repositoryDetail = await getRepository(username, repositoryname);
   const languages = await getLanguages(username, repositoryname);
   const isStarred = await isStarredByAuthenticated(username, repositoryname);
+  const branches = await getBranches(username, repositoryname);
+  const contributors = await getContributors(username, repositoryname);
 
   return (
     <div>
@@ -84,12 +108,16 @@ const RepositoryDetailPage = async ({
             <div>
               <b>Description:</b> {repositoryDetail.data.description || '-'}
             </div>
-            <div>
-              <b>Languages:</b> {Object.keys(languages.data).join(', ') || '-'}
-            </div>
           </>
         }
-      ></Card>
+      />
+      <div className="mt-2 grid grid-cols-1 gap-2 md:grid-cols-2">
+        <Contributors contributors={contributors.data} />
+        <div className="flex flex-col gap-2">
+          <Branches branches={branches.data} />
+          <Languages languages={languages.data} />
+        </div>
+      </div>
     </div>
   );
 };

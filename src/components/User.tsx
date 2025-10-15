@@ -1,16 +1,14 @@
 import Link from 'next/link';
 
-import { Endpoints } from '@octokit/types';
 import { Card } from './Card';
 
 export interface UserProps {
-  user: Endpoints['GET /users']['response']['data'][0];
+  login: string;
+  avatar_url: string;
 }
 
 export const User = (props: UserProps) => {
-  const {
-    user: { avatar_url, login },
-  } = props;
+  const { avatar_url, login } = props;
 
   return (
     <Card
