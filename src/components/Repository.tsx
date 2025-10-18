@@ -1,4 +1,3 @@
-import { Star, Eye } from 'react-feather';
 import Link from 'next/link';
 
 import { Button } from './Button';
@@ -16,7 +15,7 @@ export interface RepositoryProps {
 }
 
 export const Repository = (props: RepositoryProps) => {
-  const { name, owner, description, stargazers_count, watchers_count } = props;
+  const { name, owner, description } = props;
 
   const { branches, labels } = useAppSelector((state) => state.repositories);
   const dispatch = useAppDispatch();
@@ -31,32 +30,14 @@ export const Repository = (props: RepositoryProps) => {
 
   return (
     <div className="block space-y-2 rounded-xl border p-4">
-      <div className="flex items-center justify-between">
-        <div>
-          <Link href={`/repositories/${owner}/${name}`}>
-            <h5 className="text-lg font-bold">{name}</h5>
-          </Link>
-          <h6 className="text-sm font-bold">{owner}</h6>
-        </div>
-        <div className="flex items-start gap-4">
-          <div className="flex items-center gap-2">
-            <Star /> {stargazers_count}
-          </div>
-          <div className="flex items-center gap-2">
-            <Eye /> {watchers_count}
-          </div>
-        </div>
-      </div>
+      <Link href={`/repositories/${owner}/${name}`}>
+        <h5 className="text-lg font-bold">{name}</h5>
+      </Link>
+      <h6 className="text-sm font-bold">{owner}</h6>
       <div>{description}</div>
-      <div>Stars {stargazers_count}</div>
-      <div>Watchers {watchers_count}</div>
       <div className="space-x-2">
-        <Button onClick={getBranches}>
-          Show Branches
-        </Button>
-        <Button onClick={getLabels}>
-          Show Labels
-        </Button>
+        <Button onClick={getBranches}>Show Branches</Button>
+        <Button onClick={getLabels}>Show Labels</Button>
       </div>
 
       {branches[name]?.length > 0 && (
