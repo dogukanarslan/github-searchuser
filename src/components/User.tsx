@@ -30,7 +30,7 @@ export const User = (props: UserProps) => {
                 <li className="p-1 leading-none">
                   <Link
                     href={{
-                      pathname: `/details/${login}`,
+                      pathname: `/users/${login}`,
                       search: '?tab=followers',
                     }}
                     className="text-xs font-medium"
@@ -42,7 +42,7 @@ export const User = (props: UserProps) => {
                 <li className="p-1 leading-none">
                   <Link
                     href={{
-                      pathname: `/details/${login}`,
+                      pathname: `/users/${login}`,
                       search: '?tab=following',
                     }}
                     className="text-xs font-medium"
