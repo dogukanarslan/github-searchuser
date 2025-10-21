@@ -12,7 +12,7 @@ export const Languages = (props: Props) => {
 
   return (
     <div>
-      <h1 className="font-bold">Branches</h1>
+      <h1 className="font-bold">Languages</h1>
       <Card
         body={
           <div className="flex flex-wrap items-center gap-2">
