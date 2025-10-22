@@ -1,6 +1,6 @@
 # GitHub Search User
 
-This is a single page application that allows you to find GitHub users
+This is an application that allows you to use GitHub as a social media.
 
 ## Prerequisites
 
