@@ -24,7 +24,7 @@ export const Header = (props: HeaderProps) => {
               return (
                 <li key={navLink.name}>
                   <Link href={navLink.path}>
-                    <div className="rounded px-2 py-1 font-medium hover:bg-black/5">
+                    <div className="rounded-sm px-2 py-1 font-medium hover:bg-black/5">
                       {navLink.name}
                     </div>
                   </Link>

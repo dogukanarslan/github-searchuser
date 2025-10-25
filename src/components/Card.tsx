@@ -12,7 +12,7 @@ export const Card = (props: CardProps) => {
   const { title, body, img, link } = props;
 
   return (
-    <div className="overflow-hidden rounded-xl border p-2 shadow-sm">
+    <div className="overflow-hidden rounded-xl border p-2 shadow-xs">
       {img && <img src={img} className="h-64 w-full object-cover" />}
 
       <div className="bg-white p-4">
