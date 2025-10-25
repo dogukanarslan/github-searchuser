@@ -1,7 +1,6 @@
 import { octokit } from 'lib/api';
 
 import { Filters } from 'app/Filters';
-import PaginationButtons from 'app/PaginationButtons';
 
 import UsersWrapper from 'app/UsersWrapper';
 
@@ -49,7 +48,6 @@ const HomePage = async ({
         searchResultsLink={link}
         totalCount={totalCount}
       />
-      <PaginationButtons />
     </>
   );
 };
