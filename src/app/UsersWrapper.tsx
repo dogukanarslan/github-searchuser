@@ -1,18 +1,23 @@
 'use client';
 
-import { Users } from 'components';
-import { useAppSelector } from 'store/store';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSearchParams } from 'next/navigation';
+import { Endpoints } from '@octokit/types';
+
+import { useAppDispatch, useAppSelector } from 'store/store';
 import {
+  fetchUsers,
+  searchUsers,
   setLink,
   setSearchResults,
   setTotalCount,
   setUsers,
 } from 'store/slices/usersSlice';
-import { Endpoints } from '@octokit/types';
-import { useSearchParams } from 'next/navigation';
-import SearchResults from './SearchResults';
+
+import SearchResults from 'app/SearchResults';
+
+import { Users } from 'components/Users';
+import PaginationButtons from 'components/PaginationButtons';
 
 interface Props {
   totalCount?: number;
@@ -34,8 +39,13 @@ const UsersWrapper = (props: Props) => {
   const searchParams = useSearchParams();
   const username = searchParams.get('q');
 
-  const { searchResults } = useAppSelector((state) => state.users);
-  const dispatch = useDispatch();
+  const {
+    searchResults,
+    data,
+    status,
+    link: usersLink,
+  } = useAppSelector((state) => state.users);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (users) {
@@ -58,7 +68,29 @@ const UsersWrapper = (props: Props) => {
     }
   }, [users, link, totalCount, searchResultsData, searchResultsLink, dispatch]);
 
-  const { data } = useAppSelector((state) => state.users);
+  const loadMore = () => {
+    if (usersLink) {
+      if (username) {
+        const urlParams = new URL(usersLink?.next).searchParams;
+        const page = urlParams.get('page');
+
+        if (page) {
+          dispatch(searchUsers({ username, page: parseInt(page) }));
+        }
+      } else {
+        const urlParams = new URL(usersLink.next).searchParams;
+        const since = urlParams.get('since');
+
+        if (since) {
+          dispatch(
+            fetchUsers({
+              ...(since && { startingId: parseInt(since) }),
+            })
+          );
+        }
+      }
+    }
+  };
 
   return (
     <div>
@@ -67,6 +99,11 @@ const UsersWrapper = (props: Props) => {
       ) : (
         <Users users={data} />
       )}
+      <PaginationButtons
+        loadMore={loadMore}
+        isLoading={status === 'loading'}
+        hasMore={!usersLink?.next}
+      />
     </div>
   );
 };

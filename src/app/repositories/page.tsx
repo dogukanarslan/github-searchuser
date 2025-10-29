@@ -1,4 +1,3 @@
-import PaginationButtons from 'app/repositories/PaginationButtons';
 import { octokit } from 'lib/api';
 
 import { Filters } from 'app/repositories/Filters';
@@ -46,7 +45,6 @@ const RepositoriesPage = async ({
         link={link}
         totalCount={totalCount}
       />
-      <PaginationButtons />
     </>
   );
 };
