@@ -1,18 +1,23 @@
 'use client';
 
-import { useAppSelector } from 'store/store';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { Endpoints } from '@octokit/types';
+import { useSearchParams } from 'next/navigation';
+
+import { useAppDispatch, useAppSelector } from 'store/store';
 import {
+  fetchRepositories,
+  searchRepositories,
   setLink,
   setSearchResults,
   setTotalCount,
+  setRepositories,
 } from 'store/slices/repositoriesSlice';
-import { Endpoints } from '@octokit/types';
-import { useSearchParams } from 'next/navigation';
-import SearchResults from './SearchResults';
+
+import SearchResults from 'app/repositories/SearchResults';
+
 import { Repositories } from 'components/Repositories';
-import { setRepositories } from 'store/slices/repositoriesSlice';
+import PaginationButtons from 'components/PaginationButtons';
 
 interface Props {
   totalCount?: number;
@@ -32,8 +37,13 @@ const RepositoriesWrapper = (props: Props) => {
   const searchParams = useSearchParams();
   const repositoryName = searchParams.get('q');
 
-  const { searchResults, data } = useAppSelector((state) => state.repositories);
-  const dispatch = useDispatch();
+  const {
+    searchResults,
+    data,
+    status,
+    link: repositoriesLink,
+  } = useAppSelector((state) => state.repositories);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (repositories) {
@@ -51,6 +61,28 @@ const RepositoriesWrapper = (props: Props) => {
     }
   }, [repositories, link, totalCount, searchResultsData, dispatch]);
 
+  const loadMore = () => {
+    if (repositoriesLink) {
+      const repositoryName = searchParams.get('q');
+      if (repositoryName) {
+        const urlParams = new URL(repositoriesLink.next).searchParams;
+        const page = urlParams.get('page');
+        if (page) {
+          dispatch(
+            searchRepositories({ repositoryName, page: parseInt(page) })
+          );
+        }
+      } else {
+        const urlParams = new URL(repositoriesLink.next).searchParams;
+        const since = urlParams.get('since');
+
+        if (since) {
+          dispatch(fetchRepositories(since));
+        }
+      }
+    }
+  };
+
   return (
     <div>
       {repositoryName ? (
@@ -58,6 +90,7 @@ const RepositoriesWrapper = (props: Props) => {
       ) : (
         <Repositories repositories={data} />
       )}
+      <PaginationButtons loadMore={loadMore} isLoading={status === 'loading'} />
     </div>
   );
 };
