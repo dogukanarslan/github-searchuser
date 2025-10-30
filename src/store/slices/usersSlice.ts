@@ -86,8 +86,9 @@ export const usersSlice = createSlice({
     ) => {
       state.searchResults = action.payload.data;
     },
-    setLink: (state, action: PayloadAction<string>) => {
-      state.link = parseLinkHeader(action.payload);
+    setLink: (state, action: PayloadAction<string | null>) => {
+      state.link =
+        action.payload === null ? undefined : parseLinkHeader(action.payload);
     },
     setTotalCount: (state, action: PayloadAction<number | null>) => {
       state.totalCount = action.payload;
