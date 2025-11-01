@@ -9,7 +9,7 @@ export const Button = (props: ButtonProps) => {
 
   const classes = clsx(
     className,
-    'hover:bg-primary-light inline-block rounded-md px-3 py-1.5',
+    'hover:bg-primary-light inline-block cursor-pointer rounded-md px-3 py-1.5',
     {
       'bg-primary text-white': color === 'primary',
       'cursor-not-allowed opacity-60': disabled,
