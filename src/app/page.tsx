@@ -3,6 +3,7 @@ import { octokit } from 'lib/api';
 import { Filters } from 'app/Filters';
 
 import UsersWrapper from 'app/UsersWrapper';
+import { Initializer } from './Initializer';
 
 const getUsers = async () => {
   const response = await octokit.rest.users.list();
@@ -41,12 +42,12 @@ const HomePage = async ({
   return (
     <>
       <Filters />
-      <UsersWrapper
+      <UsersWrapper totalCount={totalCount} />
+      <Initializer
         users={data}
         searchResults={searchResults}
         link={link}
         searchResultsLink={link}
-        totalCount={totalCount}
       />
     </>
   );
