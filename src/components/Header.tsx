@@ -12,13 +12,13 @@ export const Header = (props: HeaderProps) => {
 
   return (
     <div className="border-b">
-      <div className="mx-auto flex max-w-6xl justify-between gap-7 p-4 text-[#3e3e3e]">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-7 p-4 text-[#3e3e3e]">
         <header className="w-full justify-center text-center">
           <Link href="/">
             <GitHub size={28} />
           </Link>
         </header>
-        <nav className="flex">
+        <nav className="flex justify-center">
           <ul className="flex items-center gap-1">
             {navLinks(authUsername).map((navLink) => {
               return (
@@ -33,6 +33,7 @@ export const Header = (props: HeaderProps) => {
             })}
           </ul>
         </nav>
+        <div className="w-full text-right">{authUsername}</div>
       </div>
     </div>
   );
