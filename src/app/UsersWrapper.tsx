@@ -44,7 +44,7 @@ const UsersWrapper = (props: Props) => {
         if (since) {
           dispatch(
             fetchUsers({
-              ...(since && { startingId: parseInt(since) }),
+              ...(since && { startingId: since }),
             })
           );
         }
