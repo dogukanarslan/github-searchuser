@@ -12,10 +12,17 @@ export const fetchUsers = createAsyncThunk(
   'users/fetchUsers',
   async (args: argsType, { rejectWithValue }) => {
     const { startingId, resultsPerPage } = args;
-    const users = await octokit.rest.users.list({
-      since: startingId || undefined,
-      ...(resultsPerPage && { per_page: parseInt(resultsPerPage) }),
-    });
+
+    let url = '/api/users?';
+    if (startingId) {
+      url += `startingId=${startingId}`;
+    }
+
+    if (resultsPerPage) {
+      url += resultsPerPage;
+    }
+    const res = await fetch(url);
+    const users = await res.json();
 
     if (!users) {
       return rejectWithValue('rejected');
@@ -23,7 +30,7 @@ export const fetchUsers = createAsyncThunk(
 
     return {
       data: users.data,
-      link: parseLinkHeader(users.headers.link || ''),
+      link: parseLinkHeader(users.link || ''),
     };
   }
 );
