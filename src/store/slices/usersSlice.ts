@@ -4,7 +4,7 @@ import { components } from '@octokit/openapi-types';
 import { parseLinkHeader } from '../../constants';
 
 type argsType = {
-  startingId?: number;
+  startingId?: string;
   resultsPerPage?: string;
 };
 
@@ -13,14 +13,19 @@ export const fetchUsers = createAsyncThunk(
   async (args: argsType, { rejectWithValue }) => {
     const { startingId, resultsPerPage } = args;
 
-    let url = '/api/users?';
+    const url = new URL(`/api/users`, window.location.href);
+
+    const searchParams = new URLSearchParams();
     if (startingId) {
-      url += `startingId=${startingId}`;
+      searchParams.set('startingId', startingId);
     }
 
     if (resultsPerPage) {
-      url += resultsPerPage;
+      searchParams.set('resultsPerPage', resultsPerPage);
     }
+
+    url.search = searchParams.toString();
+
     const res = await fetch(url);
     const users = await res.json();
 
