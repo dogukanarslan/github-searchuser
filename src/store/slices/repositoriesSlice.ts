@@ -6,22 +6,25 @@ import { octokit } from 'lib/api';
 export const fetchRepositories = createAsyncThunk(
   'repositories/fetchRepositories',
   async (since: string | undefined, { rejectWithValue }) => {
-    let response;
+    const url = new URL(`/api/repositories`, window.location.href);
+
+    const searchParams = new URLSearchParams();
     if (since) {
-      response = await octokit.rest.repos.listPublic({
-        since: parseInt(since),
-      });
-    } else {
-      response = await octokit.rest.repos.listPublic();
+      searchParams.set('since', since);
     }
 
-    if (!response) {
+    url.search = searchParams.toString();
+
+    const res = await fetch(url);
+    const repositories = await res.json();
+
+    if (!repositories) {
       return rejectWithValue('rejected');
     }
 
     return {
-      data: response.data,
-      link: parseLinkHeader(response.headers.link || ''),
+      data: repositories.data,
+      link: parseLinkHeader(repositories.link || ''),
     };
   }
 );
