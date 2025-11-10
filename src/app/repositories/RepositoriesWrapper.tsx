@@ -1,17 +1,11 @@
 'use client';
 
-import { useEffect } from 'react';
-import { Endpoints } from '@octokit/types';
 import { useSearchParams } from 'next/navigation';
 
 import { useAppDispatch, useAppSelector } from 'store/store';
 import {
   fetchRepositories,
   searchRepositories,
-  setLink,
-  setSearchResults,
-  setTotalCount,
-  setRepositories,
 } from 'store/slices/repositoriesSlice';
 
 import SearchResults from 'app/repositories/SearchResults';
@@ -21,18 +15,10 @@ import PaginationButtons from 'components/PaginationButtons';
 
 interface Props {
   totalCount?: number;
-  repositories?: Endpoints['GET /repositories']['response']['data'];
-  searchResults?: Endpoints['GET /search/repositories']['response']['data']['items'];
-  link?: string;
 }
 
 const RepositoriesWrapper = (props: Props) => {
-  const {
-    repositories,
-    searchResults: searchResultsData,
-    link,
-    totalCount,
-  } = props;
+  const { totalCount } = props;
 
   const searchParams = useSearchParams();
   const repositoryName = searchParams.get('q');
@@ -44,22 +30,6 @@ const RepositoriesWrapper = (props: Props) => {
     link: repositoriesLink,
   } = useAppSelector((state) => state.repositories);
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    if (repositories) {
-      dispatch(setRepositories({ repositories, link }));
-    } else if (searchResultsData) {
-      dispatch(setSearchResults(searchResultsData));
-    }
-
-    if (link) {
-      dispatch(setLink(link));
-    }
-
-    if (totalCount) {
-      dispatch(setTotalCount(totalCount));
-    }
-  }, [repositories, link, totalCount, searchResultsData, dispatch]);
 
   const loadMore = () => {
     if (repositoriesLink) {
