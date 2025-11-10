@@ -2,6 +2,7 @@ import { octokit } from 'lib/api';
 
 import { Filters } from 'app/repositories/Filters';
 import RepositoriesWrapper from 'app/repositories/RepositoriesWrapper';
+import { Initializer } from 'app/repositories/Initializer';
 
 const getRepositories = async () => {
   const data = await octokit.rest.repos.listPublic();
@@ -39,7 +40,8 @@ const RepositoriesPage = async ({
   return (
     <>
       <Filters />
-      <RepositoriesWrapper
+      <RepositoriesWrapper totalCount={totalCount} />
+      <Initializer
         repositories={data}
         searchResults={searchResults}
         link={link}
