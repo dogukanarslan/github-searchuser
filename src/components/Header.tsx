@@ -20,7 +20,7 @@ export const Header = (props: HeaderProps) => {
         </header>
         <nav className="flex justify-center">
           <ul className="flex items-center gap-1">
-            {navLinks(authUsername).map((navLink) => {
+            {navLinks.map((navLink) => {
               return (
                 <li key={navLink.name}>
                   <Link href={navLink.path}>
@@ -33,7 +33,9 @@ export const Header = (props: HeaderProps) => {
             })}
           </ul>
         </nav>
-        <div className="w-full text-right">{authUsername}</div>
+        <div className="w-full text-right">
+          <Link href={`/users/${authUsername}`}>{authUsername}</Link>
+        </div>
       </div>
     </div>
   );
