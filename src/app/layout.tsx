@@ -1,6 +1,7 @@
 import StoreProvider from './StoreProvider';
 
 import { octokit } from 'lib/api';
+import { redirect } from 'next/navigation';
 
 import { Header } from 'components/Header';
 
@@ -15,12 +16,30 @@ const getAuthenticatedUser = async () => {
   return response.data;
 };
 
-export default async function RootLayout({
+const RootLayout = async ({
   children,
 }: {
   children: React.ReactNode;
-}) {
-  const authenticatedUser = await getAuthenticatedUser();
+}) => {
+  const githubToken = process.env.NEXT_PUBLIC_GITHUB_TOKEN;
+
+  if (!githubToken) {
+    return (
+      <html lang="en">
+        <body>
+          <div className="mx-auto mt-2 max-w-6xl p-4">{children}</div>
+        </body>
+      </html>
+    );
+  }
+
+  let authenticatedUser;
+
+  try {
+    authenticatedUser = await getAuthenticatedUser();
+  } catch {
+    redirect('/signin');
+  }
 
   return (
     <html lang="en">
@@ -32,4 +51,6 @@ export default async function RootLayout({
       </body>
     </html>
   );
-}
+};
+
+export default RootLayout;
