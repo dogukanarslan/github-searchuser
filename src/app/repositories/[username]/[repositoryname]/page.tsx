@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { format } from 'date-fns';
 
-import { octokit } from 'lib/api';
+import { getServerOctokit } from 'lib/server-octokit';
 
 import StarButton from 'app/repositories/[username]/[repositoryname]/StarButton';
 import { Branches } from 'app/repositories/[username]/[repositoryname]/Branches';
@@ -12,6 +12,7 @@ import { Badge } from 'components/Badge';
 import { Card } from 'components/Card';
 
 const getRepository = async (username: string, repositoryName: string) => {
+  const octokit = await getServerOctokit();
   const response = await octokit.rest.repos.get({
     owner: username,
     repo: repositoryName,
@@ -21,6 +22,7 @@ const getRepository = async (username: string, repositoryName: string) => {
 };
 
 const getLanguages = async (username: string, repositoryName: string) => {
+  const octokit = await getServerOctokit();
   const response = await octokit.rest.repos.listLanguages({
     owner: username,
     repo: repositoryName,
@@ -30,6 +32,7 @@ const getLanguages = async (username: string, repositoryName: string) => {
 };
 
 const getBranches = async (username: string, repositoryName: string) => {
+  const octokit = await getServerOctokit();
   const response = await octokit.rest.repos.listBranches({
     owner: username,
     repo: repositoryName,
@@ -39,6 +42,7 @@ const getBranches = async (username: string, repositoryName: string) => {
 };
 
 const getContributors = async (username: string, repositoryName: string) => {
+  const octokit = await getServerOctokit();
   const response = await octokit.rest.repos.listContributors({
     owner: username,
     repo: repositoryName,
@@ -51,6 +55,8 @@ const isStarredByAuthenticated = async (
   username: string,
   repositoryName: string
 ) => {
+  const octokit = await getServerOctokit();
+
   try {
     await octokit.rest.activity.checkRepoIsStarredByAuthenticatedUser({
       owner: username,

@@ -1,9 +1,10 @@
-import { octokit } from 'lib/api';
+import { getServerOctokit } from 'lib/server-octokit';
 
-export async function GET(request: Request) {
+export const GET = async (request: Request) => {
   const { searchParams } = new URL(request.url);
   const resultsPerPage = searchParams.get('resultsPerPage');
   const startingId = searchParams.get('startingId');
+  const octokit = await getServerOctokit();
 
   const users = await octokit.rest.users.list({
     since: startingId ? parseInt(startingId) : undefined,
@@ -11,4 +12,4 @@ export async function GET(request: Request) {
   });
 
   return Response.json({ data: users.data, link: users.headers.link });
-}
+};

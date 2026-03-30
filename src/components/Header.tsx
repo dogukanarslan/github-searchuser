@@ -1,6 +1,8 @@
 import { GitHub } from 'react-feather';
 import Link from 'next/link';
 
+import { SignOutButton } from 'components/SignOutButton';
+
 import { navLinks } from '../constants';
 
 interface HeaderProps {
@@ -33,8 +35,9 @@ export const Header = (props: HeaderProps) => {
             })}
           </ul>
         </nav>
-        <div className="w-full text-right">
+        <div className="flex w-full items-center justify-end gap-3 text-right">
           <Link href={`/users/${authUsername}`}>{authUsername}</Link>
+          <SignOutButton />
         </div>
       </div>
     </div>

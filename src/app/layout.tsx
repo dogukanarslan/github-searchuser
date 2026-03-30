@@ -1,7 +1,10 @@
 import StoreProvider from './StoreProvider';
 
-import { octokit } from 'lib/api';
+import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
+
+import { getServerAuthSession } from 'lib/auth';
+import { createOctokit } from 'lib/api';
 
 import { Header } from 'components/Header';
 
@@ -12,41 +15,36 @@ export const metadata = {
 };
 
 const getAuthenticatedUser = async () => {
+  const session = await getServerAuthSession();
+
+  if (!session?.accessToken) {
+    redirect('/signin');
+  }
+
+  const octokit = createOctokit(session.accessToken);
   const response = await octokit.rest.users.getAuthenticated();
   return response.data;
 };
 
-const RootLayout = async ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
-  const githubToken = process.env.NEXT_PUBLIC_GITHUB_TOKEN;
+const RootLayout = async ({ children }: { children: React.ReactNode }) => {
+  const pathname = (await headers()).get('x-pathname') ?? '';
 
-  if (!githubToken) {
+  if (pathname.startsWith('/signin')) {
     return (
       <html lang="en">
-        <body>
-          <div className="mx-auto mt-2 max-w-6xl p-4">{children}</div>
-        </body>
+        <body>{children}</body>
       </html>
     );
   }
 
-  let authenticatedUser;
-
-  try {
-    authenticatedUser = await getAuthenticatedUser();
-  } catch {
-    redirect('/signin');
-  }
+  const authenticatedUser = await getAuthenticatedUser();
 
   return (
     <html lang="en">
       <body>
         <StoreProvider authenticatedUser={authenticatedUser}>
           <Header authUsername={authenticatedUser.login} />
-          <div className="mx-auto mt-2 max-w-6xl p-4">{children}</div>
+          <div className="mx-auto max-w-6xl p-4">{children}</div>
         </StoreProvider>
       </body>
     </html>

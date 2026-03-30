@@ -1,15 +1,17 @@
-import { octokit } from 'lib/api';
+import { getServerOctokit } from 'lib/server-octokit';
 
 import { Filters } from 'app/repositories/Filters';
 import RepositoriesWrapper from 'app/repositories/RepositoriesWrapper';
 import { Initializer } from 'app/repositories/Initializer';
 
 const getRepositories = async () => {
+  const octokit = await getServerOctokit();
   const data = await octokit.rest.repos.listPublic();
   return { data: data.data, link: data.headers.link };
 };
 
 const getSearchResults = async (repositoryName: string) => {
+  const octokit = await getServerOctokit();
   const response = await octokit.rest.search.repos({ q: repositoryName });
 
   return {

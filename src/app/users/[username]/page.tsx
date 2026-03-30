@@ -1,36 +1,46 @@
 import { UserDetailInformation } from 'components/UserDetailInformation';
 import { UserDetailHeader } from 'components/UserDetailHeader';
 import { UserDetail } from 'app/users/[username]/UserDetail';
-import { octokit } from 'lib/api';
+import { getServerOctokit } from 'lib/server-octokit';
 
-const getUserDetail = (username: string) => {
+const getUserDetail = async (username: string) => {
+  const octokit = await getServerOctokit();
+
   return octokit.rest.users.getByUsername({
     username,
   });
 };
 
-const getFollowers = (username: string) => {
+const getFollowers = async (username: string) => {
+  const octokit = await getServerOctokit();
+
   return octokit.rest.users.listFollowersForUser({
     username,
   });
 };
 
-const getFollowing = (username: string) => {
+const getFollowing = async (username: string) => {
+  const octokit = await getServerOctokit();
+
   return octokit.rest.users.listFollowingForUser({
     username,
   });
 };
 
-const getStarred = (username: string) => {
+const getStarred = async (username: string) => {
+  const octokit = await getServerOctokit();
+
   return octokit.rest.activity.listReposStarredByUser({
     username,
   });
 };
 
 const checkIsFollowedByAuthenticated = async (username: string) => {
+  const octokit = await getServerOctokit();
+
   try {
     await octokit.rest.users.checkPersonIsFollowedByAuthenticated({ username });
-    return true
+    return true;
   } catch {
     return false;
   }

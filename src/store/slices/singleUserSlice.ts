@@ -108,14 +108,16 @@ export const fetchStarred = createAsyncThunk(
 export const fetchAuthenticatedUser = createAsyncThunk(
   'singleUser/fetchAuthenticatedUser',
   async (_, { rejectWithValue }) => {
-    const response = await octokit.rest.users.getAuthenticated();
+    const response = await fetch('/api/authenticated-user');
 
-    if (!response) {
+    if (!response.ok) {
       return rejectWithValue('rejected');
     }
 
+    const payload = await response.json();
+
     return {
-      data: response.data,
+      data: payload.data,
     };
   }
 );
@@ -123,55 +125,60 @@ export const fetchAuthenticatedUser = createAsyncThunk(
 export const getIsFollowedByAuthenticatedUser = createAsyncThunk(
   'singleUser/isFollowedByAuthenticatedUser',
   async (username: string, { rejectWithValue }) => {
-    const response =
-      await octokit.rest.users.checkPersonIsFollowedByAuthenticated({
-        username,
-      });
+    const response = await fetch(`/api/users/${username}/follow`);
 
-    if (!response) {
+    if (!response.ok) {
       return rejectWithValue('rejected');
     }
 
-    return { data: response.data };
+    const payload = await response.json();
+
+    return { data: payload.isFollowed };
   }
 );
 
 export const followUser = createAsyncThunk(
   'singleUser/followUser',
   async (username: string, { rejectWithValue }) => {
-    const response = await octokit.rest.users.follow({ username });
+    const response = await fetch(`/api/users/${username}/follow`, {
+      method: 'PUT',
+    });
 
-    if (!response) {
+    if (!response.ok) {
       return rejectWithValue('rejected');
     }
 
-    return { data: response.data };
+    return { data: null };
   }
 );
 
 export const unfollowUser = createAsyncThunk(
   'singleUser/unfollowUser',
   async (username: string, { rejectWithValue }) => {
-    const response = await octokit.rest.users.unfollow({ username });
+    const response = await fetch(`/api/users/${username}/follow`, {
+      method: 'DELETE',
+    });
 
-    if (!response) {
+    if (!response.ok) {
       return rejectWithValue('rejected');
     }
 
-    return { data: response.data };
+    return { data: null };
   }
 );
 
 export const getAuthenticated = createAsyncThunk(
   'singleUser/authenticatedUser',
   async (_, { rejectWithValue }) => {
-    const response = await octokit.rest.users.getAuthenticated();
+    const response = await fetch('/api/authenticated-user');
 
-    if (!response) {
+    if (!response.ok) {
       return rejectWithValue('rejected');
     }
 
-    return { data: response.data };
+    const payload = await response.json();
+
+    return { data: payload.data };
   }
 );
 
@@ -352,12 +359,10 @@ export const singleUserSlice = createSlice({
       })
       .addCase(fetchAuthenticatedUser.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.user = action.payload.data;
+        state.authenticatedUser = action.payload.data;
       })
-      .addCase(getIsFollowedByAuthenticatedUser.fulfilled, (state) => {
-        if (state.user) {
-          state.isFollowedByAuthenticatedUser = true;
-        }
+      .addCase(getIsFollowedByAuthenticatedUser.fulfilled, (state, action) => {
+        state.isFollowedByAuthenticatedUser = action.payload.data;
       })
       .addCase(followUser.fulfilled, (state) => {
         if (state.user) {

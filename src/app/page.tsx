@@ -1,4 +1,4 @@
-import { octokit } from 'lib/api';
+import { getServerOctokit } from 'lib/server-octokit';
 
 import { Filters } from 'app/Filters';
 
@@ -6,12 +6,14 @@ import UsersWrapper from 'app/UsersWrapper';
 import { Initializer } from './Initializer';
 
 const getUsers = async () => {
+  const octokit = await getServerOctokit();
   const response = await octokit.rest.users.list();
 
   return { data: response.data, link: response.headers.link };
 };
 
 const getSearchResults = async (username: string) => {
+  const octokit = await getServerOctokit();
   const response = await octokit.rest.search.users({ q: username });
 
   return {

@@ -51,17 +51,16 @@ export const starRepo = createAsyncThunk(
     { owner, repo }: { owner: string; repo: string },
     { rejectWithValue }
   ) => {
-    const response = await octokit.rest.activity.starRepoForAuthenticatedUser({
-      owner,
-      repo,
+    const response = await fetch(`/api/repositories/${owner}/${repo}/star`, {
+      method: 'PUT',
     });
 
-    if (!response) {
+    if (!response.ok) {
       return rejectWithValue('rejected');
     }
 
     return {
-      data: response.data,
+      data: null,
     };
   }
 );
@@ -72,19 +71,16 @@ export const unstarRepo = createAsyncThunk(
     { owner, repo }: { owner: string; repo: string },
     { rejectWithValue }
   ) => {
-    const response = await octokit.rest.activity.unstarRepoForAuthenticatedUser(
-      {
-        owner,
-        repo,
-      }
-    );
+    const response = await fetch(`/api/repositories/${owner}/${repo}/star`, {
+      method: 'DELETE',
+    });
 
-    if (!response) {
+    if (!response.ok) {
       return rejectWithValue('rejected');
     }
 
     return {
-      data: response.data,
+      data: null,
     };
   }
 );

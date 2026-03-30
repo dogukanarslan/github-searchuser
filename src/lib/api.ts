@@ -1,7 +1,6 @@
 import { Octokit } from 'octokit';
 
-export const octokit = new Octokit({
-  auth:
-    process.env.NEXT_PUBLIC_GITHUB_TOKEN &&
-    process.env.NEXT_PUBLIC_GITHUB_TOKEN,
-});
+export const createOctokit = (auth?: string) =>
+  new Octokit(auth ? { auth } : {});
+
+export const octokit = createOctokit();
