@@ -1,6 +1,7 @@
 import StoreProvider from './StoreProvider';
 
 import { headers } from 'next/headers';
+import { Inter } from 'next/font/google';
 import { redirect } from 'next/navigation';
 
 import { getServerAuthSession } from 'lib/auth';
@@ -13,6 +14,10 @@ import '../index.css';
 export const metadata = {
   title: 'GitHub Search',
 };
+
+const inter = Inter({
+  subsets: ['latin'],
+});
 
 const getAuthenticatedUser = async () => {
   const session = await getServerAuthSession();
@@ -32,7 +37,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
   if (pathname.startsWith('/signin')) {
     return (
       <html lang="en">
-        <body>{children}</body>
+        <body className={inter.className}>{children}</body>
       </html>
     );
   }
@@ -41,7 +46,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
 
   return (
     <html lang="en">
-      <body>
+      <body className={inter.className}>
         <StoreProvider authenticatedUser={authenticatedUser}>
           <Header authUsername={authenticatedUser.login} />
           <div className="mx-auto max-w-6xl p-4">{children}</div>

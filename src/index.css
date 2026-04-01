@@ -1,14 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap')
-layer(base);
-
 @import 'tailwindcss';
 
 @plugin '@tailwindcss/forms';
 
 @theme {
-  --font-*: initial;
-  --font-sans: Quicksand;
-
   --color-primary: #374151;
   --color-primary-light: #4b5563;
 }
@@ -33,14 +27,6 @@ layer(base);
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
 }
