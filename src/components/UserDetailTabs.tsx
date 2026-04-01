@@ -1,51 +1,37 @@
-import Link from 'next/link';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
-interface Props {
-  selectedTab: string;
-  setSelectedTab: (tab: string) => void;
-}
+const TABS = [
+  { value: 'followers', label: 'Followers' },
+  { value: 'following', label: 'Following' },
+  { value: 'starred', label: 'Starred' },
+  { value: 'repos', label: 'Repositories' },
+];
 
-export const UserDetailTabs = (props: Props) => {
-  const { selectedTab, setSelectedTab } = props;
+export const UserDetailTabs = () => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const selectedTab = searchParams.get('tab') || 'followers';
+
+  const changeTab = (tab: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('tab', tab);
+    router.push(pathname + '?' + params.toString());
+  };
 
   return (
     <nav className="mb-2 flex gap-6 transition-all" aria-label="Tabs">
-      <Link
-        href="#"
-        className={`${
-          selectedTab === 'followers' ? 'border-b-2 ' : ''
-        }text-sm border-primary font-medium hover:border-b-2`}
-        onClick={() => setSelectedTab('followers')}
-      >
-        Followers
-      </Link>
-      <Link
-        href="#"
-        className={`${
-          selectedTab === 'following' ? 'border-b-2 ' : ''
-        }text-sm border-primary font-medium hover:border-b-2`}
-        onClick={() => setSelectedTab('following')}
-      >
-        Following
-      </Link>
-      <Link
-        href="#"
-        className={`${
-          selectedTab === 'starred' ? 'border-b-2 ' : ''
-        }text-sm border-primary font-medium hover:border-b-2`}
-        onClick={() => setSelectedTab('starred')}
-      >
-        Starred
-      </Link>
-      <Link
-        href="#"
-        className={`${
-          selectedTab === 'repos' ? 'border-b-2 ' : ''
-        }text-sm border-primary font-medium hover:border-b-2`}
-        onClick={() => setSelectedTab('repos')}
-      >
-        Repositories
-      </Link>
+      {TABS.map((tab) => (
+        <button
+          key={tab.value}
+          className={`border-b-2 ${selectedTab === tab.value ? 'border-primary' : 'hover:border-primary border-transparent'} text-sm font-medium`}
+          onClick={() => changeTab(tab.value)}
+        >
+          {tab.label}
+        </button>
+      ))}
     </nav>
   );
 };

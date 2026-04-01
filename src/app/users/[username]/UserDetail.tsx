@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 import { Repositories } from 'app/users/[username]/Repositories';
@@ -44,8 +44,10 @@ export const UserDetail = (props: Props) => {
     starred,
     starredLink,
   } = props;
-
   const dispatch = useAppDispatch();
+
+  const searchParams = useSearchParams();
+  const selectedTab = searchParams.get('tab') || 'followers';
 
   useEffect(() => {
     dispatch(setUser(user));
@@ -66,25 +68,9 @@ export const UserDetail = (props: Props) => {
     dispatch,
   ]);
 
-  const searchParams = useSearchParams();
-
-  const [selectedTab, setSelectedTab] = useState(
-    searchParams.get('tab') || 'followers'
-  );
-
-  useEffect(() => {
-    const tab = searchParams.get('tab');
-    if (tab && tab !== selectedTab) {
-      setSelectedTab(tab);
-    }
-  }, [searchParams, selectedTab]);
-
   return (
     <>
-      <UserDetailTabs
-        selectedTab={selectedTab}
-        setSelectedTab={(tab) => setSelectedTab(tab)}
-      />
+      <UserDetailTabs />
 
       {selectedTab === 'followers' && <Followers />}
       {selectedTab === 'following' && <Following />}
