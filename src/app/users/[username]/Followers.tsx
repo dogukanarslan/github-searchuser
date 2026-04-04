@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store/store';
 import { Button, Spinner, Users } from 'components';
 import { fetchFollowers } from 'store/slices/singleUserSlice';
-import { SkipForward, SkipBack } from 'react-feather';
 
 export const Followers = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -13,47 +12,33 @@ export const Followers = () => {
   const { loading } = useAppSelector((state) => state.loading);
   const dispatch = useAppDispatch();
 
-  const loadMore = (type: 'prev' | 'next') => {
+  const loadMore = () => {
     if (!followersLinks) {
       return;
     }
 
-    const urlParams = new URL(followersLinks[type]).searchParams;
-    const page = urlParams.get('page');
-
-    if (user && page) {
-      setCurrentPage(parseInt(page));
-      dispatch(fetchFollowers({ login: user.login, page }));
+    if (user) {
+      setCurrentPage(currentPage + 1);
+      dispatch(
+        fetchFollowers({ login: user.login, page: `${currentPage + 1}` })
+      );
     }
   };
 
-  if (loading['singleUser/fetchFollowers']) {
-    return <Spinner />;
-  }
-
   return (
     <div className="space-y-2">
-      <h1 className="font-bold">Page {currentPage}</h1>
       <Users users={followers} />
-      <div className="text-center">
-        <div className="space-x-2">
-          <Button
-            color="primary"
-            className="my-5"
-            onClick={() => loadMore('prev')}
-            disabled={!followersLinks?.prev}
-          >
-            <SkipBack />
-          </Button>
-          <Button
-            color="primary"
-            className="my-5"
-            onClick={() => loadMore('next')}
-            disabled={!followersLinks?.next}
-          >
-            <SkipForward />
-          </Button>
-        </div>
+      <div className="flex justify-center">
+        <Button
+          color="primary"
+          className="my-5"
+          onClick={() => loadMore()}
+          disabled={
+            !followersLinks?.next || loading['singleUser/fetchFollowers']
+          }
+        >
+          {loading['singleUser/fetchFollowers'] ? <Spinner /> : 'Load more'}
+        </Button>
       </div>
     </div>
   );

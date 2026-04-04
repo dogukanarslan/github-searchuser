@@ -71,7 +71,6 @@ export const UserDetail = (props: Props) => {
   return (
     <>
       <UserDetailTabs />
-
       {selectedTab === 'followers' && <Followers />}
       {selectedTab === 'following' && <Following />}
       {selectedTab === 'starred' && <Starred />}

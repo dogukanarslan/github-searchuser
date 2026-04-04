@@ -335,15 +335,15 @@ export const singleUserSlice = createSlice({
       .addCase(fetchFollowers.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.followersLinks = action.payload.link || {};
-        state.followers = action.payload.data;
+        state.followers = [...state.followers, ...action.payload.data];
       })
       .addCase(fetchFollowing.fulfilled, (state, action) => {
         state.followingLinks = action.payload.links || {};
-        state.following = action.payload.data;
+        state.following = [...state.following, ...action.payload.data];
       })
       .addCase(fetchStarred.fulfilled, (state, action) => {
         state.starredLinks = action.payload.links || {};
-        state.starred = action.payload.data;
+        state.starred = [...state.starred, ...action.payload.data];
       })
       .addCase(fetchFollowers.rejected, (state) => {
         state.status = 'error';
@@ -378,7 +378,7 @@ export const singleUserSlice = createSlice({
         state.authenticatedUser = action.payload.data;
       })
       .addCase(fetchRepositores.fulfilled, (state, action) => {
-        state.repositories = action.payload.data;
+        state.repositories = [...state.repositories, ...action.payload.data];
         state.repositoriesLinks = action.payload.links || {};
       });
   },

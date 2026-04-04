@@ -3,7 +3,6 @@ import { useAppDispatch, useAppSelector } from 'store/store';
 import { Button, Spinner } from 'components';
 import { fetchRepositores } from 'store/slices/singleUserSlice';
 import { Repository } from 'components/Repository';
-import { SkipBack, SkipForward } from 'react-feather';
 
 export const Repositories = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -20,29 +19,21 @@ export const Repositories = () => {
     }
   }, [user, dispatch]);
 
-  const loadMore = (type: string) => {
+  const loadMore = () => {
     if (!repositoriesLinks) {
       return;
     }
 
-    const urlParams = new URL(repositoriesLinks[type]).searchParams;
-    const page = urlParams.get('page');
-
-    if (user && page) {
-      setCurrentPage(parseInt(page));
+    if (user) {
+      setCurrentPage(currentPage + 1);
       dispatch(
-        fetchRepositores({ username: user.login, page: parseInt(page) })
+        fetchRepositores({ username: user.login, page: currentPage + 1 })
       );
     }
   };
 
-  if (loading['singleUser/fetchRepositories']) {
-    return <Spinner />;
-  }
-
   return (
     <div className="space-y-2">
-      <h1 className="font-bold">Page {currentPage}</h1>
       {repositories.map((repository) => (
         <Repository
           key={repository.id}
@@ -54,25 +45,17 @@ export const Repositories = () => {
           watchers_count={repository.watchers_count || 0}
         />
       ))}
-      <div className="text-center">
-        <div className="space-x-2">
-          <Button
-            color="primary"
-            className="my-5"
-            onClick={() => loadMore('prev')}
-            disabled={!repositoriesLinks?.prev}
-          >
-            <SkipBack />
-          </Button>
-          <Button
-            color="primary"
-            className="my-5"
-            onClick={() => loadMore('next')}
-            disabled={!repositoriesLinks?.next}
-          >
-            <SkipForward />
-          </Button>
-        </div>
+      <div className="flex justify-center">
+        <Button
+          color="primary"
+          className="mx-auto my-5"
+          onClick={() => loadMore()}
+          disabled={
+            !repositoriesLinks?.next || loading['singleUser/fetchRepositories']
+          }
+        >
+          {loading['singleUser/fetchRepositories'] ? <Spinner /> : 'Load more'}
+        </Button>
       </div>
     </div>
   );

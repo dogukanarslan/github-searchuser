@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store/store';
 import { Button, Spinner } from 'components';
 import { fetchStarred } from 'store/slices/singleUserSlice';
-import { SkipForward, SkipBack } from 'react-feather';
 import { Repository } from './Repository';
 
 export const Starred = () => {
@@ -14,27 +13,19 @@ export const Starred = () => {
   const { loading } = useAppSelector((state) => state.loading);
   const dispatch = useAppDispatch();
 
-  const loadMore = (type: string) => {
+  const loadMore = () => {
     if (!starredLinks) {
       return;
     }
 
-    const urlParams = new URL(starredLinks[type]).searchParams;
-    const page = urlParams.get('page');
-
-    if (user && page) {
-      setCurrentPage(parseInt(page));
-      dispatch(fetchStarred({ login: user.login, page }));
+    if (user) {
+      setCurrentPage(currentPage + 1);
+      dispatch(fetchStarred({ login: user.login, page: `${currentPage + 1}` }));
     }
   };
 
-  if (loading['singleUser/fetchStarred']) {
-    return <Spinner />;
-  }
-
   return (
     <div className="space-y-2">
-      <h1 className="font-bold">Page {currentPage}</h1>
       <div className="space-y-2">
         {starred.map((repository) => (
           <Repository
@@ -48,25 +39,15 @@ export const Starred = () => {
           />
         ))}
       </div>
-      <div className="text-center">
-        <div className="space-x-2">
-          <Button
-            color="primary"
-            className="my-5"
-            onClick={() => loadMore('prev')}
-            disabled={!starredLinks?.prev}
-          >
-            <SkipBack />
-          </Button>
-          <Button
-            color="primary"
-            className="my-5"
-            onClick={() => loadMore('next')}
-            disabled={!starredLinks?.next}
-          >
-            <SkipForward />
-          </Button>
-        </div>
+      <div className="flex justify-center">
+        <Button
+          color="primary"
+          className="mx-auto my-5"
+          onClick={() => loadMore()}
+          disabled={!starredLinks?.next || loading['singleUser/fetchStarred']}
+        >
+          {loading['singleUser/fetchStarred'] ? <Spinner /> : 'Load more'}
+        </Button>
       </div>
     </div>
   );

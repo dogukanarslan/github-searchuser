@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { fetchFollowing } from 'store/slices/singleUserSlice';
 import { useAppDispatch, useAppSelector } from 'store/store';
 import { Button, Spinner, Users } from 'components';
-import { SkipForward, SkipBack } from 'react-feather';
 
 export const Following = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -17,40 +16,28 @@ export const Following = () => {
     if (!followingLinks) {
       return;
     }
-    const urlParams = new URL(followingLinks.next).searchParams;
-    const page = urlParams.get('page');
 
-    if (user && page) {
-      setCurrentPage(parseInt(page));
-
-      dispatch(fetchFollowing({ login: user.login, page }));
+    if (user) {
+      setCurrentPage(currentPage + 1);
+      dispatch(
+        fetchFollowing({ login: user.login, page: `${currentPage + 1}` })
+      );
     }
   };
 
-  if (loading['singleUser/fetchFollowing']) {
-    return <Spinner />;
-  }
-
   return (
     <div className="space-y-2">
-      <h1 className="font-bold">Page {currentPage}</h1>
       <Users users={following} />
-      <div className="space-x-2 text-center">
+      <div className="flex justify-center">
         <Button
           color="primary"
-          className="my-5"
+          className="mx-auto my-5"
           onClick={() => loadMore()}
-          disabled={!followingLinks?.prev}
+          disabled={
+            !followingLinks?.next || loading['singleUser/fetchFollowing']
+          }
         >
-          <SkipBack />
-        </Button>
-        <Button
-          color="primary"
-          className="my-5"
-          onClick={() => loadMore()}
-          disabled={!followingLinks?.next}
-        >
-          <SkipForward />
+          {loading['singleUser/fetchFollowing'] ? <Spinner /> : 'Load more'}
         </Button>
       </div>
     </div>
