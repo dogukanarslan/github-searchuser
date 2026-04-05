@@ -1,6 +1,5 @@
 import { Endpoints } from '@octokit/types';
 import { Users } from 'components';
-import React from 'react';
 
 interface Props {
   users?: Endpoints['GET /search/users']['response']['data']['items'];

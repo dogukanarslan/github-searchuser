@@ -1,4 +1,3 @@
-import React from 'react';
 import { Endpoints } from '@octokit/types';
 
 import { User } from 'components/User';

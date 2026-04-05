@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Star } from 'react-feather';
 
 import { Badge } from 'components/Badge';

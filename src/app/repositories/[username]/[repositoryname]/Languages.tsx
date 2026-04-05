@@ -1,7 +1,6 @@
 import { Endpoints } from '@octokit/types';
 import { Badge } from 'components/Badge';
 import { Card } from 'components/Card';
-import React from 'react';
 
 interface Props {
   languages: Endpoints['GET /repos/{owner}/{repo}/languages']['response']['data'];
