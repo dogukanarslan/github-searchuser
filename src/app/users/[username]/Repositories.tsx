@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store/store';
 import { Button, Spinner } from 'components';
-import { fetchRepositores } from 'store/slices/singleUserSlice';
+import { fetchRepositories } from 'store/slices/singleUserSlice';
 import { Repository } from 'components/Repository';
 
 export const Repositories = () => {
@@ -15,7 +15,7 @@ export const Repositories = () => {
 
   useEffect(() => {
     if (user) {
-      dispatch(fetchRepositores({ username: user.login, page: 1 }));
+      dispatch(fetchRepositories({ username: user.login, page: 1 }));
     }
   }, [user, dispatch]);
 
@@ -27,7 +27,7 @@ export const Repositories = () => {
     if (user) {
       setCurrentPage(currentPage + 1);
       dispatch(
-        fetchRepositores({ username: user.login, page: currentPage + 1 })
+        fetchRepositories({ username: user.login, page: currentPage + 1 })
       );
     }
   };

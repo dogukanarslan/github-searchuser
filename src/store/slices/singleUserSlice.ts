@@ -182,7 +182,7 @@ export const getAuthenticated = createAsyncThunk(
   }
 );
 
-export const fetchRepositores = createAsyncThunk(
+export const fetchRepositories = createAsyncThunk(
   'singleUser/fetchRepositories',
   async (args: { username: string; page: number }, { rejectWithValue }) => {
     const response = await octokit.rest.repos.listForUser({
@@ -377,7 +377,7 @@ export const singleUserSlice = createSlice({
       .addCase(getAuthenticated.fulfilled, (state, action) => {
         state.authenticatedUser = action.payload.data;
       })
-      .addCase(fetchRepositores.fulfilled, (state, action) => {
+      .addCase(fetchRepositories.fulfilled, (state, action) => {
         state.repositories = [...state.repositories, ...action.payload.data];
         state.repositoriesLinks = action.payload.links || {};
       });
