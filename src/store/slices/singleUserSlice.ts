@@ -322,6 +322,29 @@ export const singleUserSlice = createSlice({
         state.starredLinks = parseLinkHeader(action.payload);
       }
     },
+    setRepositories: (
+      state,
+      action: PayloadAction<
+        Extract<
+          paths['/users/{username}/repos']['get']['responses']['200']['content']['application/json'],
+          {
+            id: number;
+          }[]
+        >
+      >
+    ) => {
+      state.repositories = action.payload;
+    },
+    setRepositoriesLink: (
+      state,
+      action: PayloadAction<
+        Endpoints['GET /users/{username}/repos']['response']['headers']['link']
+      >
+    ) => {
+      if (action.payload) {
+        state.repositoriesLinks = parseLinkHeader(action.payload);
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -394,6 +417,8 @@ export const {
   setFollowingLinks,
   setStarred,
   setStarredLinks,
+  setRepositories,
+  setRepositoriesLink,
 } = singleUserSlice.actions;
 
 export default singleUserSlice.reducer;

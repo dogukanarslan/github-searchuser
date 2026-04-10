@@ -35,6 +35,12 @@ const getStarred = async (username: string) => {
   });
 };
 
+const getRepositories = async (username: string) => {
+  const octokit = await getServerOctokit();
+
+  return octokit.rest.repos.listForUser({ username });
+};
+
 const checkIsFollowedByAuthenticated = async (username: string) => {
   const octokit = await getServerOctokit();
 
@@ -66,6 +72,10 @@ const Details = async ({
     data: starred,
     headers: { link: starredLink },
   } = await getStarred(username);
+  const {
+    data: repositories,
+    headers: { link: repositoriesLink },
+  } = await getRepositories(username);
   const isFollowedByAuthenticated =
     await checkIsFollowedByAuthenticated(username);
 
@@ -87,6 +97,8 @@ const Details = async ({
         /* @ts-ignore */
         starred={starred}
         starredLink={starredLink}
+        repositories={repositories}
+        repositoriesLink={repositoriesLink}
       />
     </>
   );

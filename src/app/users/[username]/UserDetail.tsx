@@ -4,10 +4,11 @@ import { useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 import { Repositories } from 'app/users/[username]/Repositories';
-
 import { Followers } from 'app/users/[username]/Followers';
 import { Following } from 'app/users/[username]/Following';
+
 import { Starred } from 'components/Starred';
+
 import { UserDetailTabs } from 'components/UserDetailTabs';
 import { Endpoints } from '@octokit/types';
 import { useAppDispatch } from 'store/store';
@@ -16,6 +17,8 @@ import {
   setFollowersLink,
   setFollowing,
   setFollowingLinks,
+  setRepositories,
+  setRepositoriesLink,
   setStarred,
   setStarredLinks,
   setUser,
@@ -32,6 +35,11 @@ interface Props {
     { id: number }[]
   >;
   starredLink: Endpoints['GET /users/{username}/starred']['response']['headers']['link'];
+  repositories: Extract<
+    Endpoints['GET /users/{username}/repos']['response']['data'],
+    { id: number }[]
+  >;
+  repositoriesLink: Endpoints['GET /users/{username}/repos']['response']['headers']['link'];
 }
 
 export const UserDetail = (props: Props) => {
@@ -43,6 +51,8 @@ export const UserDetail = (props: Props) => {
     followingLink,
     starred,
     starredLink,
+    repositories,
+    repositoriesLink,
   } = props;
   const dispatch = useAppDispatch();
 
@@ -57,6 +67,8 @@ export const UserDetail = (props: Props) => {
     dispatch(setFollowingLinks(followingLink));
     dispatch(setStarred(starred));
     dispatch(setStarredLinks(starredLink));
+    dispatch(setRepositories(repositories));
+    dispatch(setRepositoriesLink(repositoriesLink));
   }, [
     user,
     followers,
@@ -65,6 +77,8 @@ export const UserDetail = (props: Props) => {
     followingLink,
     starred,
     starredLink,
+    repositories,
+    repositoriesLink,
     dispatch,
   ]);
 

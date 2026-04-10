@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store/store';
 import { Button, Spinner } from 'components';
 import { fetchRepositories } from 'store/slices/singleUserSlice';
@@ -12,12 +12,6 @@ export const Repositories = () => {
   );
   const { loading } = useAppSelector((state) => state.loading);
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    if (user) {
-      dispatch(fetchRepositories({ username: user.login, page: 1 }));
-    }
-  }, [user, dispatch]);
 
   const loadMore = () => {
     if (!repositoriesLinks) {
