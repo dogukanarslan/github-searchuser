@@ -48,7 +48,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
     <html lang="en">
       <body className={inter.className}>
         <StoreProvider authenticatedUser={authenticatedUser}>
-          <Header authUsername={authenticatedUser.login} />
+          <Header />
           <div className="mx-auto max-w-6xl p-4">{children}</div>
         </StoreProvider>
       </body>
