@@ -1,14 +1,14 @@
 import { GitHub } from 'react-feather';
 import Link from 'next/link';
-import { getServerSession } from 'next-auth';
 
 import { SignOutButton } from 'components/SignOutButton';
 
 import { navLinks } from '../constants';
-import { authOptions } from 'lib/auth';
+
+import { getServerAuthSession } from 'lib/auth';
 
 export const Header = async () => {
-  const session = await getServerSession(authOptions);
+  const session = await getServerAuthSession();
 
   return (
     <div className="bg-primary text-white">
@@ -36,7 +36,9 @@ export const Header = async () => {
           </nav>
         </div>
         <div className="flex w-full items-center justify-end gap-3 text-right text-sm">
-          <Link href={`/users/${session?.user?.name}`}>{session?.user?.name}</Link>
+          <Link href={`/users/${session?.user?.name}`}>
+            {session?.user?.name}
+          </Link>
           <SignOutButton />
         </div>
       </div>
