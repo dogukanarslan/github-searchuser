@@ -253,7 +253,7 @@ export const singleUserSlice = createSlice({
     },
     setAuthenticatedUser: (
       state,
-      action: PayloadAction<Endpoints['GET /user']['response']['data']>
+      action: PayloadAction<Endpoints['GET /user']['response']['data'] | null>
     ) => {
       state.authenticatedUser = action.payload;
     },

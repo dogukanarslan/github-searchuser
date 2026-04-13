@@ -10,7 +10,7 @@ export default function StoreProvider({
   authenticatedUser,
   children,
 }: {
-  authenticatedUser: Endpoints['GET /user']['response']['data'];
+  authenticatedUser: Endpoints['GET /user']['response']['data'] | null;
   children: React.ReactNode;
 }) {
   const storeRef = useRef<AppStore | null>(null);

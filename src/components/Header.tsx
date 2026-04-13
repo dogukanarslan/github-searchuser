@@ -36,10 +36,19 @@ export const Header = async () => {
           </nav>
         </div>
         <div className="flex w-full items-center justify-end gap-3 text-right text-sm">
-          <Link href={`/users/${session?.user?.name}`}>
-            {session?.user?.name}
-          </Link>
-          <SignOutButton />
+          {session?.user?.name ? (
+            <>
+              <Link href={`/users/${session.user.name}`}>{session.user.name}</Link>
+              <SignOutButton />
+            </>
+          ) : (
+            <Link
+              href="/signin"
+              className="hover:bg-primary-light inline-block rounded-md px-3 py-1.5 text-sm"
+            >
+              Sign in
+            </Link>
+          )}
         </div>
       </div>
     </div>

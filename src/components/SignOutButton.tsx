@@ -8,7 +8,7 @@ export const SignOutButton = () => {
   return (
     <Button
       color="primary"
-      onClick={() => signOut({ callbackUrl: '/signin' })}
+      onClick={() => signOut({ callbackUrl: '/' })}
       className="text-sm"
     >
       Sign out

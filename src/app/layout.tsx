@@ -2,7 +2,6 @@ import StoreProvider from './StoreProvider';
 
 import { headers } from 'next/headers';
 import { Inter } from 'next/font/google';
-import { redirect } from 'next/navigation';
 
 import { getServerAuthSession } from 'lib/auth';
 import { createOctokit } from 'lib/api';
@@ -23,7 +22,7 @@ const getAuthenticatedUser = async () => {
   const session = await getServerAuthSession();
 
   if (!session?.accessToken) {
-    redirect('/signin');
+    return null;
   }
 
   const octokit = createOctokit(session.accessToken);

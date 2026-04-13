@@ -10,6 +10,7 @@ import { Contributors } from 'app/repositories/[username]/[repositoryname]/Contr
 
 import { Badge } from 'components/Badge';
 import { Card } from 'components/Card';
+import { getServerAuthSession } from 'lib/auth';
 
 const getRepository = async (username: string, repositoryName: string) => {
   const octokit = await getServerOctokit();
@@ -75,6 +76,7 @@ const RepositoryDetailPage = async ({
 }) => {
   const username = (await params).username;
   const repositoryname = (await params).repositoryname;
+  const session = await getServerAuthSession();
 
   const repositoryDetail = await getRepository(username, repositoryname);
   const languages = await getLanguages(username, repositoryname);
@@ -99,6 +101,7 @@ const RepositoryDetailPage = async ({
           )}
         </div>
         <StarButton
+          canManageStar={Boolean(session?.accessToken)}
           isStarred={isStarred}
           languages={languages.data}
           repository={repositoryDetail.data}

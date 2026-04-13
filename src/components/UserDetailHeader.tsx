@@ -64,7 +64,7 @@ export const UserDetailHeader = (props: Props) => {
             </div>
           </li>
         </ul>
-        {authenticatedUser?.login !== login && (
+        {authenticatedUser && authenticatedUser.login !== login && (
           <Button onClick={handleFollow} className="w-full">
             {isFollowedByAuthenticatedUser ? 'Unfollow' : 'Follow'}
           </Button>

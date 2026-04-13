@@ -15,13 +15,15 @@ import {
 import { Endpoints } from '@octokit/types';
 
 interface Props {
+  canManageStar: boolean;
   isStarred: boolean;
   repository: Endpoints['GET /repos/{owner}/{repo}']['response']['data'];
   languages: Endpoints['GET /repos/{owner}/{repo}/languages']['response']['data'];
 }
 
 const StarButton = (props: Props) => {
-  const { repository, languages, isStarred: isStarredData } = props;
+  const { repository, languages, isStarred: isStarredData, canManageStar } =
+    props;
 
   const { data, isStarred } = useAppSelector((state) => state.repositoryDetail);
   const dispatch = useAppDispatch();
@@ -33,7 +35,7 @@ const StarButton = (props: Props) => {
   }, [repository, languages, isStarredData, dispatch]);
 
   const toggleStar = () => {
-    if (!data) {
+    if (!data || !canManageStar) {
       return;
     }
 
@@ -50,7 +52,9 @@ const StarButton = (props: Props) => {
 
   return (
     <div
-      className="flex items-center gap-2 hover:cursor-pointer"
+      className={`flex items-center gap-2 ${
+        canManageStar ? 'hover:cursor-pointer' : ''
+      }`}
       onClick={toggleStar}
     >
       <Star
