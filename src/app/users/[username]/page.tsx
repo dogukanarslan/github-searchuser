@@ -1,5 +1,5 @@
-import { UserDetailInformation } from 'components/UserDetailInformation';
-import { UserDetailHeader } from 'components/UserDetailHeader';
+import { UserDetailInformation } from 'app/users/[username]/UserDetailInformation';
+import { UserDetailHeader } from 'app/users/[username]/UserDetailHeader';
 import { UserDetail } from 'app/users/[username]/UserDetail';
 import { getServerOctokit } from 'lib/server-octokit';
 

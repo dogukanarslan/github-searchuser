@@ -9,7 +9,7 @@ import { Following } from 'app/users/[username]/Following';
 
 import { Starred } from 'components/Starred';
 
-import { UserDetailTabs } from 'components/UserDetailTabs';
+import { UserDetailTabs } from 'app/users/[username]/UserDetailTabs';
 import { Endpoints } from '@octokit/types';
 import { useAppDispatch } from 'store/store';
 import {
